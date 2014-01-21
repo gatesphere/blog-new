@@ -1,84 +1,187 @@
-/* A generic CSS stylesheet */
-body {
-  background-color: #c2c2c2;
-  color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
+/*@+leo-ver=5-thin*/
+/*@+node:peckj.20140121082121.6600: * @file style.css*/
+/*@@language css*/
+
+/*@+others*/
+/*@+node:peckj.20130201100641.1409: ** elements*/
+/*@+node:peckj.20130201100641.1416: *3* img*/
+img {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*@+node:peckj.20130201100641.1415: *3* code, pre, blockquote*/
+code {
+  font-family: "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
 }
 
+pre {
+  font-family: "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+  padding: 20px;
+}
+
+blockquote {
+  font-style: italic;
+}
+/*@+node:peckj.20130201100641.1411: *3* a*/
+a {
+  color: #cc0000;
+  text-decoration: none;
+}
+/*@+node:peckj.20130201100641.1400: *3* body*/
+body {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f2f2f2;
+  background-image: url('/static/assets/img/bg.png');
+  background-repeat: repeat;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  font-style: none;
+  text-transform: none;
+  text-decoration: none;
+  color: #444;
+}
+
+body > div > header {
+  display: block;
+  padding-top: 30px;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+
+body > div > header > h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+body > div > header > h2 {
+  color: #aaa;
+  font-weight: normal;
+}
+
+body > div > footer {
+  display: block;
+  padding-top: 5px;
+  margin-bottom: 15px;
+}
+/*@+node:peckj.20130219112325.1714: *4* selections*/
+/*@+node:peckj.20130219112325.1715: *5* ::selection*/
+::selection {
+  background-color: #444;
+  color: #fff;
+}
+
+::-moz-selection {
+  background-color: #444;
+  color: #fff;
+}
+/*@+node:peckj.20130201100641.1414: *3* h1, h2, h3, h4*/
+h1 {
+  font-size: 16px;
+  display: inline;
+  margin: 0;
+}
+
+h2, h3, h4 {
+  display: inline;
+  margin: 0;
+  font-weight: 600;
+  font-size: 13px;
+}
+/*@+node:peckj.20130201100641.1401: *3* header, footer, section, article*/
+header, footer, section, article {
+  display: block;
+}
+/*@+node:peckj.20130201100641.1410: ** classes & ids*/
+/*@+node:peckj.20130201100641.1402: *3* .container*/
 .container {
   background-color: #fff;
-  width: 90%%;
-  max-width: 1200px;
+  width: 600px;
   padding: 30px;
   margin: auto;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
   border-radius: 6px;
 }
-
-.popup {
-  text-align: center;
-  background-color: #eee;
-  color: #333;
-  width: 360px;
-  padding: 10px;
-  margin: auto;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
-  z-index: 5;
+/*@+node:peckj.20130201100641.1403: *3* .column*/
+.column {
+  max-width: 600px;
+}
+/*@+node:peckj.20130201100641.1408: *3* .date*/
+.date {
+  font-style: italic;
+  float: right;
+  line-height: 43px;
+  margin-right: 5px;
+}
+/*@+node:peckj.20130201100641.1413: *3* .more*/
+.more a {
+  text-decoration: none;
 }
 
-#logo {
-  width: 60%;
-}
-
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-}
-
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
-}
-
-a {
-  color: #000;
-}
-
-a:visited {
-  color: #666;
-}
-
-a:hover {
-  color: #fff;
-  background-color: #000;
-}
-
-
-div.field, div.actions {
+.more a:hover { text-decoration: underline }
+/*@+node:peckj.20130201100641.1412: *3* .post*/
+.post header {
   margin-bottom: 10px;
 }
 
-#notice {
+.post .body p:first-child {
+  margin-top: 0;
+}
+
+.post .body p:last-child {
+  margin-bottom: 0;
+}
+
+.post {
+  margin-bottom: 30px;
   padding: 5px;
-  background-color: #99ff99;
-  color: 009933;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
+  border-width: 6px;
+  border-color: #eee;
+  border-style: dashed;
   border-radius: 6px;
 }
 
-#error {
-  padding: 5px;
-  background-color: #ffcccc;
-  color: #990000;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
+.post:last-child {
+  margin-bottom: 10px;
 }
+
+.post p {
+  margin: 10px 0;
+}
+
+.post .more {
+  margin-top: 0px;
+  margin-right: 5px;
+  font-style: italic;
+  text-align: right;
+}
+/*@+node:peckj.20130201100641.1417: *3* #archives*/
+#archives ul {
+  list-style-type: none;
+  padding: 5px;
+  margin: 0px;
+}
+
+#archives ul li {
+  margin: 2px;
+/*@+node:peckj.20130201100641.1405: *3* #by*/
+#by {
+  font-style: italic;
+  margin-right: 5px;
+}
+/*@+node:peckj.20130201100641.1404: *3* #content*/
+#content { }
+/*@+node:peckj.20130201100641.1406: *3* #caption*/
+#caption {
+  position: absolute;
+  margin: -135px 0 0 70px;
+}
+/*@+node:peckj.20130201100641.1407: *3* #path*/
+#path {
+  color: #b53131;
+}
+/*@-others*/
+
+/*@-leo*/

@@ -1,5 +1,9 @@
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
 {# include your javascripts below #}
 {% assets filters="jsmin", output="assets/packed.js",
           "assets/js/some.js", "assets/js/someother.js" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
 {% endassets %}
+<!--@-leo-->
