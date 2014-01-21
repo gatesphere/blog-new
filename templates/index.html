@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>List of pages</h1>
+  {% with pages=pages %}
+    {% include "_list.html" %}
+  {% endwith %}
+{% endblock content %}
+ 

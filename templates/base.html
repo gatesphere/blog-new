@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+{% block meta %}
+  {% if page %}
+    {% with page = page %}
+      {% include "_meta.html" %}
+    {% endwith %}
+  {% endif %}
+{% endblock meta %}
+  {% include "_style.html" %}
+  {% include "_js.html" %}
+{% block title %}
+  <title>some title</title>
+{% endblock title %}
+</head>
+<body>
+  <div class="container">
+{% block header %}
+  {% include "_header.html" %}
+{% endblock header %}
+{% block content %}
+  <p>some content</p>
+{% endblock content %}
+{% block footer %}
+  {% include "_footer.html" %}
+{% endblock footer %}
+  </div>
+</body>
+</html>
+

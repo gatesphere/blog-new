@@ -1,0 +1,5 @@
+{# include your stylesheets below #}
+{% assets filters="cssmin", output="assets/packed.css",
+          "assets/css/style.css" %}
+    <link href="{{ ASSET_URL }}" media="all" rel="stylesheet" type="text/css" />
+{% endassets %}

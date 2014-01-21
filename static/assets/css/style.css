@@ -1,0 +1,84 @@
+/* A generic CSS stylesheet */
+body {
+  background-color: #c2c2c2;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.container {
+  background-color: #fff;
+  width: 90%%;
+  max-width: 1200px;
+  padding: 30px;
+  margin: auto;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+
+.popup {
+  text-align: center;
+  background-color: #eee;
+  color: #333;
+  width: 360px;
+  padding: 10px;
+  margin: auto;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  z-index: 5;
+}
+
+#logo {
+  width: 60%;
+}
+
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a {
+  color: #000;
+}
+
+a:visited {
+  color: #666;
+}
+
+a:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+#notice {
+  padding: 5px;
+  background-color: #99ff99;
+  color: 009933;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+
+#error {
+  padding: 5px;
+  background-color: #ffcccc;
+  color: #990000;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}

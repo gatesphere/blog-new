@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>tag: {{ tag }} | some title</title>
+{% endblock title %}
+
+{% block content %}
+  <h2>List of pages tagged <em>{{ tag }}</em></h2>
+  {% with pages=pages %}
+    {% include "_list.html" %}
+  {% endwith %}
+{% endblock content %}
+
