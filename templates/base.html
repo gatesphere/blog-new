@@ -13,7 +13,7 @@
   {% endif %}
 {% endblock meta %}
   {% include "_style.html" %}
-  {#{% include "_js.html" %}#}
+  {% include "_js.html" %}
 {% block title %}
   <title>some title</title>
 {% endblock title %}
@@ -23,12 +23,19 @@
 {% block header %}
   {% include "_header.html" %}
 {% endblock header %}
+<section>
+<div class="column">
 {% block content %}
   <p>some content</p>
 {% endblock content %}
+</div>
+</section>
 {% block footer %}
   {% include "_footer.html" %}
 {% endblock footer %}
+{% block endjs %}
+  {% include "_endjs.html" %}
+{% endblock endjs %}
   </div>
 </body>
 </html>

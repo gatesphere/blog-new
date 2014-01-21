@@ -10,8 +10,7 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="peckj.20140121082121.6593" a="E"
-expanded="peckj.20140121082121.6639,"><vh>@file sitebuilder.py</vh></v>
+<v t="peckj.20140121082121.6593" a="E"><vh>@file sitebuilder.py</vh></v>
 <v t="peckj.20140121082121.6594"><vh>@edit README.md</vh></v>
 <v t="peckj.20140121082121.6595"><vh>@path pages</vh>
 <v t="peckj.20140121082121.6596"><vh>@edit an-example-page.md</vh></v>
@@ -29,10 +28,11 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 </v>
 </v>
 <v t="peckj.20140121082121.6602" a="E"><vh>@path templates</vh>
-<v t="peckj.20140121082121.6612"><vh>partials</vh>
+<v t="peckj.20140121082121.6612" a="E"><vh>partials</vh>
 <v t="peckj.20140121082121.6603"><vh>@file _footer.html</vh></v>
 <v t="peckj.20140121082121.6604"><vh>@file _header.html</vh></v>
 <v t="peckj.20140121082121.6605"><vh>@file _js.html</vh></v>
+<v t="peckj.20140121082121.6648"><vh>@file _endjs.html</vh></v>
 <v t="peckj.20140121082121.6606"><vh>@file _list.html</vh></v>
 <v t="peckj.20140121082121.6607"><vh>@file _meta.html</vh></v>
 <v t="peckj.20140121082121.6608"><vh>@file _style.html</vh></v>
