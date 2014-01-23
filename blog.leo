@@ -10,11 +10,19 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="peckj.20140121082121.6593" a="E"><vh>@file sitebuilder.py</vh></v>
+<v t="peckj.20140121082121.6593" a="E"
+expanded="peckj.20140121082121.6639,peckj.20140123082920.4917,"><vh>@file sitebuilder.py</vh></v>
 <v t="peckj.20140121082121.6594"><vh>@edit README.md</vh></v>
-<v t="peckj.20140121082121.6595"><vh>@path pages</vh>
+<v t="peckj.20140121082121.6595" a="E"><vh>@path pages</vh>
 <v t="peckj.20140121082121.6596"><vh>@edit an-example-page.md</vh></v>
 <v t="peckj.20140121082121.6597"><vh>@edit hello-world.md</vh></v>
+<v t="peckj.20140123082920.4905"><vh>@path 2014</vh>
+<v t="peckj.20140123082920.4906" a="E"><vh>@path 01</vh>
+<v t="peckj.20140123082920.4907" a="E"><vh>@path 21</vh>
+<v t="peckj.20140123082920.4908"><vh>@edit idiotpie.md</vh></v>
+</v>
+</v>
+</v>
 </v>
 <v t="peckj.20140121082121.6601"><vh>@path static</vh>
 <v t="peckj.20140121082121.6598"><vh>@path assets</vh>
@@ -37,9 +45,12 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <v t="peckj.20140121082121.6607"><vh>@file _meta.html</vh></v>
 <v t="peckj.20140121082121.6608"><vh>@file _style.html</vh></v>
 </v>
+<v t="peckj.20140123082920.4914"><vh>@file archives.html</vh></v>
 <v t="peckj.20140121082121.6609"><vh>@file index.html</vh></v>
+<v t="peckj.20140123082920.4909"><vh>@file about.html</vh></v>
 <v t="peckj.20140121082121.6610"><vh>@file page.html</vh></v>
 <v t="peckj.20140121082121.6611"><vh>@file tag.html</vh></v>
+<v t="peckj.20140123082920.4924"><vh>@file tags.html</vh></v>
 <v t="peckj.20140121082121.6614"><vh>@file base.html</vh></v>
 <v t="peckj.20140121082121.6644"><vh>@file error.html</vh></v>
 </v>
@@ -53,5 +64,8 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <t tx="peckj.20140121082121.6612"></t>
 <t tx="peckj.20140121082121.6635"></t>
 <t tx="peckj.20140121082121.6636"></t>
+<t tx="peckj.20140123082920.4905"></t>
+<t tx="peckj.20140123082920.4906"></t>
+<t tx="peckj.20140123082920.4907"></t>
 </tnodes>
 </leo_file>

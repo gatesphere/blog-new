@@ -4,14 +4,15 @@
 {% extends "base.html" %}
 
 {% block title %}
-  <title>tag: {{ tag }} | some title</title>
+  <title>posts tagged: {{ tag }} | a->ab</title>
 {% endblock title %}
 
 {% block content %}
-  <h2>List of pages tagged <em>{{ tag }}</em></h2>
+  <section id="archives" class="post">
+  <h1>Posts filed under '{{ tag }}': </h1>
   {% with pages=pages %}
     {% include "_list.html" %}
   {% endwith %}
+  </section>
 {% endblock content %}
-
 <!--@-leo-->

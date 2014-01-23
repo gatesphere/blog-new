@@ -1,0 +1,19 @@
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140123082920.4914: * @file archives.html-->
+<!--@@language html-->
+{% extends "base.html" %}
+
+{% block title %}
+    <title>archives | a->ab</title>
+{% endblock title %}
+
+{% block content %}
+  {% with pages=pages %}
+<section id="archives" class="post">
+  <h1>archives</h1>
+  {% include "_list.html" %}
+</section>
+  {% endwith %}
+{% endblock content %}
+ 
+<!--@-leo-->
