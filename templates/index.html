@@ -3,11 +3,38 @@
 <!--@@language html-->
 {% extends "base.html" %}
 
+{% block title %}
+    <title>a-&gt;ab, computation, game design, and experimentation</title>
+{% endblock title %}
+
 {% block content %}
-  <h1>List of pages</h1>
-  {% with pages=pages %}
-    {% include "_list.html" %}
-  {% endwith %}
+  {% for page in newpages %}
+  <article class="post">
+      <header>
+        <h1><a href="{{ url_for("page", path=page.path) }}">{{ page.title }}</a></h1>
+        <span class="date">{{ page.meta.date }}</span><br />
+        <span class="tags">
+            tags:&nbsp;
+            {% for tag in page.meta.tags %}
+            <a href="{{ url_for("tag", tag=tag) }}">{{ tag }}</a>{% if tag != page.meta.tags|last %},&nbsp;{% endif %}
+            {% endfor %}
+        </span>
+      </header>
+
+      <section class="content">
+        <%= article.summary %>
+      </section>
+      <div class="more"><a href="{{ url_for("page", path=page.path) }}">more &raquo;</a></div>
+      <div class="more"><a href="{{ url_for("page", path=page.path) }}#disqus_thread">&nbsp;</a></div>
+  </article>
+  {% endfor %}
+  
+  <section id="archives" class="post">
+  <h1>archives</h1>
+    {% with pages=oldpages %}
+      {% include "_list.html" %}
+    {% endwith %}
+  </section>
 {% endblock content %}
  
 <!--@-leo-->

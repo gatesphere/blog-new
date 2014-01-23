@@ -10,13 +10,13 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="peckj.20140121082121.6593" a="E"
-expanded="peckj.20140121082121.6639,peckj.20140123082920.4917,"><vh>@file sitebuilder.py</vh></v>
+<v t="peckj.20140121082121.6593"
+expanded="peckj.20140121082121.6639,"><vh>@file sitebuilder.py</vh></v>
 <v t="peckj.20140121082121.6594"><vh>@edit README.md</vh></v>
-<v t="peckj.20140121082121.6595" a="E"><vh>@path pages</vh>
+<v t="peckj.20140121082121.6595"><vh>@path pages</vh>
 <v t="peckj.20140121082121.6596"><vh>@edit an-example-page.md</vh></v>
 <v t="peckj.20140121082121.6597"><vh>@edit hello-world.md</vh></v>
-<v t="peckj.20140123082920.4905"><vh>@path 2014</vh>
+<v t="peckj.20140123082920.4905" a="E"><vh>@path 2014</vh>
 <v t="peckj.20140123082920.4906" a="E"><vh>@path 01</vh>
 <v t="peckj.20140123082920.4907" a="E"><vh>@path 21</vh>
 <v t="peckj.20140123082920.4908"><vh>@edit idiotpie.md</vh></v>
@@ -35,7 +35,7 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 </v>
 </v>
 </v>
-<v t="peckj.20140121082121.6602" a="E"><vh>@path templates</vh>
+<v t="peckj.20140121082121.6602"><vh>@path templates</vh>
 <v t="peckj.20140121082121.6612" a="E"><vh>partials</vh>
 <v t="peckj.20140121082121.6603"><vh>@file _footer.html</vh></v>
 <v t="peckj.20140121082121.6604"><vh>@file _header.html</vh></v>
@@ -54,6 +54,13 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <v t="peckj.20140121082121.6614"><vh>@file base.html</vh></v>
 <v t="peckj.20140121082121.6644"><vh>@file error.html</vh></v>
 </v>
+<v t="peckj.20140123082920.4925" a="E"><vh>to do</vh>
+<v t="peckj.20140123082920.4927"><vh>uniform date formatting</vh></v>
+<v t="peckj.20140123082920.4928"><vh>import all old articles</vh></v>
+<v t="peckj.20140123082920.4930"><vh>sort by date</vh></v>
+<v t="peckj.20140123082920.4929"><vh>replacement for article.summary on index</vh></v>
+<v t="peckj.20140123082920.4926"><vh>archives for dates</vh></v>
+</v>
 </vnodes>
 <tnodes>
 <t tx="peckj.20140121082121.6595"></t>
@@ -67,5 +74,12 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <t tx="peckj.20140123082920.4905"></t>
 <t tx="peckj.20140123082920.4906"></t>
 <t tx="peckj.20140123082920.4907"></t>
+<t tx="peckj.20140123082920.4925"></t>
+<t tx="peckj.20140123082920.4926">i.e. '/2014', '/2014/01', '/2014/01/21'
+</t>
+<t tx="peckj.20140123082920.4927"></t>
+<t tx="peckj.20140123082920.4928">be sure to change the values in the index for new/old page split</t>
+<t tx="peckj.20140123082920.4929"></t>
+<t tx="peckj.20140123082920.4930"></t>
 </tnodes>
 </leo_file>

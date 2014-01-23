@@ -35,7 +35,9 @@ assets.url_expire = False
 #@+node:peckj.20140121082121.6641: *3* route '/'
 @app.route("/")
 def index():
-  return html_minify(render_template('index.html', pages=pages))
+  new=list(pages)[:1]
+  old=list(pages)[1:]
+  return html_minify(render_template('index.html', newpages=new, oldpages=old))
 #@+node:peckj.20140121082121.6642: *3* route '/tag/<string:tag>/'
 @app.route('/tag/<string:tag>/')
 def tag(tag):
