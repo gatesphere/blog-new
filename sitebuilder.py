@@ -7,6 +7,7 @@
 #@+<< imports >>
 #@+node:peckj.20140121082121.6637: ** << imports >>
 import sys, shutil
+from datetime import datetime, date
 
 from flask import Flask, render_template, abort, send_from_directory
 from flask_flatpages import FlatPages
@@ -31,6 +32,29 @@ assets.url_expire = False
 #@-<< declarations >>
 
 #@+others
+#@+node:peckj.20140127083227.10220: ** helpers
+#@+node:peckj.20140127083227.10221: *3* get_pages_by_date
+def get_pages_by_date(year=None, month=None, day=None):
+  out = []
+  for p in pages:
+    if p.meta.get('date', None) is not None:
+      d = get_date(p)
+      d_year = (year is None or d.year == year)
+      d_month = (month is None or d.month == month)
+      d_day = (day is None or d.day == day)
+      if d_year and d_month and d_day:
+        out.append(p)
+  return out
+#@+node:peckj.20140127083227.10223: *3* get_date
+def get_date(page):
+  format_string = '%d/%m/%Y'
+  #dt = datetime.strptime(page.meta['date'], format_string)
+  #page_date = dt.date()
+  page_date = page.meta['date']
+  return page_date
+#@+node:peckj.20140127083227.10222: *3* get_formatted_date
+def get_formatted_date(page):
+  return str(get_date(page))
 #@+node:peckj.20140121082121.6639: ** routes
 #@+node:peckj.20140121082121.6641: *3* route '/'
 @app.route("/")
@@ -48,6 +72,21 @@ def tag(tag):
 def page(path):
   page = pages.get_or_404(path)
   return html_minify(render_template('page.html', page=page))
+#@+node:peckj.20140127083227.10219: *3* route '/<int:year>/'
+@app.route('/<int:year>/')
+def year(year):
+  year_pages = get_pages_by_date(year=year)
+  return html_minify(render_template('archives.html', pages=year_pages))
+#@+node:peckj.20140127083227.10225: *3* route '/<int:year>/<int:month>/'
+@app.route('/<int:year>/<int:month>/')
+def month(year, month):
+  month_pages = get_pages_by_date(year=year, month=month)
+  return html_minify(render_template('archives.html', pages=month_pages))
+#@+node:peckj.20140127083227.10227: *3* route '/<int:year>/<int:month>/<int:day>/'
+@app.route('/<int:year>/<int:month>/<int:day>/')
+def day(year, month, day):
+  day_pages = get_pages_by_date(year=year, month=month, day=day)
+  return html_minify(render_template('archives.html', pages=day_pages))
 #@+node:peckj.20140123082920.4917: *3* top-level nav
 #@+node:peckj.20140123082920.4911: *4* route '/about/'
 @app.route("/about/")

@@ -22,7 +22,7 @@
       </header>
 
       <section class="content">
-        <%= article.summary %>
+        {{ page.html|truncate(350)|safe }}
       </section>
       <div class="more"><a href="{{ url_for("page", path=page.path) }}">more &raquo;</a></div>
       <div class="more"><a href="{{ url_for("page", path=page.path) }}#disqus_thread">&nbsp;</a></div>
