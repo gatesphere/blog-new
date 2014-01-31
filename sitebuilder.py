@@ -29,9 +29,17 @@ pages = FlatPages(app)
 freezer = Freezer(app)
 assets = Environment(app)
 assets.url_expire = False
+
+jinja2_env = app.jinja_env
 #@-<< declarations >>
 
 #@+others
+#@+node:peckj.20140131081341.3987: ** jinja2 filters
+#@+node:peckj.20140131081341.3988: *3* dateformat
+def dateformat(d):
+  return d.strftime('%B %d, %Y').replace(' 0', ' ')
+
+jinja2_env.filters['dateformat'] = dateformat
 #@+node:peckj.20140127083227.10220: ** helpers
 #@+node:peckj.20140127083227.10221: *3* get_pages_by_date
 def get_pages_by_date(year=None, month=None, day=None):
@@ -44,6 +52,8 @@ def get_pages_by_date(year=None, month=None, day=None):
       d_day = (day is None or d.day == day)
       if d_year and d_month and d_day:
         out.append(p)
+  # sort ascending
+  out.sort(key=lambda x: get_date(x))
   return out
 #@+node:peckj.20140127083227.10223: *3* get_date
 def get_date(page):
@@ -52,20 +62,20 @@ def get_date(page):
   #page_date = dt.date()
   page_date = page.meta['date']
   return page_date
-#@+node:peckj.20140127083227.10222: *3* get_formatted_date
-def get_formatted_date(page):
-  return str(get_date(page))
 #@+node:peckj.20140121082121.6639: ** routes
 #@+node:peckj.20140121082121.6641: *3* route '/'
 @app.route("/")
 def index():
-  new=list(pages)[:1]
-  old=list(pages)[1:]
+  p = list(pages)
+  p.sort(key=lambda x: get_date(x))
+  new=p[:1]
+  old=p[1:]
   return html_minify(render_template('index.html', newpages=new, oldpages=old))
 #@+node:peckj.20140121082121.6642: *3* route '/tag/<string:tag>/'
 @app.route('/tag/<string:tag>/')
 def tag(tag):
   tagged = [p for p in pages if tag in p.meta.get('tags', [])]
+  tagged.sort(key=lambda x: get_date(x))
   return html_minify(render_template('tag.html', pages=tagged, tag=tag))
 #@+node:peckj.20140121082121.6643: *3* route '/<path:path>/'
 @app.route('/<path:path>/')
@@ -75,18 +85,51 @@ def page(path):
 #@+node:peckj.20140127083227.10219: *3* route '/<int:year>/'
 @app.route('/<int:year>/')
 def year(year):
+  title = '%04d' % year
   year_pages = get_pages_by_date(year=year)
-  return html_minify(render_template('archives.html', pages=year_pages))
+  return html_minify(render_template('archives.html', pages=year_pages, title=title))
+
+@freezer.register_generator
+def year_generator():
+  years = []
+  for p in pages:
+    d = get_date(p)
+    y = '/%04d' % d.year
+    if y not in years:
+      years.append(y)
+  return years
 #@+node:peckj.20140127083227.10225: *3* route '/<int:year>/<int:month>/'
 @app.route('/<int:year>/<int:month>/')
 def month(year, month):
   month_pages = get_pages_by_date(year=year, month=month)
-  return html_minify(render_template('archives.html', pages=month_pages))
+  title = '%04d/%02d' % (year, month)
+  return html_minify(render_template('archives.html', pages=month_pages, title=title))
+
+@freezer.register_generator
+def month_generator():
+  months = []
+  for p in pages:
+    d = get_date(p)
+    m = '/%04d/%02d' % (d.year, d.month)
+    if m not in months:
+      months.append(m)
+  return months
 #@+node:peckj.20140127083227.10227: *3* route '/<int:year>/<int:month>/<int:day>/'
 @app.route('/<int:year>/<int:month>/<int:day>/')
 def day(year, month, day):
   day_pages = get_pages_by_date(year=year, month=month, day=day)
-  return html_minify(render_template('archives.html', pages=day_pages))
+  title = '%04d/%02d/%02d' % (year, month, day)
+  return html_minify(render_template('archives.html', pages=day_pages, title=title))
+
+@freezer.register_generator
+def day_generator():
+  days = []
+  for p in pages:
+    d = get_date(p)
+    day = '/%04d/%02d/%02d' % (d.year, d.month, d.day)
+    if day not in days:
+      days.append(day)
+  return days
 #@+node:peckj.20140123082920.4917: *3* top-level nav
 #@+node:peckj.20140123082920.4911: *4* route '/about/'
 @app.route("/about/")
@@ -95,7 +138,9 @@ def about():
 #@+node:peckj.20140123082920.4912: *4* route '/archives/'
 @app.route("/archives/")
 def archives():
-  return html_minify(render_template('archives.html', pages=pages))
+  p = list(pages)
+  p.sort(key=lambda x: get_date(x))
+  return html_minify(render_template('archives.html', pages=p, title='archives'))
 #@+node:peckj.20140123082920.4916: *4* route '/code-dump/'
 @app.route('/code-dump/')
 def codedump():

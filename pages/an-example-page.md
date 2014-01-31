@@ -1,5 +1,5 @@
 title: An Example Page
-date: 2012-03-04
+date: 2012-03-05
 tags: [general, example]
 author: Me!
 description: an example page with metadata

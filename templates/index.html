@@ -12,7 +12,7 @@
   <article class="post">
       <header>
         <h1><a href="{{ url_for("page", path=page.path) }}">{{ page.title }}</a></h1>
-        <span class="date">{{ page.meta.date }}</span><br />
+        <span class="date">{{ page.meta.date|dateformat }}</span><br />
         <span class="tags">
             tags:&nbsp;
             {% for tag in page.meta.tags %}

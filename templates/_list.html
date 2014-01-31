@@ -3,7 +3,7 @@
 <!--@@language html-->
 <ul>
 {% for page in pages %}
-  <li>{{ page.meta.date }} - <a href="{{ url_for("page", path=page.path) }}">{{ page.title }}</a></li>
+  <li>{{ page.meta.date|dateformat }} - <a href="{{ url_for("page", path=page.path) }}">{{ page.title }}</a></li>
 {% endfor %}
 </ul>
 <!--@-leo-->
