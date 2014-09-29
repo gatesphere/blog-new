@@ -178,7 +178,7 @@ def favicon():
   return  send_from_directory(app.static_folder, 'assets/img/favicon.ico')
 #@+node:peckj.20140121082121.6647: *4* route '/robots.txt'
 @app.route('/robots.txt')
-def favicon():
+def robots():
   return  send_from_directory(app.static_folder, 'assets/robots.txt')
 #@-others
 
