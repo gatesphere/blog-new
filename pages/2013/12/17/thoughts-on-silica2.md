@@ -1,6 +1,6 @@
 ---
-date: 17/12/2013
-tags: silica, pl theory, music, code
+date: 2013-12-17
+tags: [silica, pl theory, music, code]
 title: Thoughts on Silica2
 
 This post is really just a place for me to 'think in public' -- not meant to be terribly interesting to anyone but myself, but also to allow me to get my thoughts out there.

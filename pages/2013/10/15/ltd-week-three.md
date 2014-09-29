@@ -1,6 +1,6 @@
 ---
-date: 15/10/2013
-tags: ltd, productivity, reports
+date: 2013-10-15
+tags: [ltd, productivity, reports]
 title: LTD Week Three
 
 Here's what I accomplished this past week:

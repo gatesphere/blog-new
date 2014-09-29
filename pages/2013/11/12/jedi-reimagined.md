@@ -1,6 +1,6 @@
 ---
-date: 12/11/2013
-tags: programming language design, theory, jedi
+date: 2013-11-12
+tags: [programming language design, theory, jedi]
 title: Jedi Reimagined
 
 The past few weeks I've been thinking more about the dataflow paradigm, and how I would approach it after the lessons learned from jedi.  In my mind, I'd like to have the following features in any dataflow language I'd design or use:

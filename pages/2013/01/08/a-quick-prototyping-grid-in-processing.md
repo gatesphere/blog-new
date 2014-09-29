@@ -1,6 +1,6 @@
 --- 
-date: 08/01/2013
-tags: processing, prototyping, grid, code-dump
+date: 2013-01-08
+tags: [processing, prototyping, grid, code-dump]
 title: A quick prototyping grid in Processing
 
 First post of the new year!

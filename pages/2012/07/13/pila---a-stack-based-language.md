@@ -1,7 +1,7 @@
 ---
 title: pila - a stack based language
-date: 13/07/2012
-tags: pila, language, io, stack, forth
+date: 2012-07-13
+tags: [pila, language, io, stack, forth]
 
 Hello everyone,
 

@@ -1,7 +1,7 @@
 ---
 title: ELOCALC - an ELO ratings calculator
-date: 30/06/2011
-tags: code-dump
+date: 2011-06-30
+tags: [code-dump]
 
 Hi all.
 

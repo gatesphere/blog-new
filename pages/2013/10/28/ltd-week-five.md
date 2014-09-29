@@ -1,6 +1,6 @@
 ---
-date: 28/10/2013
-tags: ltd, productivity, reports
+date: 2013-10-28
+tags: [ltd, productivity, reports]
 title: LTD Week Five
 
 This week was productive, I think.  Here's what I accomplished:

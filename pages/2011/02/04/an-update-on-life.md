@@ -1,6 +1,6 @@
 ---
 title: An update on life
-date: 04/02/2011
+date: 2011-02-04
 
 Hello all,
 

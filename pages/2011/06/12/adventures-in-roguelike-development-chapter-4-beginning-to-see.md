@@ -1,7 +1,7 @@
 ---
 title: "Adventures in Roguelike Development, Chapter 4: Beginning to See"
-date: 12/06/2011
-tags: code-dump
+date: 2011-06-12
+tags: [code-dump]
 
 Hello all,
 

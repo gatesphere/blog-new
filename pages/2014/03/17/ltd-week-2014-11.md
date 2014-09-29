@@ -1,6 +1,6 @@
 ---
-date: 17/03/2014
-tags: ltd, productivity, reports
+date: 2014-03-17
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 11
 
 It's been a week.

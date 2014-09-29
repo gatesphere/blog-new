@@ -1,7 +1,7 @@
 ---
 title: ! 'CSMM - Lesson 1.1: Introduction to the Lambda Calculus'
-date: 07/06/2012
-tags: lambda calculus, csmm
+date: 2012-06-07
+tags: [lambda calculus, csmm]
 
 Hello everyone.
 

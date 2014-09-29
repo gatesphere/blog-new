@@ -1,6 +1,6 @@
 ---
 title: Oh my god, another blahgger update
-date: 05/10/2010
+date: 2010-10-05
 
 Third one in a row, but this one is really minor.
 

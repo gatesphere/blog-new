@@ -1,6 +1,6 @@
 ---
 title: "Hardware Hack: DIY $3 contact mic/piezo pickup"
-date: 22/10/2010
+date: 2010-10-22
 
 Hello all,
 

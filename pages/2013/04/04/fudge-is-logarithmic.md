@@ -1,6 +1,6 @@
 ---
-date: 04/04/2013
-tags: fudge, rpg, fate, dice, math, simulations, code-dump
+date: 2013-04-04
+tags: [fudge, rpg, fate, dice, math, simulations, code-dump]
 title: Fudge is logarithmic
 
 Hello all,

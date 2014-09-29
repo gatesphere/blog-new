@@ -1,7 +1,7 @@
 ---
 title: jliquid - the jedi backend, in Java
-date: 18/06/2012
-tags: jedi, java, jliquid, github, finite state machines
+date: 2012-06-18
+tags: [jedi, java, jliquid, github, finite state machines]
 
 Hello all,
 

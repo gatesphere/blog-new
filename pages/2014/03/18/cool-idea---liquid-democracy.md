@@ -1,6 +1,6 @@
 ---
-date: 18/03/2014
-tags: politics, theory, democracy, delegation, votes, liquid democracy
+date: 2014-03-18
+tags: [politics, theory, democracy, delegation, votes, liquid democracy]
 title: Cool idea - Liquid Democracy
 
 So, the other day I stumbled across the idea of [liquid democracy](http://www.communitywiki.org/cw/LiquidDemocracy), also known as [delegative democracy](http://en.wikipedia.org/wiki/Delegative_democracy).  It seems really neat to me.

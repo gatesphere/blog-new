@@ -1,6 +1,6 @@
 ---
-date: 24/12/2013
-tags: ltd, productivity, reports
+date: 2013-12-24
+tags: [ltd, productivity, reports]
 title: LTD Week Thirteen
 
 Busy busy pre-holiday week:

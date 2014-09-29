@@ -1,6 +1,6 @@
 ---
 title: Ideas, ideas...
-date: 03/05/2011
+date: 2011-05-03
 
 So, this is the last week of classes for me, and I already have a list a mile long of things I want to do this summer, development wise. What will actually get accomplished is to be seen.
 

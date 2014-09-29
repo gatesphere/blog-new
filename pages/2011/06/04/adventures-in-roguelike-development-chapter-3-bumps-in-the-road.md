@@ -1,7 +1,7 @@
 ---
 title: "Adventures in Roguelike Development, Chapter 3: Bumps in the Road"
-date: 04/06/2011
-tags: code-dump
+date: 2011-06-04
+tags: [code-dump]
 
 Hello all,
 

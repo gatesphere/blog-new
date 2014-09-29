@@ -1,6 +1,6 @@
 --- 
-tags: Processing, sketch, art, creativity, code-dump
-date: 14/01/2013
+tags: [Processing, sketch, art, creativity, code-dump]
+date: 2013-01-14
 title: A few artistic Processing sketches
 
 Last Friday, I was at a pizza/tea party/gathering at a friend's house.  

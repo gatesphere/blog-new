@@ -1,6 +1,6 @@
 ---
 title: Another blahgger update
-date: 29/09/2010
+date: 2010-09-29
 
 Hello all,
 I've pushed out a new version of blahgger to the server. This release contains very minor changes to the appearance of certain aspects of the blog, but add some interesting functionality in the form of a user-definable top-bar.

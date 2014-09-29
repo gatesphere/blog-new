@@ -1,7 +1,7 @@
 ---
 title: Texas Instruments TLV5618A library for MSP430 LaunchPad
-date: 05/10/2010
-tags: code-dump
+date: 2010-10-05
+tags: [code-dump]
 
 Hello all,
 

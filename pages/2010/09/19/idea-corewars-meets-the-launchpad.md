@@ -1,6 +1,6 @@
 ---
 title: "Idea: CoreWars meets the LaunchPad"
-date: 19/09/2010
+date: 2010-09-19
 
 Hello all,
 I stumbled upon a really cool project called [Battle Droids](http://battledroids.net/) for the Atmel AVR microcontrollers. Basically, you build a physical representation of a battle droid by building a circuit of sensors around an AVR, then program it with their firmware, connect it to your computer, and have it do battle online through a client software. Your droid would gain experience, level up, and be able to purchase upgrades by winning fights. Unfortunately, this project has stagnated and seems to be out of development, and stuck in pre-beta with nothing of any note released.

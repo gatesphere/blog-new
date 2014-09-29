@@ -1,6 +1,6 @@
 ---
-date: 04/11/2013
-tags: leo, nodewatch, plugin, ltd, productivity, code-dump
+date: 2013-11-04
+tags: [leo, nodewatch, plugin, ltd, productivity, code-dump]
 title: Nodewatch for Productivity
 
 Recently, I contributed the nodewatch.py plugin to Leo.  I wrote this as a way to keep myself productive, and have an at-a-glimpse look at important nodes in my workbook.leo file.  I thought I'd share the `@nodewatch` definitions I hacked together to help with this.

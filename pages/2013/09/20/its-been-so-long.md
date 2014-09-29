@@ -1,7 +1,7 @@
 --- 
 title: It's been so long...
-tags: sorry, updates, plans
-date: 20/09/2013
+tags: [sorry, updates, plans]
+date: 2013-09-20
 
 So... here we are, 5 months without an update.  Man, I'm *really* bad at this whole blogging thing.
 
@@ -47,4 +47,3 @@ Additionally, I have a few other plans, both short-term and long-term:
 ...yeah.  I need to get busy.
 
 Thanks for reading this ramble.  I'll keep this place more up to date, I swear!
-

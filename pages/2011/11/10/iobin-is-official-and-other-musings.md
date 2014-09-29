@@ -1,6 +1,6 @@
 ---
 title: iobin is official, and other musings
-date: 10/11/2011
+date: 2011-11-10
 
 Hello all,
 

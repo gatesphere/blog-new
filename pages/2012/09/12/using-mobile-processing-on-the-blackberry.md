@@ -1,6 +1,6 @@
 --- 
-tags: processing, mobile processing, blackberry, development, rim
-date: 12/09/2012
+tags: [processing, mobile processing, blackberry, development, rim]
+date: 2012-09-12
 title: Using Mobile Processing on the BlackBerry
 
 Hello all,

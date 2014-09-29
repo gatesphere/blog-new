@@ -1,6 +1,6 @@
 ---
-date: 25/11/2013
-tags: ltd, productivity, reports
+date: 2013-11-25
+tags: [ltd, productivity, reports]
 title: LTD Week Nine
 
 Very busy week, work-wise.  Not much outside of work though...
@@ -24,4 +24,3 @@ Very busy week, work-wise.  Not much outside of work though...
 Doesn't look like much, but it was a lot of time consuming BS.  Also lots of planning.
 
     
-

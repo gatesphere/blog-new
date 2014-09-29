@@ -1,6 +1,6 @@
 ---
 title: Musings, and an impromptu introduction to Io
-date: 26/10/2011
+date: 2011-10-26
 
 Hello all.
 

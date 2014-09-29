@@ -1,7 +1,7 @@
 ---
 title: The Enigma, a look at the WW2 German cypher machine
-date: 19/06/2012
-tags: enigma, ww2, german, cypher, cryptology, code-dump, github
+date: 2012-06-19
+tags: [enigma, ww2, german, cypher, cryptology, code-dump, github]
 
 As of late, my fascinations have been turned toward the physical machines used
 to encrypt messages in wartime, particularly during World War II.  Chief among

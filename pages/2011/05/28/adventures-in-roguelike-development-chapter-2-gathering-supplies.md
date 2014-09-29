@@ -1,7 +1,7 @@
 ---
 title: "Adventures in Roguelike Development, Chapter 2: Gathering Supplies"
-date: 28/05/2011
-tags: code-dump
+date: 2011-05-28
+tags: [code-dump]
 
 Hello all,
 

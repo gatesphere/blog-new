@@ -1,6 +1,6 @@
 ---
 title: I just keep tweaking blahgger
-date: 18/10/2010
+date: 2010-10-18
 
 Hi all,
 

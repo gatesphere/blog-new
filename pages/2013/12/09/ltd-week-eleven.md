@@ -1,6 +1,6 @@
 ---
-date: 09/12/2013
-tags: ltd, productivity, reports
+date: 2013-12-09
+tags: [ltd, productivity, reports]
 title: LTD Week Eleven
 
 Busyish week.  Here we go:

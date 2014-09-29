@@ -65,7 +65,6 @@ def get_date(page):
 def index():
   p = list(pages)
   p.sort(key=lambda x: get_date(x), reverse=True)
-  print [get_date(a) for a in p]
   new=p[:1]
   old=p[1:]
   return html_minify(render_template('index.html', newpages=new, oldpages=old))

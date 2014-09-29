@@ -1,6 +1,6 @@
 ---
 title: Iobook update, and other things
-date: 05/12/2011
+date: 2011-12-05
 
 Hello all,
 

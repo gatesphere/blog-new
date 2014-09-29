@@ -1,6 +1,6 @@
 ---
-date: 27/01/2014
-tags: ltd, productivity, reports
+date: 2014-01-27
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 04
 
 What a week!  Here we go:
@@ -21,4 +21,3 @@ What a week!  Here we go:
     - Updated and documented ltd-barebones
     - Wrote idiotpie
     - Read a good chunk of Code by Charles Petzold
-

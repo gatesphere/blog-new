@@ -1,6 +1,6 @@
 ---
-date: 10/03/2014
-tags: networking, rfc, email, legacy, lock-in, sctp, protocols, folly
+date: 2014-03-10
+tags: [networking, rfc, email, legacy, lock-in, sctp, protocols, folly]
 title: On Legacy Lock-in
 
 The internet is grand achievement in human history -- I refuse to budge on this point.  It has enabled the entire world to connect, share information, circumvent censorship, and spread creativity and research in a completely unprecidented manner.  And for the most part, it works great... just try not to fall down the rabbit hole and think too hard about what problems the future holds...

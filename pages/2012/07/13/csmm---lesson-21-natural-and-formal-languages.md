@@ -1,7 +1,7 @@
 ---
 title: ! 'CSMM - Lesson 2.1: Natural and Formal Languages'
-date: 13/07/2012
-tags: csmm, languages, set theory
+date: 2012-07-13
+tags: [csmm, languages, set theory]
 
 An introduction
 ---------------

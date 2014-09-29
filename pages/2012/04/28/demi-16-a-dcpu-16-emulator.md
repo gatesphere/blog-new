@@ -1,7 +1,7 @@
 ---
 title: "demi-16: a dcpu-16 emulator"
-date: 28/04/2012
-tags: code-dump
+date: 2012-04-28
+tags: [code-dump]
 
 Hello all,
 

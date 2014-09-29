@@ -1,6 +1,6 @@
 ---
-date: 25/02/2014
-tags: elo, rating, multiplayer
+date: 2014-02-25
+tags: [elo, rating, multiplayer]
 title: WhiteWhale - A multiplayer Elo rating system
 
 Last week I was poking around some with the Elo rating system, attempting to make it work for multiplayer, ranked games, where rank means a player has, at the end of the game, a numerical rank, such as first, second, third, etc.  Here's what I came up with.  Note, it diverges from Elo in several points.

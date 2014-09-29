@@ -1,7 +1,7 @@
 ---
 title: Connecting a Parallax PIR Sensor module to the LaunchPad
-date: 12/09/2010
-tags: code-dump
+date: 2010-09-12
+tags: [code-dump]
 
 Hello all.
 A few days ago, I went to RadioShack to purchase a few parts. Among the components in the "sensors" drawer, I stumbled upon a PIR sensor from Parallax, datasheet available [here](http://www.parallax.com/sites/default/files/downloads/910-28027-PIR-Sensor-REV-A-Documentation-v1.4.pdf).

@@ -1,6 +1,6 @@
 ---
 title: Property of the University, hacking, music, life of blocks, and other things...
-date: 01/12/2010
+date: 2010-12-01
 
 Hello all,
 

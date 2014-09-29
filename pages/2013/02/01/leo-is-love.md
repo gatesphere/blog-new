@@ -1,7 +1,6 @@
-
 ---
-date: 01/02/2013
-tags: leo, literate programming, text editor
+date: 2013-02-01
+tags: [leo, literate programming, text editor]
 title: Leo is Love
 
 Hello all.

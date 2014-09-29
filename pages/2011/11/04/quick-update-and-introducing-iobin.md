@@ -1,6 +1,6 @@
 ---
 title: Quick update, and introducing iobin!
-date: 04/11/2011
+date: 2011-11-04
 
 Hello all,
 

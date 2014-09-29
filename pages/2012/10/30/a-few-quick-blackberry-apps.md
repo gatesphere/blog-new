@@ -1,7 +1,7 @@
 --- 
 title: A few quick blackberry apps
-tags: blackberry, apps, free
-date: 30/10/2012
+tags: [blackberry, apps, free]
+date: 2012-10-30
 
 Hello all,
 
@@ -24,4 +24,3 @@ Source:
 [PocketRave Source](https://github.com/gatesphere/blog-resources/tree/master/downloads/bb-apps/pocketrave/source)
 
 That's all.
-

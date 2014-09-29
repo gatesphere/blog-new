@@ -1,6 +1,6 @@
 ---
 title: New colors
-date: 29/05/2011
+date: 2011-05-29
 
 Hello all,
 

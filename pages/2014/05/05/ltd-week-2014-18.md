@@ -1,6 +1,6 @@
 ---
-date: 05/05/2014
-tags: ltd, productivity, reports
+date: 2014-05-05
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 18
 
 Fun week:

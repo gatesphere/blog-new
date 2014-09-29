@@ -1,7 +1,7 @@
 ---
 title: ! 'CSMM - Lesson 1.4: Advanced Logic and Arithmetic in the Lambda Calculus'
-date: 29/06/2012
-tags: csmm, lambda calculus, boolean logic, predicates, logic, arithmetic
+date: 2012-06-29
+tags: [csmm, lambda calculus, boolean logic, predicates, logic, arithmetic]
 
 Where we were
 -------------

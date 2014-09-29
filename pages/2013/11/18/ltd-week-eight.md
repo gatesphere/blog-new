@@ -1,6 +1,6 @@
 ---
-date: 18/11/2013
-tags: ltd, productivity, reports
+date: 2013-11-18
+tags: [ltd, productivity, reports]
 title: LTD Week Eight
 
 Another decently busy week:

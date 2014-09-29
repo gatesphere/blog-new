@@ -1,6 +1,6 @@
 --- 
-date: 05/10/2012
-tags: axio, functional, language, Turing, lambda
+date: 2012-10-05
+tags: [axio, functional, language, Turing, lambda]
 title: A proposition for a small purely functional, typeless language
 
 So, one of my favorite pasttimes is language design, and a few weeks ago

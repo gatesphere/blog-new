@@ -1,7 +1,7 @@
 ---
 title: ! 'Theory Time: A pure lambda-calculus foundation for prototype-based OOP'
-date: 19/10/2012
-tags: theory, lambda calculus, lambda, prototype, oop, map, list, hash
+date: 2012-10-19
+tags: [theory, lambda calculus, lambda, prototype, oop, map, list, hash]
 
 Hello all,
 

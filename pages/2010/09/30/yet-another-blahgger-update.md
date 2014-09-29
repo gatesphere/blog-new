@@ -1,6 +1,6 @@
 ---
 title: Yet another blahgger update
-date: 30/09/2010
+date: 2010-09-30
 
 Hello all,
 

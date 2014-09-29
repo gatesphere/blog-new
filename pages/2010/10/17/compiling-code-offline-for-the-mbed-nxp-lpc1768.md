@@ -1,6 +1,6 @@
 ---
 title: Compiling code offline for the mbed NXP LPC1768
-date: 17/10/2010
+date: 2010-10-17
 
 Hello all.
 

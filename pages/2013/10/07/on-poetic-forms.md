@@ -1,6 +1,6 @@
 ---
-date: 07/10/2013
-tags: poetry, haiku, etheree, lune
+date: 2013-10-07
+tags: [poetry, haiku, etheree, lune]
 title: On Poetic Forms
 
 Recently I've been thinking a lot about structured syllabic poetry, which is rank among my favorite media for expression.  I have written haiku, etc, before, but never did so with any strict adherence to the form.  I thought I'd do a quick comparison of the various forms I've come across that tickled my fancy, and perhaps include some examples.  It's an excuse to write a bit more...

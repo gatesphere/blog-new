@@ -1,6 +1,6 @@
 ---
 title: Featured on TI's site, and free NXP board
-date: 20/04/2011
+date: 2011-04-20
 
 Hello everyone,
 

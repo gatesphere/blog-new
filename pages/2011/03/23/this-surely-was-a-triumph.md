@@ -1,6 +1,6 @@
 ---
 title: This surely was a triumph
-date: 23/03/2011
+date: 2011-03-23
 
 Hello all,
 

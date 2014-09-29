@@ -1,7 +1,7 @@
 --- 
-date: 05/10/2012
+date: 2012-10-05
 title: Blog resources now hosted on github
-tags: github, heroku, cloud, downloads
+tags: [github, heroku, cloud, downloads]
 
 Hi all,
 

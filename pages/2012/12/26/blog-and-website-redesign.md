@@ -1,6 +1,6 @@
 --- 
-date: 26/12/2012
-tags: blog, website, html, css, static site generator, redesign
+date: 2012-12-26
+tags: [blog, website, html, css, static site generator, redesign]
 title: Blog and Website redesign
 
 Hello everyone.

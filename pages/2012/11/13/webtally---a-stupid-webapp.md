@@ -1,7 +1,7 @@
 --- 
 title: WebTally - a stupid webapp
-tags: webtally, javascript, webapp
-date: 13/11/2012
+tags: [webtally, javascript, webapp]
+date: 2012-11-13
 
 Hello,
 
@@ -16,4 +16,3 @@ and it's fairly intuitive.
 If you want to check it out, go to [the WebTally page](http://webtally.suspended-chord.info/).
 
 Thanks for reading!
-

@@ -1,7 +1,7 @@
 ---
 title: LaunchPad-based Glitchamin, Take 2
-date: 24/09/2010
-tags: code-dump
+date: 2010-09-24
+tags: [code-dump]
 
 Hello all.
 

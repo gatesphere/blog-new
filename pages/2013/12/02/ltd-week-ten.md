@@ -1,6 +1,6 @@
 ---
-date: 02/12/2013
-tags: ltd, productivity, reports
+date: 2013-12-02
+tags: [ltd, productivity, reports]
 title: LTD Week Ten
 
 Less than average productivity this week, but that's to be expected with the US Holidays.  Here's a recap:

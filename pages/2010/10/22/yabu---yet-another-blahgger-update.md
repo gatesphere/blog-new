@@ -1,6 +1,6 @@
 ---
 title: YABU - Yet another blahgger update
-date: 22/10/2010
+date: 2010-10-22
 
 Hello all,
 

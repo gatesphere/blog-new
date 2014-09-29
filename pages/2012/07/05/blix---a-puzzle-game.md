@@ -1,7 +1,7 @@
 ---
 title: blix - a puzzle game
-date: 05/07/2012
-tags: processing, blix, game
+date: 2012-07-05
+tags: [processing, blix, game]
 
 Hello all,
 

@@ -1,6 +1,6 @@
 ---
 title: MSPhere Documentation Updated (finally)
-date: 25/09/2010
+date: 2010-09-25
 
 Hi all,
 

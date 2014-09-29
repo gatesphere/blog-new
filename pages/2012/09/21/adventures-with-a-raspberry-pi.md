@@ -1,6 +1,6 @@
 --- 
-date: 21/09/2012
-tags: raspberry pi, rpi, raspi, sysadmin, embedded, raspbian, io
+date: 2012-09-21
+tags: [raspberry pi, rpi, raspi, sysadmin, embedded, raspbian, io]
 title: Adventures with a Raspberry Pi
 
 Hello all,

@@ -1,6 +1,6 @@
 ---
-date: 26/03/2014
-tags: game design, game mechanics, board games
+date: 2014-03-26
+tags: [game design, game mechanics, board games]
 title: Gift giving in games
 
 An under-used mechanic in board game designs is that of gift giving.  The big problem with gift giving in the context of a game is how to incentivize it without turning it into a trade...

@@ -1,6 +1,6 @@
 ---
-date: 14/04/2014
-tags: ltd, productivity, reports
+date: 2014-04-14
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 15
 
 The week that was:

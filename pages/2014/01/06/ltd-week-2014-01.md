@@ -1,6 +1,6 @@
 ---
-date: 06/01/2014
-tags: ltd, productivity, reports
+date: 2014-01-06
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 01
 
 Interesting week... here's some highlights:

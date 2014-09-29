@@ -26,4 +26,3 @@ This code got me thinking about working on a set of Arduino-like libraries for
 the MSP430G2xxx line uC's (should also work with the F2xxx line). I have made 
 some progress in this endeavor, with pinMode(), digitalRead(), and digitalWrite() 
 working. I will post with more info as it progresses.
-

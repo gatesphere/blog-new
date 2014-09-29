@@ -1,7 +1,7 @@
 ---
 title: MSPhere initial release!
-date: 15/09/2010
-tags: code-dump
+date: 2010-09-15
+tags: [code-dump]
 
 I am pleased to announce the initial release of the MSPhere framework for the TI LaunchPad platform! I have decided that it was time to let this code breathe, and find new life.
 

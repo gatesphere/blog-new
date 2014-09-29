@@ -1,7 +1,7 @@
 ---
 title: Welcome to a->ab.
-date: 01/06/2012
-tags: welcome, new name, new focus, explanation, history
+date: 2012-06-01
+tags: [welcome, new name, new focus, explanation, history]
 
 Well, I've done a bit of changing things up around here, and I figured I'd explain what and why I've done with this blog.
 

@@ -1,6 +1,6 @@
 ---
-date: 03/03/2014
-tags: ltd, productivity, reports
+date: 2014-03-03
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 09
 
 Phew!  Busy week with preparations for a go-live at work.

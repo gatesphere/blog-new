@@ -1,6 +1,6 @@
 ---
-date: 29/04/2014
-tags: ltd, productivity, reports
+date: 2014-04-29
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 17
 
 I'm slipping with my reporting.  I'll need to fix that...

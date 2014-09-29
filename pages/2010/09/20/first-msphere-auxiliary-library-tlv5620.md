@@ -1,7 +1,7 @@
 ---
 title: "First MSPhere Auxiliary Library: TLV5620"
-date: 20/09/2010
-tags: code-dump
+date: 2010-09-20
+tags: [code-dump]
 
 Hi all,
 

@@ -1,7 +1,7 @@
 --- 
-date: 10/09/2012
+date: 2012-09-10
 title: A Monologue on API Flexibility
-tags: java, blackberry, api, ruby, verbosity, complexity, expression, language
+tags: [java, blackberry, api, ruby, verbosity, complexity, expression, language]
 
 Hello everyone.
 

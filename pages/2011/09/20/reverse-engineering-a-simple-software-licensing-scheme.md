@@ -1,6 +1,6 @@
 ---
 title: Reverse-engineering a simple software licensing scheme
-date: 20/09/2011
+date: 2011-09-20
 
 Hello all,
 

@@ -1,6 +1,6 @@
 ---
 title: MSP430G2xxx based Tea Timer
-date: 08/11/2010
+date: 2010-11-08
 
 Hello all,
 

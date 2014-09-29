@@ -1,6 +1,6 @@
 --- 
-tags: bash, stupid tricks, hacks, code-dump
-date: 12/11/2012
+tags: [bash, stupid tricks, hacks, code-dump]
+date: 2012-11-12
 title: "Stupid Tricks: bash"
 
 This article showcases a few stupid bash tricks that I've gathered in my 

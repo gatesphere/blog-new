@@ -1,6 +1,6 @@
 ---
-date: 28/01/2014
-tags: leo, scripting, tutorial
+date: 2014-01-28
+tags: [leo, scripting, tutorial]
 title: Intro to Leo scripting
 
 Hello all,

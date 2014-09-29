@@ -1,6 +1,6 @@
 ---
-date: 27/05/2014
-tags: ltd, productivity, reports
+date: 2014-05-27
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 20
 
 Sorry, this is last week's report...  I got caught up in a few things.
@@ -18,4 +18,3 @@ Anyways, here's the kind of reporting living a semi-quantified life lets you do 
     - Started working on a board game design... :)
     - Read a bit of Good Math
     - Read a bit of Queen Zixi of Ix
-

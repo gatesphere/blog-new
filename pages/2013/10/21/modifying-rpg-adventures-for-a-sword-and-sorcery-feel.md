@@ -1,6 +1,6 @@
 ---
-date: 21/10/2013
-tags: rpg, games, fiction, s&s
+date: 2013-10-21
+tags: [rpg, games, fiction, s&s]
 title: Modifying RPG Adventures for a Sword and Sorcery Feel
 
 So I'm soon going to be running a campaign in my [Sword & Sorcery](http://en.wikipedia.org/wiki/Sword_and_sorcery) world of Mur, and I've decided that I want to sprinkle in some pre-written adventures to make my life easier.  One small problem with that -- it's difficult to find adventures that 'fit' the feel of Mur or the fiction I'm trying to emulate.  But I'm going through them anyways, modifying them a bit to fit, and I thought I'd share a bit of my process.

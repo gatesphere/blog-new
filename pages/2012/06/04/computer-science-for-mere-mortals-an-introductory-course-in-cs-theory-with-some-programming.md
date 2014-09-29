@@ -1,8 +1,8 @@
 ---
 title: ! 'Computer Science for Mere Mortals: An introductory course in CS theory (with
   some programming)'
-date: 04/06/2012
-tags: computer science, computation, csmm, theory, course, syllabus, mere mortals
+date: 2012-06-04
+tags: [computer science, computation, csmm, theory, course, syllabus, mere mortals]
 
 Hello everyone,
 

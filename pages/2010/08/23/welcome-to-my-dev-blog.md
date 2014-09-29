@@ -10,4 +10,3 @@ microcontroller projects.
 
 I hope you enjoy your stay. Feel free to look around and leave a comment. 
 
-

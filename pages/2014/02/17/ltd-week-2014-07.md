@@ -1,6 +1,6 @@
 ---
-date: 17/02/2014
-tags: ltd, productivity, reports
+date: 2014-02-17
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 07
 
 Another week, another log:

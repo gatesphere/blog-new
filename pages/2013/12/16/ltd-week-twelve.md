@@ -1,6 +1,6 @@
 ---
-date: 16/12/2013
-tags: ltd, productivity, reports
+date: 2013-12-16
+tags: [ltd, productivity, reports]
 title: LTD Week Twelve
 
 Not sure what kind of week it was... here's an overview though:

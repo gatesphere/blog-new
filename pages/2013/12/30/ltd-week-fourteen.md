@@ -1,6 +1,6 @@
 ---
-date: 30/12/2013
-tags: ltd, productivity, reports
+date: 2013-12-30
+tags: [ltd, productivity, reports]
 title: LTD Week Fourteen
 
 Being a holiday week -- and also containing my birthday -- I slacked off a bit this week.

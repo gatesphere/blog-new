@@ -1,6 +1,6 @@
 ---
-date: 07/10/2013
-tags: ltd, productivity, reports
+date: 2013-10-07
+tags: [ltd, productivity, reports]
 title: LTD Week Two
 
 So, here we are with week two of LTD.  The system is holding up nicely.  Here's what I did this week:

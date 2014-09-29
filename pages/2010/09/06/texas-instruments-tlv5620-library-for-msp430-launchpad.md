@@ -1,7 +1,7 @@
 ---
 title: Texas Instruments TLV5620 library for MSP430 LaunchPad
-date: 06/09/2010
-tags: code-dump
+date: 2010-09-06
+tags: [code-dump]
 
 Hey all.
 I've written a library for the TLV5620 8-bit quad-channel DAC from TI. This is a wonderful little chip which works on the SPI interface and supports simultaneous update of all four channels of the DAC. Datasheet available from TI [here](http://www.ti.com/litv/pdf/slas110b).

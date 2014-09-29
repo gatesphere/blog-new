@@ -1,7 +1,7 @@
 ---
 title: Introducing silica
-date: 14/02/2012
-tags: code-dump
+date: 2012-02-14
+tags: [code-dump]
 
 Hello all,
 

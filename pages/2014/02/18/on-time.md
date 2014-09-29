@@ -1,6 +1,6 @@
 ---
-date: 18/02/2014
-tags: time, philosophy, existential crises
+date: 2014-02-18
+tags: [time, philosophy, existential crises]
 title: On Time
 
 Hello all,

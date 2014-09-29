@@ -1,6 +1,6 @@
 ---
 title: "Adventures in Roguelike Development, Chapter 1: The Quest Begins!"
-date: 21/05/2011
+date: 2011-05-21
 
 Hello all,
 

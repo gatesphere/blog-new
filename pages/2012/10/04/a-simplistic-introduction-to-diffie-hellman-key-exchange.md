@@ -1,6 +1,6 @@
 --- 
-tags: encryption, Diffie-Hellman, key, xor, shared secret, code-dump
-date: 04/10/2012
+tags: [encryption, Diffie-Hellman, key, xor, shared secret, code-dump]
+date: 2012-10-04
 title: A Simplistic Introduction to Diffie-Hellman Key Exchange
 
 So, recently, I've been getting into encryption.  In that vein, I thought
@@ -139,4 +139,3 @@ what my words can't convey.  Here's an example in Io:
 <script src="https://gist.github.com/3835917.js"> </script>
 
 Enjoy.
-

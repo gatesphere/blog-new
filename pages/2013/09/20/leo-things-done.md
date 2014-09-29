@@ -1,6 +1,6 @@
 ---
-date: 20/09/2013
-tags: leo, productivity, gamification, lifehack, experiment, moleskine
+date: 2013-09-20
+tags: [leo, productivity, gamification, lifehack, experiment, moleskine]
 title: Leo Things Done
 
 # Introduction

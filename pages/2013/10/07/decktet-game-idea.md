@@ -1,6 +1,6 @@
 ---
-date: 07/10/2013
-tags: decktet, game idea, game design, games, rules
+date: 2013-10-07
+tags: [decktet, game idea, game design, games, rules]
 title: Decktet Game Idea
 
 So, I had an idea for a game using the [Decktet](http://www.decktet.com/).  Seeing as most of the cards have multiple suits, the following might work.
@@ -26,4 +26,3 @@ When a player must draw and there are no cards to draw, the discard pile is resh
 The game is over when all six roots have been harvested.  The player with the most points wins.
 
 I haven't played it yet, but it could be fun.  I'm sorry if the idea is clear as mud at the moment, but this is more of a ramble than a fully fleshed out ruleset.
-

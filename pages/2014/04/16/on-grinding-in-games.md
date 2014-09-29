@@ -1,6 +1,6 @@
 ---
-date: 16/04/2014
-tags: games, online games, mmo, jrpg, rpgs, grinding, theory
+date: 2014-04-16
+tags: [games, online games, mmo, jrpg, rpgs, grinding, theory]
 title: On grinding in games
 
 So I happen to be a huge fan of Japanese Action-MMORPGs.  Yeesh, what a niche.  But there are a few franchises that I think exemplify the genre, perhaps most notably [Phantasy Star Online](http://en.wikipedia.org/wiki/Phantasy_Star_Online) and [Monster Hunter](http://en.wikipedia.org/wiki/Monster_Hunter).  Both are focused around collecting a large amount of items and upgrades, customizing your character with different weapons and armor, and killing things in a tactical action-oriented combat system.  I'm writing this post because I recently began my foray into the Monster Hunter series with [Monster Hunter 3 Ultimate](http://en.wikipedia.org/wiki/Monster_Hunter_3_Ultimate#Monster_Hunter_3_Ultimate).  I sincerely think SEGA needs to bring PSO to the [Wii U](http://en.wikipedia.org/wiki/Wii_U), but I doubt that will happen... so instead I have MH3U to scratch my itch.

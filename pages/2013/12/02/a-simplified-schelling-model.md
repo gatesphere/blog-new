@@ -1,6 +1,6 @@
 ---
-date: 02/12/2013
-tags: model, python, code-dump, segregation, complexity, schelling
+date: 2013-12-02
+tags: [model, python, code-dump, segregation, complexity, schelling]
 title: A Simplified Schelling Model
 
 I coded up a simplified version of the [Schelling segregation model](http://en.wikipedia.org/wiki/Thomas_Schelling#Models_of_segregation) today.  I thought I'd share the code below.

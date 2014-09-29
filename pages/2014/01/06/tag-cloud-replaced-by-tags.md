@@ -1,6 +1,6 @@
 ---
-date: 06/01/2014
-tags: tags, blog, cleanup, styling
+date: 2014-01-06
+tags: [tags, blog, cleanup, styling]
 title: Tag Cloud replaced by Tags
 
 Hi all,

@@ -1,6 +1,6 @@
 ---
 title: Another "I'm sorry" from me
-date: 15/04/2011
+date: 2011-04-15
 
 Hello all,
 

@@ -1,7 +1,7 @@
 ---
 title: ! 'CSMM - Lesson 1.3: Boolean Logic in the Lambda Calculus'
-date: 26/06/2012
-tags: csmm, lambda calculus, boolean logic, predicates, logic
+date: 2012-06-26
+tags: [csmm, lambda calculus, boolean logic, predicates, logic]
 
 Welcome back
 ------------

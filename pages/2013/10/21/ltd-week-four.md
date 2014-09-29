@@ -1,6 +1,6 @@
 ---
-date: 21/10/2013
-tags: ltd, productivity, reports
+date: 2013-10-21
+tags: [ltd, productivity, reports]
 title: LTD Week Four
 
 Here's what I accomplished in my fourth week of using LTD:

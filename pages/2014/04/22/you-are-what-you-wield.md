@@ -1,6 +1,6 @@
 ---
-date: 22/04/2014
-tags: games, monster hunter, equipment
+date: 2014-04-22
+tags: [games, monster hunter, equipment]
 title: You are what you wield
 
 As mentioned in [last week's post](/2014/04/16/on-grinding-in-games/), I've been playing Monster Hunter 3 Ultimate lately.  I think it's a really well done game.  It's also a refreshing take on the whole level-up concept, in that your character never improves -- your play improves.

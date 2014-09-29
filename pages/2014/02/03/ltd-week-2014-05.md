@@ -1,6 +1,6 @@
 ---
-date: 03/02/2014
-tags: ltd, productivity, reports
+date: 2014-02-03
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 05
 
 Kind of a slow week, it seems.  Here's what I did:
@@ -19,4 +19,3 @@ Kind of a slow week, it seems.  Here's what I did:
     - Finished up Charles Petzold's 'Code' -- review coming soon
     - Started reading + doing the projects in 'The Elements of Computing Systems'
     - Updated orison's software
-

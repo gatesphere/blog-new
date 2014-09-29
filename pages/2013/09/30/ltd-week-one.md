@@ -1,6 +1,6 @@
 ---
-date: 30/09/2013
-tags: ltd, productivity, reports
+date: 2013-09-30
+tags: [ltd, productivity, reports]
 title: LTD Week One
 
 Alright, off to a good start.

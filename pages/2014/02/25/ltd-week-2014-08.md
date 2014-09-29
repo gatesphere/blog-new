@@ -1,6 +1,6 @@
 ---
-date: 25/02/2014
-tags: ltd, productivity, reports
+date: 2014-02-25
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 08
 
 It's been a week, for sure:
@@ -22,4 +22,3 @@ It's been a week, for sure:
     - Read The Woggle-Bug Book
     - Read up on the literary structure of fairy tales
     - Ipdated orison's sofware
-

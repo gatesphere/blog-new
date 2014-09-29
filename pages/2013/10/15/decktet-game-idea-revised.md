@@ -1,6 +1,6 @@
 ---
-date: 15/10/2013
-tags: decktet, game idea, game design, games, rules
+date: 2013-10-15
+tags: [decktet, game idea, game design, games, rules]
 title: Decktet Game Idea Revised
 
 What follows is a revision of the Decktet Game Idea I posted [last week](http://blog.suspended-chord.info/2013/10/07/decktet-game-idea/), after a playtest showed some flaws with the original idea.  Changes are in **boldface**.

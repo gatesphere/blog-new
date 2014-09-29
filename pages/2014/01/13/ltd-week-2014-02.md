@@ -1,6 +1,6 @@
 ---
-date: 13/01/2014
-tags: ltd, productivity, reports
+date: 2014-01-13
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 02
 
 Fast week, the days blew past me...

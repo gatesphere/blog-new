@@ -1,6 +1,6 @@
 ---
 title: Potential information on new MSP430G2xxx Value Line chips?
-date: 10/12/2010
+date: 2010-12-10
 
 Hello everybody.
 

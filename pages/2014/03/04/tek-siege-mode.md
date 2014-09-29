@@ -1,6 +1,6 @@
 ---
-date: 04/03/2014
-tags: games, rules, variants, Tiny Epic Kingdoms
+date: 2014-03-04
+tags: [games, rules, variants, Tiny Epic Kingdoms]
 title: TEK Siege Mode
 
 Hello all.

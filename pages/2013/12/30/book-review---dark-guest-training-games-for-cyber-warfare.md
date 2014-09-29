@@ -1,7 +1,7 @@
 --- 
 title: "Book Review - Dark Guest: Training Games for Cyber Warfare"
-tags: book, dark guest, wargames, network security, hacking, review
-date: 30/12/2013
+tags: [book, dark guest, wargames, network security, hacking, review]
+date: 2013-12-30
 
 I've decided to do something new here on the blog.  I think I'm going to take a crack at
 short reviews of books I'm reading.  This first entry is on a book I received for Christmas,

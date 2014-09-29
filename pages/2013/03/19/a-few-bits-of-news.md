@@ -1,6 +1,6 @@
 ---
-date: 19/03/2013
-tags: news, leo, programming, rpgs
+date: 2013-03-19
+tags: [news, leo, programming, rpgs]
 title: A few bits of news
 
 Hello all,

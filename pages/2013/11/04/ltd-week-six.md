@@ -1,6 +1,6 @@
 ---
-date: 04/11/2013
-tags: ltd, productivity, reports
+date: 2013-11-04
+tags: [ltd, productivity, reports]
 title: LTD Week Six
 
 Good week.  Here's a recap:

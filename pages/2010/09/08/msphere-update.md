@@ -1,6 +1,6 @@
 ---
 title: MSPhere update
-date: 08/09/2010
+date: 2010-09-08
 
 Hello all,
 I've been busy at work at MSPhere, seeing as I have a relatively short class week due to Labor Day and Rosh Hashanah. So in between my light homework load, I've been coding a bit. Here's what I have so far, and what I have left to do before I feel it's fit for an initial release.

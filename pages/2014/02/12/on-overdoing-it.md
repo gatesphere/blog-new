@@ -1,6 +1,6 @@
 ---
-date: 12/02/2014
-tags: productivity, obsession, exertion, exhauston
+date: 2014-02-12
+tags: [productivity, obsession, exertion, exhauston]
 title: On Overdoing It
 
 So, the past few weeks I've been building a computer.  

@@ -1,6 +1,6 @@
 --- 
-tags: telnet, negotiation, protocol
-date: 31/10/2012
+tags: [telnet, negotiation, protocol]
+date: 2012-10-31
 title: A tale of three telnets
 
 Recently I've been building a telnet-compliant server in Io.  Well, 

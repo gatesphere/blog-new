@@ -1,6 +1,6 @@
 ---
-date: 13/01/2014
-tags: dice, fudge, probabilities
+date: 2014-01-13
+tags: [dice, fudge, probabilities]
 title: Strange Dice
 
 So, in the Fate mailing list, people are discussing what the various effects of

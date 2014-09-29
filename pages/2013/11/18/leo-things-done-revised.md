@@ -1,6 +1,6 @@
 ---
-date: 18/11/2013
-tags: tag, your, life, away
+date: 2013-11-18
+tags: [tag, your, life, away]
 title: Leo Things Done Revised
 
 # Introduction

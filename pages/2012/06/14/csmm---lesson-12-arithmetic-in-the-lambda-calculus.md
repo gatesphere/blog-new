@@ -1,7 +1,7 @@
 ---
 title: ! 'CSMM - Lesson 1.2: Arithmetic in the Lambda Calculus'
-date: 14/06/2012
-tags: csmm, lambda calculus, arithmetic
+date: 2012-06-14
+tags: [csmm, lambda calculus, arithmetic]
 
 Where we left off
 -----------------

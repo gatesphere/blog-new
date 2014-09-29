@@ -1,6 +1,6 @@
 ---
-date: 10/03/2014
-tags: ltd, productivity, reports
+date: 2014-03-10
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 10
 
 Reeeeeeaaaaly busy week:

@@ -1,6 +1,6 @@
 ---
-date: 07/01/2014
-tags: book, games, life, philosophy, review
+date: 2014-01-07
+tags: [book, games, life, philosophy, review]
 title: "Book Review - Finite and Infinite Games"
 
 My second review, and the second book I've read in 2014 (well, technically the first, but I

@@ -1,7 +1,7 @@
 ---
 title: Reverse Engineering the Paper Jamz Pro instrument files
-date: 13/07/2012
-tags: reversing, paperjamz, bits, bytes, markov, audio
+date: 2012-07-13
+tags: [reversing, paperjamz, bits, bytes, markov, audio]
 
 So, I'm working on a musical project, and I've decided to use only toy instruments.
 Specifically, the Paper Jamz Pro series of instruments from Wowwee.  These are fun

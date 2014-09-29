@@ -1,7 +1,7 @@
 ---
 title: ! 'CSMM - Lesson 1.5: Flow-control and Recursion in the Lambda Calculus'
-date: 03/07/2012
-tags: csmm, lambda calculus, recursion, flow-control, fibonacci
+date: 2012-07-03
+tags: [csmm, lambda calculus, recursion, flow-control, fibonacci]
 
 Remind me again?
 ----------------

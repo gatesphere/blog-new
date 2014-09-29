@@ -1,6 +1,6 @@
 ---
-date: 09/12/2013
-tags: python, garbage collector, gc, algorithms, code-dump
+date: 2013-12-09
+tags: [python, garbage collector, gc, algorithms, code-dump]
 title: Mark and Sweep in Python
 
 Today I read a fantastic article on [mark and sweep garbage collectors](http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/), and thought I'd give replicating it in python a go.

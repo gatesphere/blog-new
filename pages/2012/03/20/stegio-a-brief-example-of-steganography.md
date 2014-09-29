@@ -1,7 +1,7 @@
 ---
 title: steg.io, A brief example of steganography
-date: 20/03/2012
-tags: code-dump
+date: 2012-03-20
+tags: [code-dump]
 
 Hello all,
 

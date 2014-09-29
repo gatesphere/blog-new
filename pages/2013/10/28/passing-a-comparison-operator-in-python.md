@@ -1,6 +1,6 @@
 ---
-date: 28/10/2013
-tags: python, programming languages, stupid tricks, code-dump
+date: 2013-10-28
+tags: [python, programming languages, stupid tricks, code-dump]
 title: Passing a comparison operator in Python
 
 So, earlier today I was refactoring some code to be more general purpose, and said code

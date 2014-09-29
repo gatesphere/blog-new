@@ -1,6 +1,6 @@
 ---
-date: 26/11/2013
-tags: acme, ui, ux, editors
+date: 2013-11-26
+tags: [acme, ui, ux, editors]
 title: Exploring Acme
 
 For this post, I want to try a little something different.  I'd like to examine the text editor [Acme](http://en.wikipedia.org/wiki/Acme_(text_editor\)) from [Plan 9 from Bell Labs](http://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs) and [Inferno](http://en.wikipedia.org/wiki/Inferno_(operating_system\)).  I think Acme represents a fundamentally different way of interacting with a system than what the vast majority of users use today -- and one I wouldn't have even been inclined to give a shot if I hadn't already been mired in Leo's UI.

@@ -1,6 +1,6 @@
 ---
-date: 20/01/2014
-tags: ltd, productivity, reports
+date: 2014-01-20
+tags: [ltd, productivity, reports]
 title: LTD Week 2014 03
 
 It's been a week, it has.  Here's a roundup...
