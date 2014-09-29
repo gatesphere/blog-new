@@ -1,0 +1,12 @@
+---
+date: 16/04/2014
+tags: games, online games, mmo, jrpg, rpgs, grinding, theory
+title: On grinding in games
+
+So I happen to be a huge fan of Japanese Action-MMORPGs.  Yeesh, what a niche.  But there are a few franchises that I think exemplify the genre, perhaps most notably [Phantasy Star Online](http://en.wikipedia.org/wiki/Phantasy_Star_Online) and [Monster Hunter](http://en.wikipedia.org/wiki/Monster_Hunter).  Both are focused around collecting a large amount of items and upgrades, customizing your character with different weapons and armor, and killing things in a tactical action-oriented combat system.  I'm writing this post because I recently began my foray into the Monster Hunter series with [Monster Hunter 3 Ultimate](http://en.wikipedia.org/wiki/Monster_Hunter_3_Ultimate#Monster_Hunter_3_Ultimate).  I sincerely think SEGA needs to bring PSO to the [Wii U](http://en.wikipedia.org/wiki/Wii_U), but I doubt that will happen... so instead I have MH3U to scratch my itch.
+
+One thing that's pretty integral to this genre of games is the grind -- doing the same thing repeatedly to gain resources in order to improve your character, either via equipment or statistics.  When you take a mile-back look at the idea of grinding, it seems like an exercise in futility... doing the same thing over and over again?  How can that be fun?
+
+The human mind is pretty interesting when it comes to patterns and repetitions.  I have a feeling that grinding in games is all about hitting [pleasure centers](http://en.wikipedia.org/wiki/Pleasure_center) in the brain -- we like feeling rewarded for our work, so when a game provides instant feedback, we have a rush of feel-good brain activity.  There's likely some [classical conditioning](http://en.wikipedia.org/wiki/Classical_conditioning) in there too -- we're shown through gameplay itself that if we work hard we'll be rewarded.  Compound this with the human mind's [desire for patterns](http://www.scientificamerican.com/podcast/episode/brain-seeks-patterns-where-none-exi-08-10-03/) and the feel-good effect can be even greater.
+
+If you're interested in a slightly deeper look at the topic, I suggest reading [Why we love (or hate) to grind](http://www.louisestigell.com/2013/02/why-we-love-or-hate-to-grind.html) over on Louise Stigell's site.  It's a good read.

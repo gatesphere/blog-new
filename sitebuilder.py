@@ -57,9 +57,6 @@ def get_pages_by_date(year=None, month=None, day=None):
   return out
 #@+node:peckj.20140127083227.10223: *3* get_date
 def get_date(page):
-  format_string = '%d/%m/%Y'
-  #dt = datetime.strptime(page.meta['date'], format_string)
-  #page_date = dt.date()
   page_date = page.meta['date']
   return page_date
 #@+node:peckj.20140121082121.6639: ** routes
@@ -67,7 +64,8 @@ def get_date(page):
 @app.route("/")
 def index():
   p = list(pages)
-  p.sort(key=lambda x: get_date(x))
+  p.sort(key=lambda x: get_date(x), reverse=True)
+  print [get_date(a) for a in p]
   new=p[:1]
   old=p[1:]
   return html_minify(render_template('index.html', newpages=new, oldpages=old))

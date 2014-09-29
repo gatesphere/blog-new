@@ -1,0 +1,20 @@
+---
+title: Welcome to a->ab.
+date: 01/06/2012
+tags: welcome, new name, new focus, explanation, history
+
+Well, I've done a bit of changing things up around here, and I figured I'd explain what and why I've done with this blog.
+
+This blog used to serve primarily as a place for me to discuss software development from the viewpoint of a computer science student writing personal projects for my own use, and this is reflected by the first fifty posts (from 23Aug2010 to 28Apr2012). During that period, the blog was known as the completely unimaginative "~suspended-chord dev blog" (boring), and was running on a PHP script that I wrote called "blahgger" (fitting).
+
+As you can see, the name has been changed to "a->ab". This blog will still function as a place for me to discuss my software development endeavors, however with this new name comes a broadening of scope. The subtitle "computation, math, science, and thought" says it all: instead of just development journals, I will be posting some articles on wide reaching topics in computation, mathematics, science, psychology, philosophy, music, and cognition. This is more of a breathing space now, where I can just sit down and type out my ideas. And I've needed something like this for a while. Oh, and it's running on a different engine now: [toto](https://github.com/gatesphere/toto).
+
+So, about the name (a->ab). How is it pronounced? You could say "a maps to a b", or "a implies a b", or "a right-facing arrow a b", or "a to a b", or even "a a b". The first option was my intended choice, but I realized that with the new, wider scope of this blog, any of them are valid. So, what does it mean? Well, going by the first option, this is either a rewrite rule in a context-free grammar, or a production in a L-system. Or perhaps it's a production rule in a Post canonical system. Or a state transition in a finite state machine. Or part of a configuration of a specialized Turing machine. Or, to bring it all back to software, a key-value pair, or a functional dependency in a relational database. Or in the field of logic (in particular the sequent calculus), we have some statement a which metaimplies a or b, which equates to a true statement. Or in mathematics and Markov analysis, there is a likelyhood that a will be followed by b. Or in genetics, there is a base pair denoted a, which is followed immediately by another a and then b. It's really however you choose to see it or think about it. But most of all, I just thought it was a cool name.
+
+Now, why the switch from blahgger to toto?  There are many reasons.  Blahgger was never really well thought out, and was quite honestly hacked together.  Toto on the other hand was written by [someone who knows what they're doing](http://cloudhead.io).  Also, blahgger was rather lacking: no category/tag support (though it was coming along), no templating support, ugly (non-SEO friendly) URLs, no image support(!), no easy to use markup, and overall ugly manual linking throughout the whole app.  Oh, and I never finished the backend.  So, posts are made by manually editing SQL.  Fun.  Now, toto suffers from none of these limitations out of the box (aside from tags, which are taken care of by the wonderful plugin [karakuri](https://github.com/5v3n/karakuri)), is deployable on heroku, is easily modified, and is wonderfully organized.  Plus, I make posts by pushing via git, so the blog has automatic version control.  This is a win all around.
+
+As for blahgger, and my other older project ceekrt, the code for their initial versions should see the light of day somewhere.  I will probably put them up on github sometime soon, but don't hold me to that.  They're pretty poorly written, but they might be of use to someone.
+
+As for this blog, I hope you enjoy the ride.  I'm going to love it.
+
+Welcome to a->ab.

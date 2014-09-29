@@ -11,10 +11,32 @@
 <find_panel_settings/>
 <vnodes>
 <v t="peckj.20140121082121.6593" a="E"
-expanded="peckj.20140121082121.6639,peckj.20140123082920.4919,"><vh>@file sitebuilder.py</vh></v>
+expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file sitebuilder.py</vh></v>
 <v t="peckj.20140121082121.6594"><vh>@edit README.md</vh></v>
 <v t="peckj.20140121082121.6595" a="E"><vh>@path pages</vh>
-<v t="peckj.20140123082920.4905" a="E"><vh>@path 2014</vh>
+<v t="peckj.20140929083759.4126" a="E"><vh>@path 2010</vh>
+<v t="peckj.20140929083759.4127" a="E"><vh>@path 08</vh>
+<v t="peckj.20140929083759.4128"><vh>@path 23</vh>
+<v t="peckj.20140929083759.4129"><vh>@edit blahgger-first-alpha.md</vh></v>
+<v t="peckj.20140929083759.4130"><vh>@edit welcome-to-my-dev-blog.md</vh></v>
+<v t="peckj.20140929083759.4131"><vh>@edit white-noise-generator-for-the-msp430.md</vh></v>
+</v>
+<v t="peckj.20140929083759.4132"><vh>@path 25</vh>
+<v t="peckj.20140929083759.4133"><vh>@edit msphere-framework.md</vh></v>
+</v>
+<v t="peckj.20140929083759.4135"><vh>@path 26</vh>
+<v t="peckj.20140929083759.4136"><vh>@edit quick-msphere-update.md</vh></v>
+</v>
+<v t="peckj.20140929083759.4137"><vh>@path 27</vh>
+<v t="peckj.20140929083759.4138"><vh>@edit quick-blahgger-update.md</vh></v>
+<v t="peckj.20140929083759.4139"><vh>@edit launchpad-74hc595-shift-register-demo.md</vh></v>
+</v>
+<v t="peckj.20140929083759.4140" a="E"><vh>@path 31</vh>
+<v t="peckj.20140929083759.4141"><vh>@edit minor-blahgger-update-and-other-musings.md</vh></v>
+</v>
+</v>
+</v>
+<v t="peckj.20140123082920.4905"><vh>@path 2014</vh>
 <v t="peckj.20140123082920.4906" a="E"><vh>@path 01</vh>
 <v t="peckj.20140123082920.4907" a="E"><vh>@path 21</vh>
 <v t="peckj.20140123082920.4908"><vh>@edit idiotpie.md</vh></v>
@@ -72,5 +94,12 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <t tx="peckj.20140123082920.4925"></t>
 <t tx="peckj.20140123082920.4928">be sure to change the values in the index for new/old page split</t>
 <t tx="peckj.20140127083227.9752">@url http://flask.pocoo.org/snippets/10/</t>
+<t tx="peckj.20140929083759.4126"></t>
+<t tx="peckj.20140929083759.4127"></t>
+<t tx="peckj.20140929083759.4128"></t>
+<t tx="peckj.20140929083759.4132"></t>
+<t tx="peckj.20140929083759.4135"></t>
+<t tx="peckj.20140929083759.4137"></t>
+<t tx="peckj.20140929083759.4140"></t>
 </tnodes>
 </leo_file>
