@@ -10,12 +10,12 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="peckj.20140121082121.6593" a="E"
+<v t="peckj.20140121082121.6593"
 expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file sitebuilder.py</vh></v>
 <v t="peckj.20140121082121.6594"><vh>@edit README.md</vh></v>
-<v t="peckj.20140121082121.6595" a="E"><vh>@path pages</vh>
-<v t="peckj.20140929083759.4126" a="E"><vh>@path 2010</vh>
-<v t="peckj.20140929083759.4127" a="E"><vh>@path 08</vh>
+<v t="peckj.20140121082121.6595"><vh>@path pages</vh>
+<v t="peckj.20140929083759.4126"><vh>@path 2010</vh>
+<v t="peckj.20140929083759.4127"><vh>@path 08</vh>
 <v t="peckj.20140929083759.4128"><vh>@path 23</vh>
 <v t="peckj.20140929083759.4129"><vh>@edit blahgger-first-alpha.md</vh></v>
 <v t="peckj.20140929083759.4130"><vh>@edit welcome-to-my-dev-blog.md</vh></v>
@@ -31,15 +31,8 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 <v t="peckj.20140929083759.4138"><vh>@edit quick-blahgger-update.md</vh></v>
 <v t="peckj.20140929083759.4139"><vh>@edit launchpad-74hc595-shift-register-demo.md</vh></v>
 </v>
-<v t="peckj.20140929083759.4140" a="E"><vh>@path 31</vh>
+<v t="peckj.20140929083759.4140"><vh>@path 31</vh>
 <v t="peckj.20140929083759.4141"><vh>@edit minor-blahgger-update-and-other-musings.md</vh></v>
-</v>
-</v>
-</v>
-<v t="peckj.20140123082920.4905"><vh>@path 2014</vh>
-<v t="peckj.20140123082920.4906" a="E"><vh>@path 01</vh>
-<v t="peckj.20140123082920.4907" a="E"><vh>@path 21</vh>
-<v t="peckj.20140123082920.4908"><vh>@edit idiotpie.md</vh></v>
 </v>
 </v>
 </v>
@@ -78,6 +71,8 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <v t="peckj.20140123082920.4928"><vh>import all old articles</vh></v>
 <v t="peckj.20140127083227.9752"><vh>RSS feed</vh></v>
 </v>
+<v t="peckj.20140929083759.4142"><vh>import-old-articles</vh></v>
+<v t="peckj.20140929083759.4143"><vh>clean empty directories</vh></v>
 </vnodes>
 <tnodes>
 <t tx="peckj.20140121082121.6595"></t>
@@ -88,9 +83,6 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <t tx="peckj.20140121082121.6612"></t>
 <t tx="peckj.20140121082121.6635"></t>
 <t tx="peckj.20140121082121.6636"></t>
-<t tx="peckj.20140123082920.4905"></t>
-<t tx="peckj.20140123082920.4906"></t>
-<t tx="peckj.20140123082920.4907"></t>
 <t tx="peckj.20140123082920.4925"></t>
 <t tx="peckj.20140123082920.4928">be sure to change the values in the index for new/old page split</t>
 <t tx="peckj.20140127083227.9752">@url http://flask.pocoo.org/snippets/10/</t>
@@ -101,5 +93,34 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <t tx="peckj.20140929083759.4135"></t>
 <t tx="peckj.20140929083759.4137"></t>
 <t tx="peckj.20140929083759.4140"></t>
+<t tx="peckj.20140929083759.4142">@language python
+
+import os
+
+importdir = 'to-be-sorted'
+destdir = 'pages'
+
+# get list of files in importdir
+files = os.listdir(importdir)
+
+# operate on one file at a time
+for article in files:
+  # move to proper directory
+  datestamp = article[:10]
+  year = datestamp[:4]
+  month = datestamp[5:7]
+  day = datestamp[8:]
+  
+  path = os.path.join(destdir,year,month,day)
+  try:
+    os.makedirs(path)
+  except:
+    pass
+  
+  # rename the file
+  newname = article[11:-4] + '.md'
+  g.es(newname)
+  os.rename(os.path.join(importdir,article), os.path.join(path,newname))</t>
+<t tx="peckj.20140929083759.4143"></t>
 </tnodes>
 </leo_file>
