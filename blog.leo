@@ -121,6 +121,25 @@ for article in files:
   newname = article[11:-4] + '.md'
   g.es(newname)
   os.rename(os.path.join(importdir,article), os.path.join(path,newname))</t>
-<t tx="peckj.20140929083759.4143"></t>
+<t tx="peckj.20140929083759.4143">@language python
+
+import os
+
+scandir = 'pages'
+
+years = os.listdir(scandir)
+
+for y in years:
+  p = os.path.join(scandir, y)
+  months = os.listdir(p)
+  
+  for m in months:
+    p = os.path.join(scandir,y, m)
+    days = os.listdir(p)
+    if len(days) == 0:
+      os.rmdir(p)
+      g.es('deleted %s' % p)
+
+</t>
 </tnodes>
 </leo_file>
