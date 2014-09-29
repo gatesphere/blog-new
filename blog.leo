@@ -12,7 +12,7 @@
 <vnodes>
 <v t="peckj.20140121082121.6593"
 expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file sitebuilder.py</vh></v>
-<v t="peckj.20140929120632.5053"><vh>@path pages</vh>
+<v t="peckj.20140929120632.5053" a="E"><vh>@path pages</vh>
 <v t="peckj.20140929120632.6871"><vh>@ignore old articles</vh>
 <v t="peckj.20140929120632.5054"><vh>@path 2010</vh>
 <v t="peckj.20140929120632.5055"><vh>@path 08</vh>
@@ -173,27 +173,27 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 </v>
 </v>
 <v t="peckj.20140929120632.5156"><vh>@path 2012</vh>
-<v t="peckj.20140929120632.5157" a="E"><vh>@path 01</vh>
-<v t="peckj.20140929120632.5158" a="E"><vh>@path 10</vh>
+<v t="peckj.20140929120632.5157"><vh>@path 01</vh>
+<v t="peckj.20140929120632.5158"><vh>@path 10</vh>
 <v t="peckj.20140929120632.5159"><vh>@edit introducing-jedi.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5160" a="E"><vh>@path 02</vh>
+<v t="peckj.20140929120632.5160"><vh>@path 02</vh>
 <v t="peckj.20140929120632.5161" a="E"><vh>@path 14</vh>
 <v t="peckj.20140929120632.5162"><vh>@edit introducing-silica.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5163" a="E"><vh>@path 03</vh>
+<v t="peckj.20140929120632.5163"><vh>@path 03</vh>
 <v t="peckj.20140929120632.5164" a="E"><vh>@path 20</vh>
 <v t="peckj.20140929120632.5165"><vh>@edit stegio-a-brief-example-of-steganography.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5166" a="E"><vh>@path 04</vh>
+<v t="peckj.20140929120632.5166"><vh>@path 04</vh>
 <v t="peckj.20140929120632.5167" a="E"><vh>@path 28</vh>
 <v t="peckj.20140929120632.5168"><vh>@edit demi-16-a-dcpu-16-emulator.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5169" a="E"><vh>@path 06</vh>
+<v t="peckj.20140929120632.5169"><vh>@path 06</vh>
 <v t="peckj.20140929120632.5170" a="E"><vh>@path 01</vh>
 <v t="peckj.20140929120632.5171"><vh>@edit welcome-to-a-ab.md</vh></v>
 </v>
@@ -219,7 +219,7 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 <v t="peckj.20140929120632.5185"><vh>@edit csmm---lesson-14-advanced-logic-and-arithmetic-in-the-lambda-calculus.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5186" a="E"><vh>@path 07</vh>
+<v t="peckj.20140929120632.5186"><vh>@path 07</vh>
 <v t="peckj.20140929120632.5187" a="E"><vh>@path 03</vh>
 <v t="peckj.20140929120632.5188"><vh>@edit csmm---lesson-15-flow-control-and-recursion-in-the-lambda-calculus.md</vh></v>
 </v>
@@ -232,7 +232,7 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 <v t="peckj.20140929120632.5194"><vh>@edit reverse-engineering-the-paper-jamz-pro-instrument-files.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5195" a="E"><vh>@path 09</vh>
+<v t="peckj.20140929120632.5195"><vh>@path 09</vh>
 <v t="peckj.20140929120632.5196" a="E"><vh>@path 10</vh>
 <v t="peckj.20140929120632.5197"><vh>@edit a-monologue-on-api-flexibility.md</vh></v>
 </v>
@@ -243,7 +243,7 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 <v t="peckj.20140929120632.5201"><vh>@edit adventures-with-a-raspberry-pi.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5202" a="E"><vh>@path 10</vh>
+<v t="peckj.20140929120632.5202"><vh>@path 10</vh>
 <v t="peckj.20140929120632.5203" a="E"><vh>@path 04</vh>
 <v t="peckj.20140929120632.5204"><vh>@edit a-simplistic-introduction-to-diffie-hellman-key-exchange.md</vh></v>
 </v>
@@ -261,7 +261,7 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 <v t="peckj.20140929120632.5213"><vh>@edit a-tale-of-three-telnets.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5214" a="E"><vh>@path 11</vh>
+<v t="peckj.20140929120632.5214"><vh>@path 11</vh>
 <v t="peckj.20140929120632.5215" a="E"><vh>@path 12</vh>
 <v t="peckj.20140929120632.5216"><vh>@edit stupid-tricks-bash.md</vh></v>
 </v>
@@ -269,7 +269,7 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 <v t="peckj.20140929120632.5218"><vh>@edit webtally---a-stupid-webapp.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5219" a="E"><vh>@path 12</vh>
+<v t="peckj.20140929120632.5219"><vh>@path 12</vh>
 <v t="peckj.20140929120632.5220" a="E"><vh>@path 26</vh>
 <v t="peckj.20140929120632.5221"><vh>@edit blog-and-website-redesign.md</vh></v>
 </v>
@@ -372,7 +372,7 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 </v>
 </v>
 </v>
-<v t="peckj.20140929120632.5287"><vh>@path 2014</vh>
+<v t="peckj.20140929120632.5287" a="E"><vh>@path 2014</vh>
 <v t="peckj.20140929120632.5288"><vh>@path 01</vh>
 <v t="peckj.20140929120632.5289" a="E"><vh>@path 06</vh>
 <v t="peckj.20140929120632.5290"><vh>@edit ltd-week-2014-01.md</vh></v>
@@ -449,7 +449,7 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 <v t="peckj.20140929120632.5338"><vh>@edit ltd-week-2014-13.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5339" a="E"><vh>@path 04</vh>
+<v t="peckj.20140929120632.5339"><vh>@path 04</vh>
 <v t="peckj.20140929120632.5340" a="E"><vh>@path 02</vh>
 <v t="peckj.20140929120632.5341"><vh>@edit anonymous-microblogging-strikes-again.md</vh></v>
 </v>
@@ -980,7 +980,7 @@ EDIT 2: Featured on [43oh](http://www.43oh.com/) for the third time. Link [here]
 title: Minor blahgger update
 date: 2010-09-12
 
-date: 2010-09-12
+Another minor update:
 I had logic errors in the page bar and the content printing for pages beyond the first. It just cropped up because last post is the first time the blog went beyond the first page (10 posts per page).
 
 I also added a link to the front page under the header. I've been meaning to do that for a while.
@@ -2083,7 +2083,7 @@ Hello everyone,
 
 It's been a while again. But I've been up to interesting things!
 
-date: 2012-01-10
+The book has been placed on hold for the time being, as I have been working on a few other things. I've started a project called [io-koans](https://github.com/gatesphere/io-koans), which is designed to be an interactive way to learn the Io programming language, through fill-in-the-blank puzzles, in the style of [4clojure](http://www.4clojure.com/). I've also worked my way through the entire [Seven Languages in Seven Weeks](http://pragprog.com/book/btlang/seven-languages-in-seven-weeks) (in significantly fewer than seven weeks...), and I feel I've grown tremendously as a programmer from it. It inspired me, in fact. So much that I've begun probably my most ambitious project to date: the [jedi programming language](https://github.com/gatesphere/jedi). I'll let the github page speak for itself, but I'm having a lot of fun with it.
 
 That's... that, I suppose. Yeah.
 
