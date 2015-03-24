@@ -65,8 +65,8 @@ def get_date(page):
 def index():
   p = list(pages)
   p.sort(key=lambda x: get_date(x), reverse=True)
-  new=p[:1]
-  old=p[1:]
+  new=p[:10]
+  old=p[10:]
   return html_minify(render_template('index.html', newpages=new, oldpages=old))
 #@+node:peckj.20140121082121.6642: *3* route '/tag/<string:tag>/'
 @app.route('/tag/<string:tag>/')

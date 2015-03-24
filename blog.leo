@@ -10,8 +10,8 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="peckj.20140121082121.6593"
-expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file sitebuilder.py</vh></v>
+<v t="peckj.20140121082121.6593" a="E"
+expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,peckj.20140123082920.4919,"><vh>@file sitebuilder.py</vh></v>
 <v t="peckj.20140929120632.5053" a="E"><vh>@path pages</vh>
 <v t="peckj.20140929120632.6871"><vh>@ignore old articles</vh>
 <v t="peckj.20140929120632.5054"><vh>@path 2010</vh>
@@ -494,18 +494,18 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,"><vh>@file siteb
 </v>
 </v>
 <v t="peckj.20140121082121.6594"><vh>@edit README.md</vh></v>
-<v t="peckj.20140121082121.6601"><vh>@path static</vh>
-<v t="peckj.20140121082121.6598"><vh>@path assets</vh>
-<v t="peckj.20140121082121.6599"><vh>@path css</vh>
+<v t="peckj.20140121082121.6601" a="E"><vh>@path static</vh>
+<v t="peckj.20140121082121.6598" a="E"><vh>@path assets</vh>
+<v t="peckj.20140121082121.6599" a="E"><vh>@path css</vh>
 <v t="peckj.20140121082121.6600" a="E"
-expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.20130219112325.1714,"><vh>@file style.css</vh></v>
+expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.20130219112325.1714,peckj.20130201100641.1410,"><vh>@file style.css</vh></v>
 </v>
-<v t="peckj.20140121082121.6635"><vh>@path img</vh>
+<v t="peckj.20140121082121.6635" a="E"><vh>@path img</vh>
 <v t="peckj.20140121082121.6636"><vh>@image bg.png</vh></v>
 </v>
 </v>
 </v>
-<v t="peckj.20140121082121.6602"><vh>@path templates</vh>
+<v t="peckj.20140121082121.6602" a="E"><vh>@path templates</vh>
 <v t="peckj.20140121082121.6612" a="E"><vh>partials</vh>
 <v t="peckj.20140121082121.6603"><vh>@file _footer.html</vh></v>
 <v t="peckj.20140121082121.6604"><vh>@file _header.html</vh></v>
@@ -530,7 +530,7 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <v t="peckj.20140929083759.4144"><vh>add articles to leo</vh></v>
 <v t="peckj.20140929120632.5368"><vh>format-dates-and-tags</vh></v>
 </v>
-<v t="peckj.20140123082920.4925"><vh>to do</vh>
+<v t="peckj.20140123082920.4925" a="E"><vh>to do</vh>
 <v t="peckj.20140127083227.9752"><vh>RSS feed</vh></v>
 </v>
 </vnodes>

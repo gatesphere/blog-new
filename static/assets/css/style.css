@@ -157,6 +157,14 @@ header, footer, section, article {
   font-style: italic;
   text-align: right;
 }
+/*@+node:peckj.20150324123246.1: *3* .rss*/
+.rss {
+  margin: 3px 0px;
+  background-image: url('/static/assets/img/rss.png');
+  background-repeat: no-repeat;
+  padding-left: 15px;
+  /*display: block;*/
+}
 /*@+node:peckj.20130201100641.1417: *3* #archives*/
 #archives ul {
   list-style-type: none;
