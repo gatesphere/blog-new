@@ -12,7 +12,7 @@
 <vnodes>
 <v t="peckj.20140121082121.6593" a="E"
 expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,peckj.20140123082920.4919,"><vh>@file sitebuilder.py</vh></v>
-<v t="peckj.20140929120632.5053" a="E"><vh>@path pages</vh>
+<v t="peckj.20140929120632.5053"><vh>@path pages</vh>
 <v t="peckj.20140929120632.6871"><vh>@ignore old articles</vh>
 <v t="peckj.20140929120632.5054"><vh>@path 2010</vh>
 <v t="peckj.20140929120632.5055"><vh>@path 08</vh>
@@ -494,14 +494,15 @@ expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,peckj.20140123082
 </v>
 </v>
 <v t="peckj.20140121082121.6594"><vh>@edit README.md</vh></v>
-<v t="peckj.20140121082121.6601" a="E"><vh>@path static</vh>
+<v t="peckj.20140121082121.6601"><vh>@path static</vh>
 <v t="peckj.20140121082121.6598" a="E"><vh>@path assets</vh>
 <v t="peckj.20140121082121.6599" a="E"><vh>@path css</vh>
-<v t="peckj.20140121082121.6600" a="E"
-expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.20130219112325.1714,peckj.20130201100641.1410,"><vh>@file style.css</vh></v>
+<v t="peckj.20140121082121.6600"
+expanded="peckj.20130219112325.1714,"><vh>@file style.css</vh></v>
 </v>
-<v t="peckj.20140121082121.6635" a="E"><vh>@path img</vh>
+<v t="peckj.20140121082121.6635"><vh>@path img</vh>
 <v t="peckj.20140121082121.6636"><vh>@image bg.png</vh></v>
+<v t="peckj.20150324125338.1"><vh>@image rss.png</vh></v>
 </v>
 </v>
 </v>
@@ -532,6 +533,8 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 </v>
 <v t="peckj.20140123082920.4925" a="E"><vh>to do</vh>
 <v t="peckj.20140127083227.9752"><vh>RSS feed</vh></v>
+<v t="peckj.20150324125826.1"><vh>add favicon</vh></v>
+<v t="peckj.20150324125832.1"><vh>add robots</vh></v>
 </v>
 </vnodes>
 <tnodes>
@@ -543,7 +546,7 @@ expanded="peckj.20130201100641.1409,peckj.20130201100641.1400,peckj.201302191123
 <t tx="peckj.20140121082121.6635"></t>
 <t tx="peckj.20140121082121.6636"></t>
 <t tx="peckj.20140123082920.4925"></t>
-<t tx="peckj.20140127083227.9752">@url http://flask.pocoo.org/snippets/10/</t>
+<t tx="peckj.20140127083227.9752" annotate="7d71002855087072696f7269747971014b64550a707269736574646174657102550a323031352d30332d32347103752e" lineYOffset="4b032e" icons="5d71007d71012855026f6e71025505766e6f646571035504747970657104550466696c6571055507796f666673657471064b005508636c656f49636f6e7107550131710868055843000000433a5c63796777696e5c686f6d655c5065636b4a5c7265706f735c6c656f5c6c656f2d656469746f725c6c656f5c49636f6e735c636c656f5c63686b626c6b2e706e677109550478706164710a4b0155057768657265710b550e6265666f7265486561646c696e65710c5507786f6666736574710d4b02550772656c50617468710e580f000000636c656f5c63686b626c6b2e706e67710f75612e">@url http://flask.pocoo.org/snippets/10/</t>
 <t tx="peckj.20140929083759.4142">@language python
 
 import os
@@ -6272,5 +6275,8 @@ for yr in years:
 
 g.es('done')</t>
 <t tx="peckj.20140929120632.6871"></t>
+<t tx="peckj.20150324125338.1"></t>
+<t tx="peckj.20150324125826.1"></t>
+<t tx="peckj.20150324125832.1"></t>
 </tnodes>
 </leo_file>

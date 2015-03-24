@@ -14,6 +14,11 @@ from flask_flatpages import FlatPages
 from flask_frozen import Freezer
 from flask.ext.assets import Environment
 from htmlmin.minify import html_minify
+
+from urlparse import urljoin
+from flask import request
+from werkzeug.contrib.atom import AtomFeed
+
 #@-<< imports >>
 #@+<< declarations >>
 #@+node:peckj.20140121082121.6638: ** << declarations >>
@@ -59,6 +64,9 @@ def get_pages_by_date(year=None, month=None, day=None):
 def get_date(page):
   page_date = page.meta['date']
   return page_date
+#@+node:peckj.20150324130423.1: *3* make_external_url
+def make_external_url(url):
+  return urljoin(BASE_URL, url)
 #@+node:peckj.20140121082121.6639: ** routes
 #@+node:peckj.20140121082121.6641: *3* route '/'
 @app.route("/")
@@ -127,6 +135,41 @@ def day_generator():
     if day not in days:
       days.append(day)
   return days
+#@+node:peckj.20150324132209.1: *3* rss feeds
+#@+node:peckj.20150324130257.1: *4* route '/index.xml'
+@app.route('/index.xml')
+def rss_feed():
+  feed = AtomFeed('a->ab',
+    feed_url=request.url, url=request.url_root)
+  p = list(pages)
+  p.sort(key=lambda x: get_date(x), reverse=True)
+  articles = p[:10]
+  
+  for article in articles:
+    feed.add(article.meta['title'], unicode(article.html),
+        content_type='html',
+        author='Jacob Peck',
+        url=make_external_url(article.path),
+        updated=article.meta['date'])
+  
+  return feed.get_response()
+#@+node:peckj.20150324131858.1: *4* route '/leo.xml'
+@app.route('/leo.xml')
+def rss_feed_leo():
+  feed = AtomFeed('a->ab',
+    feed_url=request.url, url=request.url_root)
+  
+  tagged = [p for p in pages if 'leo' in p.meta.get('tags', [])]
+  tagged.sort(key=lambda x: get_date(x), reverse=True)
+  
+  for article in tagged:
+    feed.add(article.meta['title'], unicode(article.html),
+        content_type='html',
+        author='Jacob Peck',
+        url=make_external_url(article.path),
+        updated=article.meta['date'])
+  
+  return feed.get_response()
 #@+node:peckj.20140123082920.4917: *3* top-level nav
 #@+node:peckj.20140123082920.4911: *4* route '/about/'
 @app.route("/about/")
