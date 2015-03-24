@@ -224,6 +224,16 @@ def favicon():
 @app.route('/robots.txt')
 def robots():
   return  send_from_directory(app.static_folder, 'assets/robots.txt')
+#@+node:peckj.20150324142405.1: *3* page generator
+#@+node:peckj.20150324142417.1: *4* page_generator
+#@+at
+# @freezer.register_generator
+# def page_generator():
+#   pagelist = []
+#   for root, dir, files in os.walk('pages'):
+#     for file in files:
+#       pagelist.append(('page', {'path' : "/".join((root[6:],file[:-3])) }))
+#   return pagelist
 #@-others
 
 if __name__ == "__main__":
