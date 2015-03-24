@@ -140,7 +140,9 @@ def day_generator():
 @app.route('/index.xml')
 def rss_feed():
   feed = AtomFeed('a->ab',
-    feed_url=request.url, url=request.url_root)
+    feed_url=request.url,
+    url=request.url_root,
+    author='Jake Peck')
   p = list(pages)
   p.sort(key=lambda x: get_date(x), reverse=True)
   articles = p[:10]
@@ -148,7 +150,7 @@ def rss_feed():
   for article in articles:
     feed.add(article.meta['title'], unicode(article.html),
         content_type='html',
-        author='Jacob Peck',
+        author='Jake Peck',
         url=make_external_url(article.path),
         updated=article.meta['date'])
   
@@ -157,7 +159,9 @@ def rss_feed():
 @app.route('/leo.xml')
 def rss_feed_leo():
   feed = AtomFeed('a->ab',
-    feed_url=request.url, url=request.url_root)
+    feed_url=request.url,
+    url=request.url_root,
+    author='Jake Peck')
   
   tagged = [p for p in pages if 'leo' in p.meta.get('tags', [])]
   tagged.sort(key=lambda x: get_date(x), reverse=True)
@@ -165,7 +169,7 @@ def rss_feed_leo():
   for article in tagged:
     feed.add(article.meta['title'], unicode(article.html),
         content_type='html',
-        author='Jacob Peck',
+        author='Jake Peck',
         url=make_external_url(article.path),
         updated=article.meta['date'])
   

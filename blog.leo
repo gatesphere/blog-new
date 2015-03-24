@@ -11,7 +11,7 @@
 <find_panel_settings/>
 <vnodes>
 <v t="peckj.20140121082121.6593" a="E"
-expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,peckj.20140123082920.4919,"><vh>@file sitebuilder.py</vh></v>
+expanded="peckj.20140127083227.10220,peckj.20140121082121.6639,peckj.20150324132209.1,peckj.20140123082920.4919,"><vh>@file sitebuilder.py</vh></v>
 <v t="peckj.20140929120632.5053"><vh>@path pages</vh>
 <v t="peckj.20140929120632.6871"><vh>@ignore old articles</vh>
 <v t="peckj.20140929120632.5054"><vh>@path 2010</vh>
