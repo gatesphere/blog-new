@@ -1,9 +1,0 @@
-<!--@+leo-ver=5-thin-->
-<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
-<!--@@language html-->
-{# include your stylesheets below #}
-{% assets filters="cssmin", output="assets/packed.css",
-          "assets/css/style.css" %}
-    <link href="{{ ASSET_URL }}" media="all" rel="stylesheet" type="text/css" />
-{% endassets %}
-<!--@-leo-->

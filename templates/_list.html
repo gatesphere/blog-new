@@ -1,9 +1,0 @@
-<!--@+leo-ver=5-thin-->
-<!--@+node:peckj.20140121082121.6606: * @file _list.html-->
-<!--@@language html-->
-<ul>
-{% for page in pages %}
-  <li>{{ page.meta.date|dateformat }} - <a href="{{ url_for("page", path=page.path) }}">{{ page.title }}</a></li>
-{% endfor %}
-</ul>
-<!--@-leo-->
