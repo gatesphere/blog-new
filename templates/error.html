@@ -2,6 +2,9 @@
 <!--@+node:peckj.20140121082121.6644: * @file error.html-->
 <!--@@language html-->
 {% extends "base.html" %}
+{% block title %}
+    <title>error 404 | a-&gt;ab</title>
+{% endblock title %}
 {% block content %}
   <h1>error {{ error }}</h1>
   <p>Sorry.  Would you like to go back <a href="{{ url_for('index') }}">home</a>?</p>
