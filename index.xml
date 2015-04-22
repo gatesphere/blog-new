@@ -2,13 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text">a-&gt;ab</title>
   <id>http://localhost/index.xml</id>
-  <updated>2014-06-10T00:00:00Z</updated>
+  <updated>2015-04-22T00:00:00Z</updated>
   <link href="http://localhost/" />
   <link href="http://localhost/index.xml" rel="self" />
   <author>
     <name>Jake Peck</name>
   </author>
   <generator>Werkzeug</generator>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">Blog now hosted on github</title>
+    <id>http://blog.suspended-chord.info/2015/04/22/blog-now-hosted-on-github</id>
+    <updated>2015-04-22T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2015/04/22/blog-now-hosted-on-github" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;Phew!  A bunch of work has led me to this point... but, the blog is now running on github pages instead of Heroku. Additionally, it's now Ptah-based.  :)&lt;/p&gt;
+&lt;p&gt;Hopefully there aren't any differences between old and new (aside from a few cleanups), but who knows?  This migration has taken me close to 10 months of work, off and on... mostly off.  But Heroku's closing of the cedar stack in June really kicked me in the behind to get this going.&lt;/p&gt;
+&lt;p&gt;Here's to a more active blog again!&lt;/p&gt;
+&lt;p&gt;Thanks for reading.&lt;/p&gt;</content>
+  </entry>
   <entry xml:base="http://localhost/index.xml">
     <title type="text">LTD Week 2014 23</title>
     <id>http://blog.suspended-chord.info/2014/06/10/ltd-week-2014-23</id>
@@ -272,37 +285,5 @@
     <content type="html">&lt;p&gt;As mentioned in &lt;a href=&quot;/2014/04/16/on-grinding-in-games/&quot;&gt;last week's post&lt;/a&gt;, I've been playing Monster Hunter 3 Ultimate lately.  I think it's a really well done game.  It's also a refreshing take on the whole level-up concept, in that your character never improves -- your play improves.&lt;/p&gt;
 &lt;p&gt;This is accomplished by having a single unwavering base stat: defense 50.  Every increase on top of that is either your gear (which gets better as you earn rare ingredients and forge new pieces), or you as a player.  I find this concept fascinating.  Not only does it (kind of) model real life, but it rewards the player for their dedication.  It removes the concept of 'character' and replaces it with 'avatar' -- and MH3U's ability to change your hairstyles at will reinforces this.  Your avatar is an expression of you, rather than a living, breathing entity of his/her own.  I think that's something that most MMOs are sorely missing.&lt;/p&gt;
 &lt;p&gt;Anyways, I just wanted to highlight this idea.  It's really neat to me, and fosters some interesting emergent gameplay.&lt;/p&gt;</content>
-  </entry>
-  <entry xml:base="http://localhost/index.xml">
-    <title type="text">LTD Week 2014 16</title>
-    <id>http://blog.suspended-chord.info/2014/04/22/ltd-week-2014-16</id>
-    <updated>2014-04-22T00:00:00Z</updated>
-    <link href="http://blog.suspended-chord.info/2014/04/22/ltd-week-2014-16" />
-    <author>
-      <name>Jake Peck</name>
-    </author>
-    <content type="html">&lt;p&gt;I was kind of sloppy with reporting this week, so here's what we've got:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Work&lt;ul&gt;
-&lt;li&gt;Tried to rollback a blackboard service pack -- no dice&lt;/li&gt;
-&lt;li&gt;Worked on a few FTP jobs&lt;/li&gt;
-&lt;li&gt;Examined our servers for heartbleed vulnerability&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Responsibility&lt;ul&gt;
-&lt;li&gt;Kept up with Tabata&lt;/li&gt;
-&lt;li&gt;Housework&lt;/li&gt;
-&lt;li&gt;Cleaned up my workbook.leo file&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Leisure&lt;ul&gt;
-&lt;li&gt;Played a bunch of Monster Hunter 3 Ultimate&lt;/li&gt;
-&lt;li&gt;Finished reading Basic Fantasy RPG&lt;/li&gt;
-&lt;li&gt;Set up my Club Nintendo account, linked it to my NNID&lt;/li&gt;
-&lt;li&gt;Wrote a small dice game called Drones, still need to playtest&lt;/li&gt;
-&lt;li&gt;Cleaned up Windows version reporting in Leo's Log pane on startup&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</content>
   </entry>
 </feed>
