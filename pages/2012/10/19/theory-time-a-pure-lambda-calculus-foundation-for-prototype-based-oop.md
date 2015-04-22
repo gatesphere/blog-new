@@ -1,5 +1,5 @@
 ---
-title: ! 'Theory Time: A pure lambda-calculus foundation for prototype-based OOP'
+title: Theory Time - A pure lambda-calculus foundation for prototype-based OOP
 date: 2012-10-19
 tags: [theory, lambda calculus, lambda, prototype, oop, map, list, hash]
 
@@ -67,13 +67,13 @@ the empty list (NIL), or a pair consisting of an element and a smaller list.
 
 We can use the following definitions for creating and manipulating lists:
 
-    TRUE  := λa b.a
-    FALSE := λa b.b
-    CONS  := λa b f.f a b
-    NIL   := λf.TRUE
-    NIL?  := λl.l (\a b.FALSE)
-    HEAD  := λl.l TRUE
-    TAIL  := λl.l FALSE
+    TRUE  := \a b.a
+    FALSE := \a b.b
+    CONS  := \a b f.f a b
+    NIL   := \f.TRUE
+    NIL?  := \l.l (\a b.FALSE)
+    HEAD  := \l.l TRUE
+    TAIL  := \l.l FALSE
     
 These functions are the building blocks for lists in the \\(\lambda\\)-calculus.
 
@@ -118,7 +118,7 @@ predicate for will work as the keys of a map.
 
 The lookup function isn't to difficult to define:
 
-    LOOKUP := λr m k.
+    LOOKUP := \r m k.
       IF (= (HEAD (HEAD m)) k)
         (TAIL (HEAD m))
         (IF (NIL? (TAIL m))
@@ -138,7 +138,7 @@ That's a bit dense, but in pseudo-code, it reads a bit like this:
         
 Actually using this involves the Y-combinator, a method of recursion in the \\(\lambda\\)-calculus:
 
-    Y := λa.(λb.a (b b)) (λb.a (b b))
+    Y := \a.(\b.a (b b)) (\b.a (b b))
     
 To perform a lookup of key k on map m, do this:
 
@@ -167,7 +167,7 @@ the slots of its ancestor object, recursing further if it isn't found there eith
 
 A definition for this is pretty simple as well:
 
-    GETSLOT := λr s o.
+    GETSLOT := \r s o.
       IF (NIL? ((Y LOOKUP) (TAIL o) s))
         (IF (NIL? (HEAD o))
           NIL

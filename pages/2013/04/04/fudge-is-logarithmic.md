@@ -1,4 +1,4 @@
----
+--- 
 date: 2013-04-04
 tags: [fudge, rpg, fate, dice, math, simulations, code-dump]
 title: Fudge is logarithmic
@@ -12,7 +12,7 @@ to run (though, it ended up taking a very different direction!), when I
 came across a set of draft rules called, appropriately, [Fudge Space Opera](http://www.sonic.net/~rknop/php/Omar/fudge/spop/spop_0.3.0.pdf).
 Right in the introduction, it states:
 
->Fudge ... is intrinsically a logarithmic system (although you don’t need 
+>Fudge ... is intrinsically a logarithmic system (although you don't need 
 >to know that to play it!), and that together with the Scale mechanic lets 
 >you elegantly renormalize yourself to any range of sizes.
 

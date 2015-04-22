@@ -3,7 +3,7 @@ date: 2014-02-04
 tags: [book, games, life, philosophy, review]
 title: "Book Review - Code"
 
-On to my third review... I had been meaning to read this book for some time, and am I ever glad I did!  Petzold is a good teacher and a better writer, with a friendly, conversational voice that lends the reader a sense of coffee-shop talk through the whole thing, as if the author was describing to his buddy how a computer works from the electron on up with scribbles on napkins in some off-the-beaten-track café.  It's the right tone for the job too, as it's a pretty heavy subject.  Let's give it a quick look.
+On to my third review... I had been meaning to read this book for some time, and am I ever glad I did!  Petzold is a good teacher and a better writer, with a friendly, conversational voice that lends the reader a sense of coffee-shop talk through the whole thing, as if the author was describing to his buddy how a computer works from the electron on up with scribbles on napkins in some off-the-beaten-track cafe.  It's the right tone for the job too, as it's a pretty heavy subject.  Let's give it a quick look.
 
 # Vitals
 **Title:** Code (The Hidden Language of Computer Hardware and Software)

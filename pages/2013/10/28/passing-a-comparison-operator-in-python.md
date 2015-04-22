@@ -8,7 +8,7 @@ involved a comparison operator.  I was already using the same code in two places
 with different comparison operators switched in.  Eww.
 
 I didn't quite know how to pull this off, given that I'm not that well versed on Python's introspection
-faculties... but I gave it a whack.  My first thought was the nïave approach, of passing in a string
+faculties... but I gave it a whack.  My first thought was the niave approach, of passing in a string
 to specify mode...
 
 <script src="https://gist.github.com/gatesphere/7201086.js?file=approach_1.py"></script>

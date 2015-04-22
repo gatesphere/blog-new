@@ -6,7 +6,7 @@
 
 #@+<< imports >>
 #@+node:peckj.20140121082121.6637: ** << imports >>
-import sys, shutil
+import sys, shutil, os
 from datetime import datetime, date
 
 from flask import Flask, render_template, abort, send_from_directory
@@ -87,51 +87,63 @@ def tag(tag):
 def page(path):
   page = pages.get_or_404(path)
   return html_minify(render_template('page.html', page=page))
+#@+node:peckj.20150422092749.1: *4* page_generator
+@freezer.register_generator
+def page_generator():
+  pagelist = []
+  for root, dir, files in os.walk('pages'):
+    for file in files:
+      pagelist.append(('page', {'path' : "/".join((root[6:].replace('\\','/'),file[:-3])) }))
+  return pagelist
+
 #@+node:peckj.20140127083227.10219: *3* route '/<int:year>/'
-@app.route('/<int:year>/')
+@app.route('/<int:year>/index.html')
 def year(year):
   title = '%04d' % year
   year_pages = get_pages_by_date(year=year)
   return html_minify(render_template('archives.html', pages=year_pages, title=title))
 
+#@+node:peckj.20150422092803.1: *4* year_generator
 @freezer.register_generator
 def year_generator():
   years = []
   for p in pages:
     d = get_date(p)
-    y = '/%04d' % d.year
+    y = '/%04d/index.html' % d.year
     if y not in years:
       years.append(y)
   return years
 #@+node:peckj.20140127083227.10225: *3* route '/<int:year>/<int:month>/'
-@app.route('/<int:year>/<int:month>/')
+@app.route('/<int:year>/<int:month>/index.html')
 def month(year, month):
   month_pages = get_pages_by_date(year=year, month=month)
   title = '%04d/%02d' % (year, month)
   return html_minify(render_template('archives.html', pages=month_pages, title=title))
 
+#@+node:peckj.20150422092827.1: *4* month_generator
 @freezer.register_generator
 def month_generator():
   months = []
   for p in pages:
     d = get_date(p)
-    m = '/%04d/%02d' % (d.year, d.month)
+    m = '/%04d/%02d/index.html' % (d.year, d.month)
     if m not in months:
       months.append(m)
   return months
 #@+node:peckj.20140127083227.10227: *3* route '/<int:year>/<int:month>/<int:day>/'
-@app.route('/<int:year>/<int:month>/<int:day>/')
+@app.route('/<int:year>/<int:month>/<int:day>/index.html')
 def day(year, month, day):
   day_pages = get_pages_by_date(year=year, month=month, day=day)
   title = '%04d/%02d/%02d' % (year, month, day)
   return html_minify(render_template('archives.html', pages=day_pages, title=title))
 
+#@+node:peckj.20150422092838.1: *4* day_generator
 @freezer.register_generator
 def day_generator():
   days = []
   for p in pages:
     d = get_date(p)
-    day = '/%04d/%02d/%02d' % (d.year, d.month, d.day)
+    day = '/%04d/%02d/%02d/index.html' % (d.year, d.month, d.day)
     if day not in days:
       days.append(day)
   return days
@@ -224,16 +236,6 @@ def favicon():
 @app.route('/robots.txt')
 def robots():
   return  send_from_directory(app.static_folder, 'assets/robots.txt')
-#@+node:peckj.20150324142405.1: *3* page generator
-#@+node:peckj.20150324142417.1: *4* page_generator
-#@+at
-# @freezer.register_generator
-# def page_generator():
-#   pagelist = []
-#   for root, dir, files in os.walk('pages'):
-#     for file in files:
-#       pagelist.append(('page', {'path' : "/".join((root[6:],file[:-3])) }))
-#   return pagelist
 #@-others
 
 if __name__ == "__main__":

@@ -74,11 +74,12 @@ The first thing we want from our script is a button.  This is simple.  Create a 
 The body of that node at this point should look like this:
 
     @language python
-    
+
     << declarations >>
     
-    # to do: logic
-    @​others
+    #to do: logic
+    @others
+
 
 Next, to make our lives easier, make a child node named '<< declarations >>', with this body:
 
@@ -209,141 +210,3 @@ This time around, `designnode` refers to the node with the name 'class Blah...'.
     """ % (newmethodnode.h, methodnode.b)
 
 This method does perhaps the least bit of work in the whole script.  It creates a new node, gives it a proper headline, and fills in the body with a empty method definition (all it does is `pass`), along with a docstring.
-
-## **Pulling it all together**
-
-So, back to the body of the script.  It looks like this, if you recall:
-
-    @language python
-    
-    << declarations >>
-    
-    # get the design node
-    designnode = p.copy()
-    if not designnode.h.startswith('design-notes'):
-      g.es('Not a design-notes node, exiting.', color='red')
-    else:
-      # create the @file node
-      filenode = create_file_node(designnode)
-      
-      # create the class nodes
-      create_class_nodes(designnode, filenode)
-      
-      c.redraw_now()
-      g.es('Done', color='forestgreen')
-
-
-The `if/else` block is a guard against running the script on a node that isn't a 'design-notes' node -- it only works on properly structured design-notes!  The real meat of the script is in the `else` clause.
-
-First, a semi-empty @file node is created, then it is populated with classes, which are recursively populated with methods.  Finally, a call to `c.redraw_now()` is performed, which is important to do whenever your scripts manipulate the outline, otherwise Leo has no idea that updates took place and the outline pane may be corrupted.  Finally, 'Done' is printed to the Log pane in a nice green color, and the script is complete.
-
-Phew!
-
-## **Other scripting tricks**
-There are a few other things you might want to be aware of for scripting.  As mentioned in the intro, please see the Leo docs -- they explain a lot more than I can here.  But here are a few of my favorites.
-
-## *Sharing functions between scripts*
-A common design concern is having multiple scripts share the same functions within a .leo file.  You could go the naïve route and simply copy the function nodes from one script to another, but this is akin to copy+paste instead of refactoring code -- if you need to tweak the function, you need to change it in multiple places.  Clones are another option, and work just fine, but they increase the size of the .leo file and clutter your workspace.  I personally prefer to place all the common code in a node named `@common code`, and then simply `exec` that node at the beginning of the script.  For example, if `@common code` contained a function called `foo`, I could do the following as a Leo script:
-
-    @language python
-    exec(g.findTestScript(c, '@common code'))
-    foo()
-
-The `g.findTestScript()` call searches for the named node within the given commander `c`, expands all `@others` and `<< section >>` references, and returns it as a string.  `exec` is a Python built-in that is frowned upon, but hey, it's my machine and I know what I coded!
-
-## *Storing hidden data in nodes*
-Leo supports persistable hidden data alongside nodes.  To access it, you use `p.v.u`.  `p.v.u` is a python dictionary -- use it like this:
-
-    p.v.u['mydata'] = 'foobarbaz42'
-    
-That will be saved with the .leo outline.
-
-A note: `p.v` is a node's *vnode*, which is where all the node data lives.  Each cloned node shares a single vnode, and in fact `p.h` and `p.b` are aliases for `p.v.h` and `p.v.b`.
-
-## *Session data*
-You can store data that doesn't persist between Leo sessions, but within a single session, by assigning to `g.user_dict` or `c.user_dict`.  These, like `p.v.u`, are dictionaries.  They are *not* persisted to the .leo file, however.
-
-They're useful for storing state between script runs.
-
-## *Converting back and forth from vnodes to positions*
-Working with vnodes and positions can get confusing.  Usually Leo will give you an exception if you do something wrong.  If you find you need a vnode when you have a position, it's as simple as:
-
-    vnode = p.v
-    
-If you need to get that vnode back to a position, you then can do:
-
-    c.vnode2position(vnode)
-    
-If you think the node may be clones and want a list of *all* valid positions of that vnode, you can do:
-
-    c.vnode2allPositions(vnode)
-
-## *Executing minibuffer commands in scripts*
-If you want to run a minibuffer command from a script, you can do this:
-
-    c.executeMinibufferCommand('leo-command-name')
-    
-And it's just like you did Alt-X and typed the name.  I find this useful sometimes.
-
-## *Using autocomplete*
-When working in Leo scripts, Leo's autocompleter is awesome.  Toggle it with Alt-1.  It's a bit touchy and sometimes spits out errors, but it helps a lot when exploring the API.  Tab completion doesn't work here, though.  Arrow-keys and Enter do.
-
-## *Grabbing a node's expanded body*
-If you want to expand all `@others`, `@all`, and `<< section >>` references within a node's body and use that as a single string, you can access that easily:
-
-    myExpandedNodeBody = p.script
-
-## *Marking nodes*
-Leo provides a few different mechanisms for grouping nodes together to be acted on.  The first option is simply building a list in python:
-
-    myNodeList = [p for p in c.all_positions() if some_filter_function(p)]
-
-That works, and I use it a lot.
-
-Another option is a fairly well-hidden Leo mechanism called 'visiting' nodes.  This is used in Leo's internals, but fully accessible to user scripts.  The first operation would be to unmark all visited nodes, as the currently executing script is marked as visited by default:
-
-    c.clearAllVisited()
-    
-Next, you'll want to mark all the nodes you're interested in as visited:
-
-    for v in c.all_nodes():
-        if some_filter_function(v):
-            v.setVisited()
-    
-Finally, you'll want to move through them while you're operating on or with them:
-
-    c.goNextVisitedNode() # this sets p to the position 
-                          # of the next 'visited' node in outline order
-    some_operation_on_node(p)
-    p.v.clearVisited()
-
-You can also move backwards through the list:
-
-    c.goPrevVisitedNode()
-
-Finally, as some cleanup, you'll probably want to clear the visited nodes again.
-
-The third option is probably the most flexible, as it allows some form of user input before the script runs to set things up.  Leo provides a mechanism called marking that persists when the Leo file is saved, and between script runs, and it can be used for just about anything.  There are many ways of marking a node:
-
-  - <Alt-X> mark
-  - Right-click on a node headline -> Mark
-  - p.setMarked()
-
-There are similar ways of unmarking a node.
-
-In scripts, you can access the list of all marked nodes like so:
-
-    myList = [p for p in c.all_positions() if p.isMarked()]
-
-I use marks in a few of my plugins, but I tend to avoid them in general-purpose plugins because they may interfere with what another user is doing with them.  In your own scripts, however, you have complete control of your own outline, so feel free to use them however you think will be helpful.
-
-## **Closing remarks**
-Phew!  We've covered a lot here.  But it's all you need to start seriously hacking Leo into the IDE/editor/environment of your dreams.  Hopefully I didn't scare you away!
-
-Oh, and I've uploaded a Leo outline with the code and design-notes outline [here](https://raw.github.com/gatesphere/blog-resources/master/downloads/source/scripting-demo.leo).
-
-Thanks for reading!
-
-**EDIT**: Corrected the bit about the name 'g.es' -- Edward K. Ream informed me of its meaning.  Thanks, Edward!
-
-**EDIT 2**: Added the bits on p.script and marking nodes.
