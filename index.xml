@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">a-&gt;ab</title>
+  <id>http://localhost/index.xml</id>
+  <updated>2014-06-10T00:00:00Z</updated>
+  <link href="http://localhost/" />
+  <link href="http://localhost/index.xml" rel="self" />
+  <author>
+    <name>Jake Peck</name>
+  </author>
+  <generator>Werkzeug</generator>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">LTD Week 2014 23</title>
+    <id>http://blog.suspended-chord.info/2014/06/10/ltd-week-2014-23</id>
+    <updated>2014-06-10T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/06/10/ltd-week-2014-23" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;And here's this week's...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work&lt;ul&gt;
+&lt;li&gt;Database upgrade&lt;/li&gt;
+&lt;li&gt;Disk request&lt;/li&gt;
+&lt;li&gt;Several DNS entries&lt;/li&gt;
+&lt;li&gt;Diagnose a weird grep issue on a server&lt;/li&gt;
+&lt;li&gt;Diagnose sparse files on a server&lt;/li&gt;
+&lt;li&gt;Investigate a 99% CPU use spike on our production servers&lt;/li&gt;
+&lt;li&gt;Investigate failed backups&lt;/li&gt;
+&lt;li&gt;Investigate a flaky PSU&lt;/li&gt;
+&lt;li&gt;Email some missed files to users&lt;/li&gt;
+&lt;li&gt;Update an FTP script to work with new specs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Responsibility&lt;ul&gt;
+&lt;li&gt;Bills, homie&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Leisure&lt;ul&gt;
+&lt;li&gt;A lot of reading&lt;/li&gt;
+&lt;li&gt;A ridiculous amount of game design (on 6[!!] projects)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">LTD Week 2014 22</title>
+    <id>http://blog.suspended-chord.info/2014/06/10/ltd-week-2014-22</id>
+    <updated>2014-06-10T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/06/10/ltd-week-2014-22" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;I did it again -- two weeks reports back to back.  Ugh.  Here's week 22.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work&lt;ul&gt;
+&lt;li&gt;User accounts&lt;/li&gt;
+&lt;li&gt;Prepping for a database upgrade&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Responsibility&lt;ul&gt;
+&lt;li&gt;Updating various addresses&lt;/li&gt;
+&lt;li&gt;Bills&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Leisure&lt;ul&gt;
+&lt;li&gt;A bit of coding&lt;/li&gt;
+&lt;li&gt;A bit of reading (Good Math and Far Away Land RPG)&lt;/li&gt;
+&lt;li&gt;Game design (hehehe)&lt;/li&gt;
+&lt;li&gt;Generally working like a madman on personal projects&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">LTD Week 2014 21</title>
+    <id>http://blog.suspended-chord.info/2014/05/27/ltd-week-2014-21</id>
+    <updated>2014-05-27T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/05/27/ltd-week-2014-21" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;Here's this past week's report...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work&lt;ul&gt;
+&lt;li&gt;Completed work to get a database server upgraded to a new version of Oracle&lt;/li&gt;
+&lt;li&gt;Wrote an email script&lt;/li&gt;
+&lt;li&gt;Fixed a broken ftp script&lt;/li&gt;
+&lt;li&gt;Made some user accounts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Responsibility&lt;ul&gt;
+&lt;li&gt;Housework - lots of it&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Leisure&lt;ul&gt;
+&lt;li&gt;Fixed an ugly hack in Leo's GUI code that I introduced due to misunderstanding python's &lt;code&gt;super&lt;/code&gt; built-in&lt;/li&gt;
+&lt;li&gt;Read some comics online&lt;/li&gt;
+&lt;li&gt;Watched some funny videos&lt;/li&gt;
+&lt;li&gt;Continued working on that game design :)&lt;/li&gt;
+&lt;li&gt;Played Agricola, Belfort, and Love Letter.  Good weekend :)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">LTD Week 2014 20</title>
+    <id>http://blog.suspended-chord.info/2014/05/27/ltd-week-2014-20</id>
+    <updated>2014-05-27T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/05/27/ltd-week-2014-20" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;Sorry, this is last week's report...  I got caught up in a few things.&lt;/p&gt;
+&lt;p&gt;Anyways, here's the kind of reporting living a semi-quantified life lets you do nearly 2 weeks after the fact:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work&lt;ul&gt;
+&lt;li&gt;Fixed a few FTP jobs&lt;/li&gt;
+&lt;li&gt;Mirrored a root zpool for one of our servers&lt;/li&gt;
+&lt;li&gt;Moved several servers on to bigger disks&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Responsibility&lt;ul&gt;
+&lt;li&gt;Cashed a few checks&lt;/li&gt;
+&lt;li&gt;Paid some bills&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Leisure&lt;ul&gt;
+&lt;li&gt;Started working on a board game design... :)&lt;/li&gt;
+&lt;li&gt;Read a bit of Good Math&lt;/li&gt;
+&lt;li&gt;Read a bit of Queen Zixi of Ix&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">LTD Week 2014 19</title>
+    <id>http://blog.suspended-chord.info/2014/05/13/ltd-week-2014-19</id>
+    <updated>2014-05-13T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/05/13/ltd-week-2014-19" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;Whee...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work&lt;ul&gt;
+&lt;li&gt;Fixed some resource group dependency issues on our library web cluster&lt;/li&gt;
+&lt;li&gt;Investigated some strange java performance issues&lt;/li&gt;
+&lt;li&gt;Restored a website that a customer stomped on&lt;/li&gt;
+&lt;li&gt;Finished several FTP jobs&lt;/li&gt;
+&lt;li&gt;Prepared for an Oracle upgrade&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Responsibility&lt;ul&gt;
+&lt;li&gt;Tabata, yay&lt;/li&gt;
+&lt;li&gt;Took car in for repairs -- broken Y-pipe&lt;/li&gt;
+&lt;li&gt;Did several domestic chores&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Leisure&lt;ul&gt;
+&lt;li&gt;Finished reading Baum's &quot;The Enchanted Island of Yew&quot;... highly recommended&lt;/li&gt;
+&lt;li&gt;Read a good chunk of Chu-Carroll's &quot;Good Math&quot;, also highly recommended&lt;/li&gt;
+&lt;li&gt;A bit of MH3U&lt;/li&gt;
+&lt;li&gt;A good chunk of PSO on the Ultima server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">Google failed me, use Python!</title>
+    <id>http://blog.suspended-chord.info/2014/05/06/google-failed-me-use-python</id>
+    <updated>2014-05-06T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/05/06/google-failed-me-use-python" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;So, yesterday I needed to know whether or not Solaris 10 enforces the maximum open file handles limit for processes running as root (I know, root-level processes are bad form... but it's legacy, so there's my excuse).  Google told how to set it, how to check it, and what it defaults to, but didn't give me the all-important info of whether or not root is limited by it.  So I decided to hack together a quick script to test it empirically on the server in question.&lt;/p&gt;
+&lt;p&gt;I was going to try it in bash, but it turns out that bash is too smart for it's own good here -- there's no trivial way of opening a file descriptor without it autoclosing on you.  So I went with Python instead, carefully avoiding the &lt;code&gt;with&lt;/code&gt; keyword.  Here's what I hacked together:&lt;/p&gt;
+&lt;table class=&quot;codehilitetable&quot;&gt;&lt;tr&gt;&lt;td class=&quot;linenos&quot;&gt;&lt;div class=&quot;linenodiv&quot;&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env python&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;fds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;fname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;testfile&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;fds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;w+&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Its short, hacky, depends on throwing an exception to kill it (if indeed there is an imposed limit), and forces the user to manually clean out the filesystem of all &lt;code&gt;testfile*&lt;/code&gt; files, but it worked.  The result: yes, root is indeed slave to the kernel, and can only open up as many file descriptors as &lt;code&gt;plimit $$&lt;/code&gt; claims.&lt;/p&gt;
+&lt;p&gt;I love Python. :)&lt;/p&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">LTD Week 2014 18</title>
+    <id>http://blog.suspended-chord.info/2014/05/05/ltd-week-2014-18</id>
+    <updated>2014-05-05T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/05/05/ltd-week-2014-18" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;Fun week:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work&lt;ul&gt;
+&lt;li&gt;Installed a perl module on several servers&lt;/li&gt;
+&lt;li&gt;Worked on several FTP jobs&lt;/li&gt;
+&lt;li&gt;Came up with a clone plan for a database server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Responsibility&lt;ul&gt;
+&lt;li&gt;Getting better at the Tabata thing&lt;/li&gt;
+&lt;li&gt;Paid rent, credit cards, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Leisure&lt;ul&gt;
+&lt;li&gt;Updated orison's software&lt;/li&gt;
+&lt;li&gt;Started reading Chu-Carroll's &lt;a href=&quot;http://pragprog.com/book/mcmath/good-math&quot;&gt;Good Math&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Made some progress in MH3U... nothing to write home about, but still&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">LTD Week 2014 17</title>
+    <id>http://blog.suspended-chord.info/2014/04/29/ltd-week-2014-17</id>
+    <updated>2014-04-29T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/04/29/ltd-week-2014-17" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;I'm slipping with my reporting.  I'll need to fix that...&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work&lt;ul&gt;
+&lt;li&gt;Worked on several FTP jobs&lt;/li&gt;
+&lt;li&gt;User accounts created&lt;/li&gt;
+&lt;li&gt;Played with some LUN cloning procedures&lt;/li&gt;
+&lt;li&gt;Patched a server against heartbleed&lt;/li&gt;
+&lt;li&gt;Installed monitoring scripts on a server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Responsibility&lt;ul&gt;
+&lt;li&gt;Poked and prodded at the Tabata thing...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Leisure&lt;ul&gt;
+&lt;li&gt;Updated orison's software&lt;/li&gt;
+&lt;li&gt;Tried in vain to get groovebasin working on my raspi&lt;/li&gt;
+&lt;li&gt;Watched the last-ever episode of The I.T. Crowd&lt;/li&gt;
+&lt;li&gt;Coded a bit of a project...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">You are what you wield</title>
+    <id>http://blog.suspended-chord.info/2014/04/22/you-are-what-you-wield</id>
+    <updated>2014-04-22T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/04/22/you-are-what-you-wield" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;As mentioned in &lt;a href=&quot;/2014/04/16/on-grinding-in-games/&quot;&gt;last week's post&lt;/a&gt;, I've been playing Monster Hunter 3 Ultimate lately.  I think it's a really well done game.  It's also a refreshing take on the whole level-up concept, in that your character never improves -- your play improves.&lt;/p&gt;
+&lt;p&gt;This is accomplished by having a single unwavering base stat: defense 50.  Every increase on top of that is either your gear (which gets better as you earn rare ingredients and forge new pieces), or you as a player.  I find this concept fascinating.  Not only does it (kind of) model real life, but it rewards the player for their dedication.  It removes the concept of 'character' and replaces it with 'avatar' -- and MH3U's ability to change your hairstyles at will reinforces this.  Your avatar is an expression of you, rather than a living, breathing entity of his/her own.  I think that's something that most MMOs are sorely missing.&lt;/p&gt;
+&lt;p&gt;Anyways, I just wanted to highlight this idea.  It's really neat to me, and fosters some interesting emergent gameplay.&lt;/p&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">LTD Week 2014 16</title>
+    <id>http://blog.suspended-chord.info/2014/04/22/ltd-week-2014-16</id>
+    <updated>2014-04-22T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/04/22/ltd-week-2014-16" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;I was kind of sloppy with reporting this week, so here's what we've got:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work&lt;ul&gt;
+&lt;li&gt;Tried to rollback a blackboard service pack -- no dice&lt;/li&gt;
+&lt;li&gt;Worked on a few FTP jobs&lt;/li&gt;
+&lt;li&gt;Examined our servers for heartbleed vulnerability&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Responsibility&lt;ul&gt;
+&lt;li&gt;Kept up with Tabata&lt;/li&gt;
+&lt;li&gt;Housework&lt;/li&gt;
+&lt;li&gt;Cleaned up my workbook.leo file&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Leisure&lt;ul&gt;
+&lt;li&gt;Played a bunch of Monster Hunter 3 Ultimate&lt;/li&gt;
+&lt;li&gt;Finished reading Basic Fantasy RPG&lt;/li&gt;
+&lt;li&gt;Set up my Club Nintendo account, linked it to my NNID&lt;/li&gt;
+&lt;li&gt;Wrote a small dice game called Drones, still need to playtest&lt;/li&gt;
+&lt;li&gt;Cleaned up Windows version reporting in Leo's Log pane on startup&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
+</feed>

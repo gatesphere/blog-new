@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+    </script><title>Strange Dice | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Strange Dice</h1><span class="date">January 13, 2014</span><br/> <span class="tags">tags: <a href="/tag/dice/">dice</a>, <a href="/tag/fudge/">fudge</a>, <a href="/tag/probabilities/">probabilities</a></span></header><section class="content"><p>So, in the Fate mailing list, people are discussing what the various effects of replacing a Fudge die with a normal polyhedral die are. This is an interesting conversation to me, and I thought I'd do some math to get a grip on it...</p><h1>4dF</h1><p>First up is the standard 4dF distribution (which I've <a href="/2013/04/04/fudge-is-logarithmic/">talked about</a> before)</p><div class="codehilite"><pre><span class="mi">4</span><span class="n">dF</span> <span class="o">|</span> <span class="o">%</span>
+<span class="o">----|-------------</span>
+  <span class="o">-</span><span class="mi">4</span><span class="o">|</span><span class="mf">1.23456790123</span>
+  <span class="o">-</span><span class="mi">3</span><span class="o">|</span><span class="mf">4.93827160494</span>
+  <span class="o">-</span><span class="mi">2</span><span class="o">|</span><span class="mf">12.3456790123</span>
+  <span class="o">-</span><span class="mi">1</span><span class="o">|</span><span class="mf">19.7530864198</span>
+   <span class="mi">0</span><span class="o">|</span><span class="mf">23.4567901235</span>
+  <span class="o">+</span><span class="mi">1</span><span class="o">|</span><span class="mf">19.7530864198</span>
+  <span class="o">+</span><span class="mi">2</span><span class="o">|</span><span class="mf">12.3456790123</span>
+  <span class="o">+</span><span class="mi">3</span><span class="o">|</span><span class="mf">4.93827160494</span>
+  <span class="o">+</span><span class="mi">4</span><span class="o">|</span><span class="mf">1.23456790123</span>
+</pre></div><p>This is a baseline for my comparisons below.</p><h1>3dF + 1d4</h1><p>An interesting option is replacing 1dF by 1d4.</p><div class="codehilite"><pre><span class="mi">3</span><span class="n">dF</span> <span class="o">+</span> <span class="mi">1</span><span class="n">d4</span> <span class="o">|</span> <span class="o">%</span>
+<span class="o">----------|--------------</span>
+        <span class="o">-</span><span class="mi">2</span><span class="o">|</span><span class="mf">0.925925925926</span>
+        <span class="o">-</span><span class="mi">1</span><span class="o">|</span><span class="mf">3.7037037037</span>
+         <span class="mi">0</span><span class="o">|</span><span class="mf">9.25925925926</span>
+        <span class="o">+</span><span class="mi">1</span><span class="o">|</span><span class="mf">15.7407407407</span>
+        <span class="o">+</span><span class="mi">2</span><span class="o">|</span><span class="mf">20.3703703704</span>
+        <span class="o">+</span><span class="mi">3</span><span class="o">|</span><span class="mf">20.3703703704</span>
+        <span class="o">+</span><span class="mi">4</span><span class="o">|</span><span class="mf">15.7407407407</span>
+        <span class="o">+</span><span class="mi">5</span><span class="o">|</span><span class="mf">9.25925925926</span>
+        <span class="o">+</span><span class="mi">6</span><span class="o">|</span><span class="mf">3.7037037037</span>
+        <span class="o">+</span><span class="mi">7</span><span class="o">|</span><span class="mf">0.925925925926</span>
+</pre></div><p>Here it's shifted the average from 0 to +2.5, and increased the range--but not uniformly! The low end has been shifted from -4 to -2, a +2 increase, while the high end has been shifted from +4 to +7, a +3 increase!</p><h1>3dF + 1d6</h1><p>A bit more extreme is replacing 1dF by 1d6.</p><div class="codehilite"><pre><span class="mi">3</span><span class="n">dF</span> <span class="o">+</span> <span class="mi">1</span><span class="n">d6</span> <span class="o">|</span> <span class="o">%</span>
+<span class="o">----------|--------------</span>
+        <span class="o">-</span><span class="mi">2</span><span class="o">|</span><span class="mf">0.617283950617</span>
+        <span class="o">-</span><span class="mi">1</span><span class="o">|</span><span class="mf">2.46913580247</span>
+         <span class="mi">0</span><span class="o">|</span><span class="mf">6.17283950617</span>
+        <span class="o">+</span><span class="mi">1</span><span class="o">|</span><span class="mf">10.4938271605</span>
+        <span class="o">+</span><span class="mi">2</span><span class="o">|</span><span class="mf">14.1975308642</span>
+        <span class="o">+</span><span class="mi">3</span><span class="o">|</span><span class="mf">16.049382716</span>
+        <span class="o">+</span><span class="mi">4</span><span class="o">|</span><span class="mf">16.049382716</span>
+        <span class="o">+</span><span class="mi">5</span><span class="o">|</span><span class="mf">14.1975308642</span>
+        <span class="o">+</span><span class="mi">6</span><span class="o">|</span><span class="mf">10.4938271605</span>
+        <span class="o">+</span><span class="mi">7</span><span class="o">|</span><span class="mf">6.17283950617</span>
+        <span class="o">+</span><span class="mi">8</span><span class="o">|</span><span class="mf">2.46913580247</span>
+        <span class="o">+</span><span class="mi">9</span><span class="o">|</span><span class="mf">0.617283950617</span>
+</pre></div><p>The average has shifted from 0 to +3.5, a significant boost. Again, the low end has shifted by +2, but the high end has shifted from +4 to +9, a +5 shift! This seems very high-powered.</p><h1>2dF + 2d4</h1><p>A rather extreme option, this removes negative results from the equation altogether... though it does make a very nice bell curve centered around 5 in the range [0,10]. This could be very handy as a normalized d10 replacement, perhaps... but so could 4dF + 4, and that wouldn't have to worry about rerolling on 10. Anyways..</p><div class="codehilite"><pre><span class="mi">2</span><span class="n">dF</span> <span class="o">+</span> <span class="mi">2</span><span class="n">d4</span> <span class="o">|</span> <span class="o">%</span>
+<span class="o">----------|--------------</span>
+         <span class="mi">0</span><span class="o">|</span><span class="mf">0.694444444444</span>
+        <span class="o">+</span><span class="mi">1</span><span class="o">|</span><span class="mf">2.77777777778</span>
+        <span class="o">+</span><span class="mi">2</span><span class="o">|</span><span class="mf">6.94444444444</span>
+        <span class="o">+</span><span class="mi">3</span><span class="o">|</span><span class="mf">12.5</span>
+        <span class="o">+</span><span class="mi">4</span><span class="o">|</span><span class="mf">17.3611111111</span>
+        <span class="o">+</span><span class="mi">5</span><span class="o">|</span><span class="mf">19.4444444444</span>
+        <span class="o">+</span><span class="mi">6</span><span class="o">|</span><span class="mf">17.3611111111</span>
+        <span class="o">+</span><span class="mi">7</span><span class="o">|</span><span class="mf">12.5</span>
+        <span class="o">+</span><span class="mi">8</span><span class="o">|</span><span class="mf">6.94444444444</span>
+        <span class="o">+</span><span class="mi">9</span><span class="o">|</span><span class="mf">2.77777777778</span>
+       <span class="o">+</span><span class="mi">10</span><span class="o">|</span><span class="mf">0.694444444444</span>
+</pre></div><p>Neat to me, perhaps not so much to others... If you're interested, <a href="http://anydice.com/program/31aa">here's an anydice link</a> where you can see graphs and such, and play around with it yourself.</p><p>Thanks for reading!</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+var disqus_shortname = 'suschord';
+(function () {
+  var s = document.createElement('script'); s.async = true;
+  s.src = 'http://disqus.com/forums/suschord/count.js';
+  (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script></div></body></html>

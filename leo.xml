@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">a-&gt;ab</title>
+  <id>http://localhost/leo.xml</id>
+  <updated>2014-01-28T00:00:00Z</updated>
+  <link href="http://localhost/" />
+  <link href="http://localhost/leo.xml" rel="self" />
+  <author>
+    <name>Jake Peck</name>
+  </author>
+  <generator>Werkzeug</generator>
+  <entry xml:base="http://localhost/leo.xml">
+    <title type="text">Intro to Leo scripting</title>
+    <id>http://blog.suspended-chord.info/2014/01/28/intro-to-leo-scripting</id>
+    <updated>2014-01-28T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2014/01/28/intro-to-leo-scripting" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;Hello all,&lt;/p&gt;
+&lt;p&gt;I thought I'd do a tutorial on scripting Leo today.  It's a tricky but powerful feature of my favorite editor, and one I think deserves more attention.  For those who are interested in learning more than what I touch on here, the &lt;a href=&quot;http://leoeditor.com/leo_toc.html&quot;&gt;official Leo documentation&lt;/a&gt; has both a &lt;a href=&quot;http://leoeditor.com/tutorial-scripting.html&quot;&gt;tutorial&lt;/a&gt; and a &lt;a href=&quot;http://leoeditor.com/scripting-miscellany.html&quot;&gt;neat script tricks&lt;/a&gt; page.  Also, a very useful (but regrettably incomplete) resource is the &lt;a href=&quot;http://leo-editor.readthedocs.org/en/latest/&quot;&gt;Leo API documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Before we begin&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;This tutorial assumes you have Leo installed, and know the basics of its operations -- i.e., how to create and move nodes around, how to use &lt;code&gt;&amp;lt;&amp;lt; section &amp;gt;&amp;gt;&lt;/code&gt; references and the &lt;code&gt;@others&lt;/code&gt; driective, and how to configure Leo's settings.  Additionally, it assumes you have the &lt;code&gt;mod_scripting.py&lt;/code&gt; plugin enabled, but Leo ships with this by default, so you should be set.  Also, you can't script Leo if you don't know basic Python, so brush up on that first too.&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Your first script&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Let's begin simple.  Open up a new .leo file and create a node.  Let's call it 'hello'.&lt;/p&gt;
+&lt;p&gt;The body of this node should be the following:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;language&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;python&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;es&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;world&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That is your very first Leo script!  It's the Leo equivalent of the famous 'Hello World' program.  One note -- 'g.es' isn't a very clear name.  It means 'echo string', where the target of the echo is the Log pane. It is short and easy to remember, so it's stuck around a while.  Also, it's used often, so it is good to have a short name.&lt;/p&gt;
+&lt;p&gt;Let's run it.  Make sure you have the node selected in the outline pane, and then type Ctrl-B.  You should see &lt;code&gt;Hello, world!&lt;/code&gt; in the Log pane.&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;About Ctrl-B&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;What's so magical about Ctrl-B?  Nothing, really.  it is just a keybinding for executing the command &lt;code&gt;execute-script&lt;/code&gt;.  Instead of doing a Ctrl+B, you could instead do Alt-X &lt;code&gt;execute-script&lt;/code&gt; in the minibuffer, and the script would run as well.&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;About Buttons&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;There's another way of running your 'hello' script: a script button.  Up at the top of the Leo screen you should see a yellow button that says 'script-button' on it.  Clicking this button adds another button to the bar which runs the script that you had selected when you clicked the yellow button.  Highlight your 'hello' node and click script-button.  A new 'hello' button should now be on the bar.  Click it -- you'll see that your hello script runs!&lt;/p&gt;
+&lt;p&gt;Note, buttons are powerful.  They run their script no matter which node is selected in the outline pane.  This is an important feature that we'll run into later when we write scripts that modifiy other nodes!&lt;/p&gt;
+&lt;p&gt;To make a button automatically when your .leo outline runs, simply put &lt;code&gt;@button&lt;/code&gt; in front of the script's headline.  Do this with 'hello' (so that the headline now reads '&lt;code&gt;@button hello&lt;/code&gt;'), save your outline, and close Leo.  Now reopen Leo and your outline.  You should have a 'hello' button automatically created.&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Leo Scripts -- the important facts&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;The unique thing about Leo is that the entirety of Leo's codebase is accessible from Leo scripts.  This means that your scripts can modify and access the data in your current outline.&lt;/p&gt;
+&lt;p&gt;Another powerful feature is that your Leo scripts are fully-functioning python scripts.  Any valid python code is a valid Leo script.&lt;/p&gt;
+&lt;p&gt;The third powerful feature is that Leo expands your scripts just like it expands your @files, meaning you can (and should) use &lt;code&gt;@others&lt;/code&gt; and &lt;code&gt;&amp;lt;&amp;lt; section &amp;gt;&amp;gt;&lt;/code&gt; references in your scripts to make them more readable.&lt;/p&gt;
+&lt;p&gt;Lets combine some of these features to make a more powerful script.&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Going Deeper -- Leo's API&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Say we wanted a button that would create a new @file node with some pre-filled information gathered from the outline.  I use a similar script to the one we'll be building here in the .leo file I use to write this very blog, actually!&lt;/p&gt;
+&lt;p&gt;Say you had a 'design-notes' node, under which you had various 'class' nodes, under which there were 'method' and 'property' nodes.  These are just notes, but you'd like a script to transform them into a proper Python file filled with functions you can stub out.  Here's the data I'm going to be using for this example (Headlines start with '-', but that's not actually a part of the headline.  Body text is indented two spaces beneath the headline.  Child headlines are indented 4 spaces from the parent headline):&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;design&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notes&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accumulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;general&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accumulator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reverse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accumulator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Accumulator&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;An&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accumulator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;that&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;up&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;constructor&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tick&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;increases&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;by&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ReverseAccumulator&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;An&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accumulator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;that&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;down&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;constructor&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tick&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;decreases&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;by&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Create this outline in a new .leo file -- our script will be needing it.  If you want, you can use clones for the 'method __init__' and 'property value' nodes, as they're identical.  Our script won't care one way or the other.&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;First things first&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;The first thing we want from our script is a button.  This is simple.  Create a new top-level node named '@button design-to-file'&lt;/p&gt;
+&lt;p&gt;The body of that node at this point should look like this:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;language&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;python&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;declarations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;cp&quot;&gt;#to do: logic&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;others&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Next, to make our lives easier, make a child node named '&amp;lt;&amp;lt; declarations &amp;gt;&amp;gt;', with this body:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;cp&quot;&gt;# the following are Leo directives, so we have to trick &lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;# Leo by constructing them in the script&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;# we&amp;#39;ll be using them a lot, so doing it once here saves&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;# typing later&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;others&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;@&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;others&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;docstring&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;lt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;lt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;docstring&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;gt;&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;imports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;lt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;lt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imports&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;gt;&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;declarations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;lt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;lt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;declarations&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;&amp;gt;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Alright, now to do something.&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Make an @file node&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;The first step to getting our design-notes into a @file is to create a new node and fill its headline and body with the right stuff.&lt;/p&gt;
+&lt;p&gt;At this point, I should mention the three variables that Leo exposes to scripts.  &lt;code&gt;g&lt;/code&gt; is the 'globals' variable, and contains all sorts of useful functions that work all throughout Leo (including the &lt;code&gt;g.es&lt;/code&gt; we used earlier).  &lt;code&gt;c&lt;/code&gt; is the current outline's 'controller', an object that has information and methods pertaining to the current outline, such as controlling the selection, redrawing, etc.  &lt;code&gt;p&lt;/code&gt; is the currently selected node in the outline pane, and is really just a shortcut for &lt;code&gt;c.p&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We're mostly interested in &lt;code&gt;p&lt;/code&gt; today, particularly &lt;code&gt;p.h&lt;/code&gt;, &lt;code&gt;p.b&lt;/code&gt;, and &lt;code&gt;p.insertAsLastChild()&lt;/code&gt;.  &lt;code&gt;p.h&lt;/code&gt; is the headline of the node &lt;code&gt;p&lt;/code&gt;, and &lt;code&gt;p.b&lt;/code&gt; is the body.  &lt;code&gt;p.insertAsLastChild()&lt;/code&gt; returns a new node as the last child of &lt;code&gt;p&lt;/code&gt;.  We'll also be seeing &lt;code&gt;p.copy()&lt;/code&gt; which returns a copy of &lt;code&gt;p&lt;/code&gt;, and &lt;code&gt;p.insertAfter()&lt;/code&gt; which returns a new node that is a sibling of &lt;code&gt;p&lt;/code&gt;, as well as &lt;code&gt;p.children()&lt;/code&gt;, which is a python generator that yields all the child nodes of &lt;code&gt;p&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If you understood the above, you're likely beginning to see the power of these three variables.  Indeed, the entirety of Leo's codebase is accessible through them.  But we'll slow down a bit now.  Let's make a @file node.&lt;/p&gt;
+&lt;p&gt;In &lt;code&gt;@button design-to-file&lt;/code&gt;, add the following below the &lt;code&gt;@others&lt;/code&gt; line:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;cp&quot;&gt;# get the design node&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;startswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;design&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notes&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;es&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;design&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notes&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exiting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;else:&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_file_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;create_class_nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;redraw_now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;es&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Done&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;forestgreen&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That's the body of our script -- the heavy lifting will be handled by the various functions defined in it.  The &lt;code&gt;p.copy()&lt;/code&gt; bit is needed because we're going to be changing the outline.  When the outline changes, positions become invalid, so we need to get a copy of the position before that happens.&lt;/p&gt;
+&lt;p&gt;We see that we're going to need &lt;code&gt;create_file_node&lt;/code&gt; and &lt;code&gt;create_class_nodes&lt;/code&gt; functions.  We're starting with the &lt;code&gt;create_file_node&lt;/code&gt; function here.  Create a child node named 'create_file_node' and fill it with this:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_file_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;trim&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;design&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notes&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;
+                                          &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headline&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insertAfter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;child&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headline&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; 
+                                     &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot;@language python&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot; % (docstring, imports, declarations, others)&lt;/span&gt;
+
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;docstring&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;docstringnode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insertAsLastChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;docstringnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;docstring&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;docstringnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot;%s&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
+
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imports&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;importsnode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;docstringnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insertAfter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;importsnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imports&lt;/span&gt;
+
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;declarations&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;declarationsnode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;importsnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insertAfter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;declarationsnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;declarations&lt;/span&gt;
+
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The code is fairly straightforward, but basically it creates a new @file node, gives it a proper body, and then creates the &amp;lt;&amp;lt; docstring &amp;gt;&amp;gt;, &amp;lt;&amp;lt; imports &amp;gt;&amp;gt;, and &amp;lt;&amp;lt; declarations &amp;gt;&amp;gt; nodes that the body references.  It also fills in the &amp;lt;&amp;lt; docstring &amp;gt;&amp;gt; node with the note we typed into the design-notes outline.&lt;/p&gt;
+&lt;p&gt;If you comment out the &lt;code&gt;create_class_nodes&lt;/code&gt; line from the script body, this script will already run.  Make sure the design-notes node is selected, and click the button.  You should get an @file node with some &amp;lt;&amp;lt; section &amp;gt;&amp;gt;-style children.  Hooray, progress!&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Make the class nodes&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Next up is &lt;code&gt;create_class_nodes&lt;/code&gt;, which will search through the children of a node that it was passed and create nodes specifying classes with the appropriate methods.&lt;/p&gt;
+&lt;p&gt;The first part of this is to create the class nodes.  Here's the code for create_class_nodes, which goes into a node called 'create_class_nodes':&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_class_nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create_class_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This doesn't do much at all!  It just cycles through every child node of the designnode, which is the node with the name 'design-notes blah...', and then calls a helper method &lt;code&gt;create_class_node&lt;/code&gt; with it, and the destination @file node.&lt;/p&gt;
+&lt;p&gt;Here's what &lt;code&gt;create_class_node&lt;/code&gt; looks like (again, in a node called 'create_class_node'):&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_class_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;newclassnode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filenode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insertAsLastChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;newclassnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;newclassnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot;%s:&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot; % (classnode.h, docstring, others)&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;docstring&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;docstringnode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newclassnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insertAsLastChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;docstringnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;docstring&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;docstringnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot;%s&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
+
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;they&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;notes&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;create_method_nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newclassnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This code creates a new child node under the @file node, and fills in the headline and body appropriately.  It then creates a child &amp;lt;&amp;lt; docstring &amp;gt;&amp;gt; node underneath that, and fills that in appropriately too.  Finally, it calls yet another helper, which creates the method nodes underneath it.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;create_method_nodes&lt;/code&gt; is similar to &lt;code&gt;create_class_nodes&lt;/code&gt;, in that it is a wrapper around a helper:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_method_nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;classnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;designnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;startswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;create_method_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;classnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This time around, &lt;code&gt;designnode&lt;/code&gt; refers to the node with the name 'class Blah...'.  And our good friend the helper method comes along again with &lt;code&gt;create_method_node&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_method_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;classnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methodnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;newmethodnode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insertAsLastChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;newmethodnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methodnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;newmethodnode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot;def %s(self):&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;\&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;%s&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;\&amp;quot;\&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;pass&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot; % (newmethodnode.h, methodnode.b)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This method does perhaps the least bit of work in the whole script.  It creates a new node, gives it a proper headline, and fills in the body with a empty method definition (all it does is &lt;code&gt;pass&lt;/code&gt;), along with a docstring.&lt;/p&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/leo.xml">
+    <title type="text">Nodewatch for Productivity</title>
+    <id>http://blog.suspended-chord.info/2013/11/04/nodewatch-for-productivity</id>
+    <updated>2013-11-04T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2013/11/04/nodewatch-for-productivity" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;Recently, I contributed the nodewatch.py plugin to Leo.  I wrote this as a way to keep myself productive, and have an at-a-glimpse look at important nodes in my workbook.leo file.  I thought I'd share the &lt;code&gt;@nodewatch&lt;/code&gt; definitions I hacked together to help with this.&lt;/p&gt;
+&lt;p&gt;Some important notes:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The snippets below are on gist, which does not to my knowledge allow syntax highlighting without a file suffix.  Ignore the .py in the filenames -- those are node headlines.&lt;/li&gt;
+&lt;li&gt;These definitons require Terry Brown's todo.py plugin to be enabled, else they will throw exceptions and not work.&lt;/li&gt;
+&lt;li&gt;These definitions use python-dateutil's relativedelta to make my life easier.  You'll need to &lt;code&gt;pip install python-dateutil&lt;/code&gt; to get these scripts to work.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Some preliminaries first.  All four of the @nodewatch definitions I have below use the same &lt;code&gt;&amp;lt;&amp;lt; imports &amp;gt;&amp;gt;&lt;/code&gt; and &lt;code&gt;get_tasks_by_date&lt;/code&gt; nodes as children.  I used clones for this, to keep them all in sync.  Here's &lt;code&gt;&amp;lt;&amp;lt; imports &amp;gt;&amp;gt;&lt;/code&gt;:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gatesphere/7306696.js?file=&lt;&lt;+imports+&gt;&gt;.py&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;And here's &lt;code&gt;get_tasks_by_date&lt;/code&gt;:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gatesphere/7306696.js?file=get_tasks_by_date.py&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Alright... now, get_tasks_by_date() returns a list of vnodes that are not marked 'done' by todo.py, but have a duedate or nextworkdate such that comparator(date,otherdate) is True.  That does &lt;em&gt;all&lt;/em&gt; the hard work.  Next up is 4 very similar @nodewatch definitions:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gatesphere/7306696.js?file=%40nodewatch+Past+Due.py&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://gist.github.com/gatesphere/7306696.js?file=%40nodewatch+Due+Today.py&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://gist.github.com/gatesphere/7306696.js?file=%40nodewatch+Due+Tomorrow.py&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://gist.github.com/gatesphere/7306696.js?file=%40nodewatch+Due+This+Week.py&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Putting this all together under your &lt;code&gt;@settings&lt;/code&gt; node, and clicking the Refresh button (or running the command &lt;code&gt;nodewatch-update&lt;/code&gt;), you now have 4 categories in your Nodewatch GUI's drop-down box: 'LTD: 00 Past Due', 'LTD: 01 Due Today', 'LTD: 02 Due Tomorrow', and 'LTD: 03 Due This Week'.  This will help you get fast looks at what you need to focus on today, tomorrow, and this week.&lt;/p&gt;
+&lt;p&gt;Unfortunately, the &lt;code&gt;get_tasks_by_date&lt;/code&gt; code is a bit ugly and really dense, and it required a read through of the todo.py source, and understanding of the operator module... but it packs a lot of filtering power into those lines, making other due-date sorting @nodewatch definitions easier in the future.  For example, you could define a &lt;code&gt;@nodewatch Due This Month&lt;/code&gt; script with:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gatesphere/7306696.js?file=%40nodewatch+Due+This+Month.py&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Plenty of other things can be done with nodewatch, but this is my primary usage so far.&lt;/p&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/leo.xml">
+    <title type="text">Leo Things Done</title>
+    <id>http://blog.suspended-chord.info/2013/09/20/leo-things-done</id>
+    <updated>2013-09-20T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2013/09/20/leo-things-done" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Recently I've felt torn between the million and a half projects I have 
+on the back burner at any given time.  I do too many things, and it's
+becoming apparent.  I find myself needing a way to keep organized, and
+to better motivate myself to balance the load.  I've read up on GTD,
+ZTD, Pomodoro, etc, and found them lacking, or over structured.  Additionally
+I failed to see how they would help me.  I've decided to come up with a
+scheme that is tailored to the way &lt;em&gt;I&lt;/em&gt; work, and the way &lt;em&gt;I&lt;/em&gt; accomplish
+things.&lt;/p&gt;
+&lt;p&gt;What I've come up with, and intend on starting soon, is a system I'm 
+calling LTD, or Leo Things Done.  I know, catchy.  Whatever, it's just
+a name.  This post describs the basics of what I'll be trying out over
+the next month or so... and seeing whether or not it works for me.  I'm
+&lt;em&gt;not&lt;/em&gt; advocating this system for anyone else's use, but if you decide
+to try it, let me know how it goes.&lt;/p&gt;
+&lt;h1&gt;The system&lt;/h1&gt;
+&lt;p&gt;LTD is a combination of parts of ZTD and GTD, with some Gamification
+bits thrown in.  On top of it all, it uses Leo to maintain itself.
+Or, at least I hope it does.&lt;/p&gt;
+&lt;h2&gt;What you need&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A computer with Leo&lt;/li&gt;
+&lt;li&gt;A small pocket notebook (I use Moleskine squared notebooks -- I'm not pretentious, they just fit nicely in my pocket, and I like grid paper)&lt;/li&gt;
+&lt;li&gt;Pen/pencil&lt;/li&gt;
+&lt;li&gt;Willpower&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Setting up Leo&lt;/h2&gt;
+&lt;p&gt;The core of this system is Leo.  The todo.py plugin needs to be enabled, as it will be used for priority and due-date storage.&lt;/p&gt;
+&lt;p&gt;A .leo outline with the following chapters should be kept:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Recurring (for daily, weekly, monthly, etc. tasks)&lt;/li&gt;
+&lt;li&gt;Long-term Projects&lt;/li&gt;
+&lt;li&gt;Notes&lt;/li&gt;
+&lt;li&gt;Ideas&lt;/li&gt;
+&lt;li&gt;Points&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Within each of those chapters, create the following 3 nodes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work&lt;/li&gt;
+&lt;li&gt;Responsibility&lt;/li&gt;
+&lt;li&gt;Leisure&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Using the system&lt;/h2&gt;
+&lt;p&gt;Use the Notes chapter to scribble down notes that are related to tasks.  You can clone from notes to a child of a task if you wish, to keep
+yourself organized.&lt;/p&gt;
+&lt;p&gt;Use the Ideas chapter to scribble down ideas that are unrelated to current tasks.  Ideas are always good to keep in mind, because in the
+future they may be promoted to tasks, once you have the time to approach them, or the desire to do something new.&lt;/p&gt;
+&lt;p&gt;Use the Recurring chapter for daily, weekly, monthly, etc tasks.  I suggest using @daily, @weekly, etc directives in headlines to remind yourself.  Feel free
+to use todo.py to set due dates and priorities, as well.  When you finish a task in the Recurring chapter, create a copy of the node you've finished, set the
+due-date on that one to a proper value, and then set the priority to &quot;done&quot; with todo.py.  A priority sort may be in order.  &lt;/p&gt;
+&lt;p&gt;Use the Long-term Projects chapter to keep yourself on track with the long term projects you're working on.  Projects are made up of multiple tasks, so
+each project should have a master node (i.e., Long-term Projects-&amp;gt;Leisure-&amp;gt;Write that novel), under which the tasks reside.&lt;/p&gt;
+&lt;p&gt;Additionally, each task is either @major or @minor.  When you complete a @major task, award yourself 3 points (in the &quot;Points&quot;) chapter of that task's type 
+(Work, Responsibility, Leisure).  When you complete a @minor task, award yourself 1 point.  Projects consisting of multiple tasks have an additional completion
+bonus of 1 point for each task encompassed in the project itself (regardless of @major or @minor status) , but this is not earned until all tasks are completed.&lt;br /&gt;
+Should you let a task with a due date pass uncompleted, you lose 3 points if it was @major, or 1 point if it was @minor.&lt;/p&gt;
+&lt;p&gt;The notebook is to keep in your pocket at all times.  You use it to jot down notes and ideas.&lt;/p&gt;
+&lt;p&gt;Each day, your flow should be like this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Skim through Recurring lists for applicible @daily, @weekly, etc. and do them&lt;/li&gt;
+&lt;li&gt;Skim through Long-Term Projects lists for something to work on, if you have the time.  Work first, then Responsibilies, then Leisure.&lt;/li&gt;
+&lt;li&gt;Transfer notes and ideas from your notebook to the outline&lt;/li&gt;
+&lt;li&gt;At the end of the day, write a short report consisting of completed tasks for the day, and change in Points values.  Feel free at this time to clear out &quot;done&quot; items.&lt;/li&gt;
+&lt;li&gt;Rescan and reprioritize/modifiy due-dates on tasks as necessary&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Additionally, I'm going to try to do once a week consolidated reports on this blog, to give me a public platform.  Peer pressure is fantasitc, and I've always
+wanted to get into journaling, but have never had the pressure or drive.&lt;/p&gt;
+&lt;h2&gt;Value of points&lt;/h2&gt;
+&lt;p&gt;This needs work (as does the rest of the system, I'm sure), but points are good for two things: Time and Money.&lt;/p&gt;
+&lt;p&gt;When cashing points in for Time, each Work point is ~1 hour, and each Leisure and Responsibility point is ~30 minutes.&lt;/p&gt;
+&lt;p&gt;When cashing points in for Money, each Work point is $2, and each Leisure and Responsibility point is $1.&lt;/p&gt;
+&lt;p&gt;When you use points, deduct them from your outline totals.  Use common sense, though.  Time and Money are to be
+used for things not in your task lists...  Time and Money spent in your task lists doesn't have to be accounted for.
+Nor does sleep, or nightly entertainments (TV, video games, etc) -- those are beneficial.  Weekends are up to you
+as to how you handle them.&lt;/p&gt;
+&lt;h2&gt;That's it, so far...&lt;/h2&gt;
+&lt;p&gt;I'm going to get going with this starting next Monday, I think.  My first task will be inputting all my tasks... I think that's going to be a @major job.&lt;/p&gt;
+&lt;p&gt;Thanks for reading!&lt;/p&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/leo.xml">
+    <title type="text">A few bits of news</title>
+    <id>http://blog.suspended-chord.info/2013/03/19/a-few-bits-of-news</id>
+    <updated>2013-03-19T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2013/03/19/a-few-bits-of-news" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;Hello all,&lt;/p&gt;
+&lt;p&gt;Just thought I'd update you on a few things I've been up to since the last time 
+I posted (God! I'm bad at this keeping a schedule thing!).  In particular, I've 
+coded up a few small tools, and launched the rebirth of ceekrt.  So... here's a 
+short list of what I've done in the past month and a half plus change:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Submitted &lt;a href=&quot;https://github.com/gatesphere/grinder&quot;&gt;grinder&lt;/a&gt; to the February 2013 &lt;a href=&quot;http://www.pltgames.com/competition/2013/2&quot;&gt;PLTGames competition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wrote a small tabletop RPG manager within Leo: &lt;a href=&quot;https://github.com/gatesphere/rpg.leo&quot;&gt;rpg.leo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Contributed a few small fixes to &lt;a href=&quot;https://github.com/gatesphere/easy6502&quot;&gt;easy6592&lt;/a&gt; and &lt;a href=&quot;https://github.com/gatesphere/candelabra&quot;&gt;candelabra&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Added Markdown support to Leo: &lt;a href=&quot;https://code.launchpad.net/~gatesphere/leo-editor/markdown_support&quot;&gt;leo-editor/markdown_support&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wrote a minimaxing AI for the game &lt;a href=&quot;http://www.boiteajeux.net/jeux/btu/aide_en.php&quot;&gt;Button Up!&lt;/a&gt; in &lt;a href=&quot;http://www.newlisp.org/&quot;&gt;newLISP&lt;/a&gt;: &lt;a href=&quot;https://github.com/gatesphere/fastendown&quot;&gt;fastendown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Attempted to learn, and subsequently gave up on COBOL&lt;/li&gt;
+&lt;li&gt;Submitted &lt;a href=&quot;https://github.com/gatesphere/silica&quot;&gt;silica&lt;/a&gt; to the March 2013 &lt;a href=&quot;http://www.pltgames.com/competition/2013/3&quot;&gt;PLTGames competition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wrote a small implementation of the &lt;a href=&quot;http://www.mythic.wordpr.com/page14/page9/page9.html&quot;&gt;Mythic GM Emulator&lt;/a&gt; in Python: &lt;a href=&quot;https://github.com/gatesphere/mythical-pie&quot;&gt;mythical-pie&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wrote and relaunched a new version of my old pet project, &lt;a href=&quot;http://ceekrt.suspended-chord.info/&quot;&gt;ceekrt&lt;/a&gt;, in Python with Flask&lt;/li&gt;
+&lt;li&gt;Launched the new version of &lt;a href=&quot;http://suspended-chord.info/&quot;&gt;my portfolio pages&lt;/a&gt;!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Looks like I've been busy.  Huh.&lt;/p&gt;
+&lt;p&gt;As for this blog, I swear it's not languishing... but I may be refocusing it once again, into sort of a catch-all for fun stuff.  Programming, science, math, game design, and observations and life musings will be the order of the day.  I still like the name a&amp;rarr;ab, so I'll keep that.&lt;/p&gt;
+&lt;p&gt;Anyways, thanks for reading!&lt;/p&gt;</content>
+  </entry>
+  <entry xml:base="http://localhost/leo.xml">
+    <title type="text">Leo is Love</title>
+    <id>http://blog.suspended-chord.info/2013/02/01/leo-is-love</id>
+    <updated>2013-02-01T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2013/02/01/leo-is-love" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;Hello all.&lt;/p&gt;
+&lt;p&gt;Today I'm writing to evangelize my newest addiction, &lt;a href=&quot;http://leoeditor.com/&quot;&gt;Leo&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Leo is a text editor, PIM tool, outliner, visual literate programming IDE, database, and way of life.  Since
+discovering it a few days ago, I've started using it exclusively.  In fact, this very article was written with
+it.&lt;/p&gt;
+&lt;p&gt;I thought I'd share a few tips on how to get it up and running on Windows systems, and then a few little 
+snippets of fun that I've picked up along the way.&lt;/p&gt;
+&lt;h2&gt;Installing Leo on Windows systems&lt;/h2&gt;
+&lt;p&gt;Getting Leo running on Windows systems isn't as difficult as it seems.  You do need a few things, though:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Python 2.7, 32-bit.  Available &lt;a href=&quot;http://python.org/ftp/python/2.7.3/python-2.7.3.msi&quot;&gt;here&lt;/a&gt;.  64-bit 
+     Python does not work for PyEnchant, meaning that you won't have spellcheck if you go that route.  Also,
+     there isn't a 64-bit setuptools package at the moment, so installing docutils will be difficult.  But Leo 
+     doesn't need much RAM, so this isn't a problem.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PyQT for 32-bit Python 2.7.  Available &lt;a href=&quot;http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.9.6/PyQt-Py2.7-x86-gpl-4.9.6-1.exe&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PyEnchant for Python 2.7.  Available &lt;a href=&quot;http://pypi.python.org/packages/any/p/pyenchant/pyenchant-1.6.5.win32.exe&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;setuptools for Python 2.7.  Available &lt;a href=&quot;http://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11.win32-py2.7.exe#md5=57e1e64f6b7c7f1d2eddfc9746bbaf20&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The latest Leo snapshot.  Available &lt;a href=&quot;http://www.greygreen.org/leo/leo-editor-latest.zip&quot;&gt;here&lt;/a&gt;. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Optional: create-leo.bat, available &lt;a href=&quot;https://gist.github.com/4692706&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Install Python, PyQT, PyEnchant, and setuptools, in that order.&lt;/h3&gt;
+&lt;p&gt;Pretty straight forward.  Just accept the defaults and continue.&lt;/p&gt;
+&lt;h3&gt;Install pip and docutils&lt;/h3&gt;
+&lt;p&gt;Open up a command prompt, and enter the following commands:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Python27&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Scripts&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;easy_install&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exe&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pip&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pip&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;docutils&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Unzip the leo snapshot&lt;/h3&gt;
+&lt;p&gt;Pick somewhere you'll remember it.&lt;/p&gt;
+&lt;p&gt;That's it.  You can now run Leo by doubleclicking &lt;code&gt;launchLeo.py&lt;/code&gt;.  However, we can integrate it into 
+the OS a bit more, making it much nicer to use.&lt;/p&gt;
+&lt;h3&gt;Optional: run create-leo.bat&lt;/h3&gt;
+&lt;p&gt;Copy &lt;code&gt;create-leo.bat&lt;/code&gt; to your Leo directory (the one with &lt;code&gt;launchLeo.py&lt;/code&gt;).  Now open a command prompt,
+and do the following:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leo&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bat&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;C:\Python27\python.exe&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;register&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That will do 2 things: create some .bat files, and register the .leo file extension to open with Leo.
+You are free to move &lt;code&gt;leo.bat&lt;/code&gt; and &lt;code&gt;leoc.bat&lt;/code&gt; anywhere on your system... double-click them and Leo
+will run (&lt;code&gt;leoc.bat&lt;/code&gt; keeps the console open).  Sinde .leo was registered to open with Leo, you can
+double-click on any .leo file to open it in Leo, too.&lt;/p&gt;
+&lt;p&gt;Congratulations, you have Leo on your system.&lt;/p&gt;
+&lt;h2&gt;Some Leo Tricks&lt;/h2&gt;
+&lt;h3&gt;Set up your myLeoSettings.leo file&lt;/h3&gt;
+&lt;p&gt;Seriously, there's crazy power in this file.  It allows you to change the way most of Leo works.&lt;/p&gt;
+&lt;p&gt;Me? Mine's pretty simple at the moment.&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;settings
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; Plugins
+&lt;span class=&quot;o&quot;&gt;---&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;enabled&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;plugins &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; I&lt;span class=&quot;s&quot;&gt;&amp;#39;ve disabled the nav_qt.py&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;                        plugin, as I find it annoying&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;- Keyboard Shortcuts&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;--- @shortcuts MyKeybindings &amp;lt;- I&amp;#39;&lt;/span&gt;ve assigned &lt;span class=&quot;sb&quot;&gt;`tab-cycle-previous`&lt;/span&gt; 
+                                and &lt;span class=&quot;sb&quot;&gt;`tab-cycle-next`&lt;/span&gt; to 
+                                &lt;span class=&quot;sb&quot;&gt;`ctrl+shift+tab`&lt;/span&gt; and &lt;span class=&quot;sb&quot;&gt;`ctrl+tab`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                                respectively&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; as it mimics how 
+                                Firefox and Chrome handle 
+                                tab&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;switching
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Make some @buttons with external script references&lt;/h3&gt;
+&lt;p&gt;I wanted to make some @button nodes which would call a function with different parameters.  Due
+to the way Leo scopes things, it wouldn't work to write the function in a separate script and
+reference it with a &lt;code&gt;&amp;lt;&amp;lt; script reference &amp;gt;&amp;gt;&lt;/code&gt; notation, as in a @file node -- it won't be expanded.&lt;/p&gt;
+&lt;p&gt;The solution, provided to me on the leo-editor Google group by the author of Leo himself, is brilliant.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Use exec to &quot;inject&quot; shared code into the namespace of the script being executed.   This is a cute trick, but it doesn't seem to be in the faq.  There are example of this trick in unitTest.leo:  search for &quot;@common&quot;.&lt;/p&gt;
+&lt;p&gt;Do the following:&lt;/p&gt;
+&lt;p&gt;A. Put the common code somewhere, say in a node called &quot;@common code&quot;.  Note that the node can be called anything: I use @common to draw they eye, but it's just my convention.&lt;/p&gt;
+&lt;p&gt;B. Start each script using the common code with::&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findTestScript&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;common&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;g.findTestScript&lt;/code&gt; returns the &lt;em&gt;expanded&lt;/em&gt; code of the entire subtree whose head is the node &quot;common code&quot;.  Thus, you can use @others and section references in the &quot;common code&quot; subtree! It's cute.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This translates into something like this:&lt;/p&gt;
+&lt;div class=&quot;codehilite&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;common&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;es&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Hiya, %s!&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;george&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findTestScript&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;common&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;george&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clem&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findTestScript&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;common&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clem&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;2 buttons calling 1 script, without code repetition!  This is nice, and it shows the power that Leo has, by
+giving you the ability to access your entire document programmatically.  Simply beautiful, in my book.&lt;/p&gt;
+&lt;p&gt;I've used what I've learned so far to begin creating a Leo workbook helpful for running tabletop RPGs.  It's
+on Github if you're curious: &lt;a href=&quot;https://github.com/gatesphere/rpg.leo&quot;&gt;gatesphere/rpg.leo&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Thanks for reading!&lt;/p&gt;</content>
+  </entry>
+</feed>
