@@ -1,6 +1,5 @@
 .webassets-cache*
 build/*
-packed.*
 
 *.py[cod]
 
