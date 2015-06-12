@@ -10,9 +10,15 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
+<v t="peckj.20150612112510.1"><vh>@settings</vh>
+<v t="peckj.20150612112519.1" a="E"><vh>@button new-post</vh>
+<v t="peckj.20150612113904.1"><vh>&lt;&lt; imports &gt;&gt;</vh></v>
+<v t="peckj.20150612113909.1"><vh>&lt;&lt; declarations &gt;&gt;</vh></v>
+</v>
+</v>
 <v t="peckj.20140121082121.6593"
 expanded="peckj.20140121082121.6643,peckj.20140127083227.10219,peckj.20140127083227.10225,peckj.20140127083227.10227,peckj.20150324132209.1,peckj.20140123082920.4917,peckj.20140123082920.4919,"><vh>@file sitebuilder.py</vh></v>
-<v t="peckj.20140929120632.5053"><vh>@path pages</vh>
+<v t="peckj.20140929120632.5053" a="E"><vh>@path pages</vh>
 <v t="peckj.20140929120632.6871"><vh>@ignore old articles</vh>
 <v t="peckj.20140929120632.5054"><vh>@path 2010</vh>
 <v t="peckj.20140929120632.5055"><vh>@path 08</vh>
@@ -496,6 +502,11 @@ expanded="peckj.20140121082121.6643,peckj.20140127083227.10219,peckj.20140127083
 <v t="peckj.20150422104658.1" a="E"><vh>@path 04</vh>
 <v t="peckj.20150422104703.1" a="E"><vh>@path 22</vh>
 <v t="peckj.20150422104723.1"><vh>@edit blog-now-hosted-on-github.md</vh></v>
+</v>
+</v>
+<v t="peckj.20150612120318.1" a="E"><vh>@path 06</vh>
+<v t="peckj.20150612120318.2" a="E"><vh>@path 12</vh>
+<v t="peckj.20150612120318.3"><vh>@edit updates.md</vh></v>
 </v>
 </v>
 </v>
@@ -7629,5 +7640,56 @@ g.es('done')</t>
 <t tx="peckj.20150422104655.1"></t>
 <t tx="peckj.20150422104658.1"></t>
 <t tx="peckj.20150422104703.1"></t>
+<t tx="peckj.20150612112510.1"></t>
+<t tx="peckj.20150612112519.1">@language python
+
+&lt;&lt; imports &gt;&gt;
+
+&lt;&lt; declarations &gt;&gt;
+
+today = datetime.date.today()
+
+y,m,d = (today.year, today.month, today.day)
+
+title = g.app.gui.runAskOkCancelStringDialog(c, title="New Post Title?", message="Please enter a title for your new post:")
+
+def urlize(s):
+  s = s.lower()
+  s = s.translate(string.maketrans('',''), string.punctuation)
+  s = s.replace(' ','-')
+  return s + '.md'
+
+if title is not None:
+  # get info
+  tags = g.app.gui.runAskOkCancelStringDialog(c, title="New Post Tags?", message="Please enter a comma-separated list of tags for your new post:")
+  header = HEADER_STRING % (y,m,d,tags,title)
+  url = urlize(title)
+  
+  # make node
+  pos = c.createNodeHierarchy(['@path pages', '@path %04d' % y, '@path %02d' % m, '@path %02d' % d, '@edit %s' % url])
+  pos.b = header
+  
+  # make directory structure if it doesn't exist
+  path = os.path.join(c.openDirectory,'pages','%04d'%y,'%02d'%m,'%02d'%d)
+  if not os.path.exists(path):
+    os.makedirs(path)
+
+  # select new node
+  c.selectPosition(pos)
+  c.redraw_now()
+
+</t>
+<t tx="peckj.20150612113904.1">import datetime
+import string
+import os</t>
+<t tx="peckj.20150612113909.1">HEADER_STRING = '''@language md
+---
+date: %04d-%02d-%02d
+tags: [%s]
+title: %s
+
+'''</t>
+<t tx="peckj.20150612120318.1"></t>
+<t tx="peckj.20150612120318.2"></t>
 </tnodes>
 </leo_file>
