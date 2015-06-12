@@ -2,13 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text">a-&gt;ab</title>
   <id>http://localhost/index.xml</id>
-  <updated>2015-04-22T00:00:00Z</updated>
+  <updated>2015-06-12T00:00:00Z</updated>
   <link href="http://localhost/" />
   <link href="http://localhost/index.xml" rel="self" />
   <author>
     <name>Jake Peck</name>
   </author>
   <generator>Werkzeug</generator>
+  <entry xml:base="http://localhost/index.xml">
+    <title type="text">Updates</title>
+    <id>http://blog.suspended-chord.info/2015/06/12/updates</id>
+    <updated>2015-06-12T00:00:00Z</updated>
+    <link href="http://blog.suspended-chord.info/2015/06/12/updates" />
+    <author>
+      <name>Jake Peck</name>
+    </author>
+    <content type="html">&lt;p&gt;So, I'm just absolutely terrible at maintaining this thing, aren't I?&lt;/p&gt;
+&lt;p&gt;Anyway, I've been fairly busy as of late.  Working on a few things -- including a paid game-design gig!  I'm updating Avalon Games' &lt;strong&gt;Arcanum&lt;/strong&gt;, a board game of sandbox fantasy adventure.  It's Magic Realm-like, but much less reliant on the vagaries of fate, and far less rules heavy.  I like it quite a bit, even though it's filled with holes.  My job is to patch it up a bit for a new revised edition.  I've already rewritten the rules, and I'll be touching up the components and polishing a few mechanics.&lt;/p&gt;
+&lt;p&gt;Other than that, I'm bogged down with work-related projects, so not much fun stuff to report.&lt;/p&gt;
+&lt;p&gt;I'll try to keep a better job of updating this thing...&lt;/p&gt;</content>
+  </entry>
   <entry xml:base="http://localhost/index.xml">
     <title type="text">Blog now hosted on github</title>
     <id>http://blog.suspended-chord.info/2015/04/22/blog-now-hosted-on-github</id>
@@ -273,17 +286,5 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</content>
-  </entry>
-  <entry xml:base="http://localhost/index.xml">
-    <title type="text">You are what you wield</title>
-    <id>http://blog.suspended-chord.info/2014/04/22/you-are-what-you-wield</id>
-    <updated>2014-04-22T00:00:00Z</updated>
-    <link href="http://blog.suspended-chord.info/2014/04/22/you-are-what-you-wield" />
-    <author>
-      <name>Jake Peck</name>
-    </author>
-    <content type="html">&lt;p&gt;As mentioned in &lt;a href=&quot;/2014/04/16/on-grinding-in-games/&quot;&gt;last week's post&lt;/a&gt;, I've been playing Monster Hunter 3 Ultimate lately.  I think it's a really well done game.  It's also a refreshing take on the whole level-up concept, in that your character never improves -- your play improves.&lt;/p&gt;
-&lt;p&gt;This is accomplished by having a single unwavering base stat: defense 50.  Every increase on top of that is either your gear (which gets better as you earn rare ingredients and forge new pieces), or you as a player.  I find this concept fascinating.  Not only does it (kind of) model real life, but it rewards the player for their dedication.  It removes the concept of 'character' and replaces it with 'avatar' -- and MH3U's ability to change your hairstyles at will reinforces this.  Your avatar is an expression of you, rather than a living, breathing entity of his/her own.  I think that's something that most MMOs are sorely missing.&lt;/p&gt;
-&lt;p&gt;Anyways, I just wanted to highlight this idea.  It's really neat to me, and fosters some interesting emergent gameplay.&lt;/p&gt;</content>
   </entry>
 </feed>
