@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Created by Leo: http://leoeditor.com/leo_toc.html -->
-<?xml-stylesheet ekr_test ?>
 <leo_file xmlns:leo="http://leoeditor.com/namespaces/leo-python-editor/1.1" >
 <leo_header file_format="2" tnodes="0" max_tnode_index="0" clone_windows="0"/>
 <globals body_outline_ratio="0.5" body_secondary_ratio="0.5">
@@ -16,10 +15,10 @@
 <v t="peckj.20150612113909.1"><vh>&lt;&lt; declarations &gt;&gt;</vh></v>
 </v>
 </v>
-<v t="peckj.20140121082121.6593"
+<v t="peckj.20140121082121.6593" a="E"
 expanded="peckj.20140121082121.6643,peckj.20140127083227.10219,peckj.20140127083227.10225,peckj.20140127083227.10227,peckj.20150324132209.1,peckj.20140123082920.4917,peckj.20140123082920.4919,"><vh>@file sitebuilder.py</vh></v>
 <v t="peckj.20140929120632.5053" a="E"><vh>@path pages</vh>
-<v t="peckj.20140929120632.6871"><vh>@ignore old articles</vh>
+<v t="peckj.20140929120632.6871" a="E"><vh>@ignore old articles</vh>
 <v t="peckj.20140929120632.5054"><vh>@path 2010</vh>
 <v t="peckj.20140929120632.5055"><vh>@path 08</vh>
 <v t="peckj.20140929120632.5056"><vh>@path 23</vh>
@@ -300,7 +299,7 @@ expanded="peckj.20140121082121.6643,peckj.20140127083227.10219,peckj.20140127083
 <v t="peckj.20140929120632.5233"><vh>@edit a-few-bits-of-news.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5234" a="E"><vh>@path 04</vh>
+<v t="peckj.20140929120632.5234"><vh>@path 04</vh>
 <v t="peckj.20140929120632.5235" a="E"><vh>@path 04</vh>
 <v t="peckj.20140929120632.5236"><vh>@edit fudge-is-logarithmic.md</vh></v>
 </v>
@@ -333,7 +332,7 @@ expanded="peckj.20140121082121.6643,peckj.20140127083227.10219,peckj.20140127083
 <v t="peckj.20140929120632.5256"><vh>@edit passing-a-comparison-operator-in-python.md</vh></v>
 </v>
 </v>
-<v t="peckj.20140929120632.5257"><vh>@path 11</vh>
+<v t="peckj.20140929120632.5257" a="E"><vh>@path 11</vh>
 <v t="peckj.20140929120632.5258" a="E"><vh>@path 04</vh>
 <v t="peckj.20140929120632.5259"><vh>@edit ltd-week-six.md</vh></v>
 <v t="peckj.20140929120632.5260"><vh>@edit nodewatch-for-productivity.md</vh></v>
@@ -498,7 +497,7 @@ expanded="peckj.20140121082121.6643,peckj.20140127083227.10219,peckj.20140127083
 </v>
 </v>
 </v>
-<v t="peckj.20150422104655.1" a="E"><vh>@path 2015</vh>
+<v t="peckj.20150422104655.1"><vh>@path 2015</vh>
 <v t="peckj.20150422104658.1" a="E"><vh>@path 04</vh>
 <v t="peckj.20150422104703.1" a="E"><vh>@path 22</vh>
 <v t="peckj.20150422104723.1"><vh>@edit blog-now-hosted-on-github.md</vh></v>
@@ -5900,7 +5899,7 @@ date: 2013-11-26
 tags: [acme, ui, ux, editors]
 title: Exploring Acme
 
-For this post, I want to try a little something different.  I'd like to examine the text editor [Acme](http://en.wikipedia.org/wiki/Acme_(text_editor\)) from [Plan 9 from Bell Labs](http://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs) and [Inferno](http://en.wikipedia.org/wiki/Inferno_(operating_system\)).  I think Acme represents a fundamentally different way of interacting with a system than what the vast majority of users use today -- and one I wouldn't have even been inclined to give a shot if I hadn't already been mired in Leo's UI.
+For this post, I want to try a little something different.  I'd like to examine the text editor [Acme](http://en.wikipedia.org/wiki/Acme_(text_editor)) from [Plan 9 from Bell Labs](http://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs) and [Inferno](http://en.wikipedia.org/wiki/Inferno_(operating_system)).  I think Acme represents a fundamentally different way of interacting with a system than what the vast majority of users use today -- and one I wouldn't have even been inclined to give a shot if I hadn't already been mired in Leo's UI.
 
 # What is Acme
 Acme is one of the default text editors for the Plan 9 OS.  Plan 9 in itself is fascinating, and a real study on 'the future, yesterday' in OS design... but that's another topic altogether.
