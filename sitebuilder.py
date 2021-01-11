@@ -12,12 +12,13 @@ from datetime import datetime, date
 from flask import Flask, render_template, abort, send_from_directory
 from flask_flatpages import FlatPages
 from flask_frozen import Freezer
-from flask.ext.assets import Environment
-from htmlmin.minify import html_minify
+#from flask.ext.assets import Environment
+from flask_assets import Environment
+#from htmlmin.minify import html_minify
 
-from urlparse import urljoin
+#from urlparse import urljoin
 from flask import request
-from werkzeug.contrib.atom import AtomFeed
+#from werkzeug.contrib.atom import AtomFeed
 
 #@-<< imports >>
 #@+<< declarations >>
@@ -75,18 +76,18 @@ def index():
   p.sort(key=lambda x: get_date(x), reverse=True)
   new=p[:10]
   old=p[10:]
-  return html_minify(render_template('index.html', newpages=new, oldpages=old))
+  return render_template('index.html', newpages=new, oldpages=old)
 #@+node:peckj.20140121082121.6642: *3* route '/tag/<string:tag>/'
 @app.route('/tag/<string:tag>/')
 def tag(tag):
   tagged = [p for p in pages if tag in p.meta.get('tags', [])]
   tagged.sort(key=lambda x: get_date(x))
-  return html_minify(render_template('tag.html', pages=tagged, tag=tag))
+  return render_template('tag.html', pages=tagged, tag=tag)
 #@+node:peckj.20140121082121.6643: *3* route '/<path:path>/'
 @app.route('/<path:path>/')
 def page(path):
   page = pages.get_or_404(path)
-  return html_minify(render_template('page.html', page=page))
+  return render_template('page.html', page=page)
 #@+node:peckj.20150422092749.1: *4* page_generator
 @freezer.register_generator
 def page_generator():
@@ -101,7 +102,7 @@ def page_generator():
 def year(year):
   title = '%04d' % year
   year_pages = get_pages_by_date(year=year)
-  return html_minify(render_template('archives.html', pages=year_pages, title=title))
+  return render_template('archives.html', pages=year_pages, title=title)
 
 #@+node:peckj.20150422092803.1: *4* year_generator
 @freezer.register_generator
@@ -118,7 +119,7 @@ def year_generator():
 def month(year, month):
   month_pages = get_pages_by_date(year=year, month=month)
   title = '%04d/%02d' % (year, month)
-  return html_minify(render_template('archives.html', pages=month_pages, title=title))
+  return render_template('archives.html', pages=month_pages, title=title)
 
 #@+node:peckj.20150422092827.1: *4* month_generator
 @freezer.register_generator
@@ -135,7 +136,7 @@ def month_generator():
 def day(year, month, day):
   day_pages = get_pages_by_date(year=year, month=month, day=day)
   title = '%04d/%02d/%02d' % (year, month, day)
-  return html_minify(render_template('archives.html', pages=day_pages, title=title))
+  return render_template('archives.html', pages=day_pages, title=title)
 
 #@+node:peckj.20150422092838.1: *4* day_generator
 @freezer.register_generator
@@ -147,7 +148,7 @@ def day_generator():
     if day not in days:
       days.append(day)
   return days
-#@+node:peckj.20150324132209.1: *3* rss feeds
+#@+node:peckj.20150324132209.1: *3* @ignore rss feeds
 #@+node:peckj.20150324130257.1: *4* route '/index.xml'
 @app.route('/index.xml')
 def rss_feed():
@@ -190,13 +191,13 @@ def rss_feed_leo():
 #@+node:peckj.20140123082920.4911: *4* route '/about/'
 @app.route("/about/")
 def about():
-  return html_minify(render_template('about.html'))
+  return render_template('about.html')
 #@+node:peckj.20140123082920.4912: *4* route '/archives/'
 @app.route("/archives/")
 def archives():
   p = list(pages)
   p.sort(key=lambda x: get_date(x))
-  return html_minify(render_template('archives.html', pages=p, title='archives'))
+  return render_template('archives.html', pages=p, title='archives')
 #@+node:peckj.20140123082920.4916: *4* route '/code-dump/'
 @app.route('/code-dump/')
 def codedump():
@@ -218,12 +219,12 @@ def tags():
         val = tags.get(tag, 0)
         val += 1
         tags[tag] = val
-  return html_minify(render_template('tags.html', tags=tags))
+  return render_template('tags.html', tags=tags)
 #@+node:peckj.20140123082920.4919: *3* etc
 #@+node:peckj.20140121082121.6645: *4* route '/404.html'
 @app.route('/404.html')
 def error():
-  return html_minify(render_template('error.html', error=404))
+  return render_template('error.html', error=404)
 
 @freezer.register_generator
 def error_generator():
