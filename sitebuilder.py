@@ -148,45 +148,6 @@ def day_generator():
     if day not in days:
       days.append(day)
   return days
-#@+node:peckj.20150324132209.1: *3* @ignore rss feeds
-#@+node:peckj.20150324130257.1: *4* route '/index.xml'
-@app.route('/index.xml')
-def rss_feed():
-  feed = AtomFeed('a->ab',
-    feed_url=request.url,
-    url=request.url_root,
-    author='Jake Peck')
-  p = list(pages)
-  p.sort(key=lambda x: get_date(x), reverse=True)
-  articles = p[:10]
-  
-  for article in articles:
-    feed.add(article.meta['title'], unicode(article.html),
-        content_type='html',
-        author='Jake Peck',
-        url=make_external_url(article.path),
-        updated=article.meta['date'])
-  
-  return feed.get_response()
-#@+node:peckj.20150324131858.1: *4* route '/leo.xml'
-@app.route('/leo.xml')
-def rss_feed_leo():
-  feed = AtomFeed('a->ab',
-    feed_url=request.url,
-    url=request.url_root,
-    author='Jake Peck')
-  
-  tagged = [p for p in pages if 'leo' in p.meta.get('tags', [])]
-  tagged.sort(key=lambda x: get_date(x), reverse=True)
-  
-  for article in tagged:
-    feed.add(article.meta['title'], unicode(article.html),
-        content_type='html',
-        author='Jake Peck',
-        url=make_external_url(article.path),
-        updated=article.meta['date'])
-  
-  return feed.get_response()
 #@+node:peckj.20140123082920.4917: *3* top-level nav
 #@+node:peckj.20140123082920.4911: *4* route '/about/'
 @app.route("/about/")

@@ -549,6 +549,10 @@
 <v t="peckj.20140929083759.4143"><vh>clean empty directories</vh></v>
 <v t="peckj.20140929083759.4144"><vh>add articles to leo</vh></v>
 <v t="peckj.20140929120632.5368"><vh>format-dates-and-tags</vh></v>
+<v t="peckj.20210110225900.1"><vh>@ignore rss feeds</vh>
+<v t="peckj.20210110225900.2"><vh>route '/index.xml'</vh></v>
+<v t="peckj.20210110225900.3"><vh>route '/leo.xml'</vh></v>
+</v>
 </v>
 <v t="peckj.20140123082920.4925"><vh>to do</vh>
 <v t="peckj.20150324145836.1"><vh>get the repo into a buildable state</vh></v>
@@ -1260,5 +1264,44 @@ title: %s
 <t tx="peckj.20210110224531.1"></t>
 <t tx="peckj.20210110224531.2"></t>
 <t tx="peckj.20210110224531.3"></t>
+<t tx="peckj.20210110225900.1"></t>
+<t tx="peckj.20210110225900.2">@app.route('/index.xml')
+def rss_feed():
+  feed = AtomFeed('a-&gt;ab',
+    feed_url=request.url,
+    url=request.url_root,
+    author='Jake Peck')
+  p = list(pages)
+  p.sort(key=lambda x: get_date(x), reverse=True)
+  articles = p[:10]
+  
+  for article in articles:
+    feed.add(article.meta['title'], unicode(article.html),
+        content_type='html',
+        author='Jake Peck',
+        url=make_external_url(article.path),
+        updated=article.meta['date'])
+  
+  return feed.get_response()
+</t>
+<t tx="peckj.20210110225900.3">@app.route('/leo.xml')
+def rss_feed_leo():
+  feed = AtomFeed('a-&gt;ab',
+    feed_url=request.url,
+    url=request.url_root,
+    author='Jake Peck')
+  
+  tagged = [p for p in pages if 'leo' in p.meta.get('tags', [])]
+  tagged.sort(key=lambda x: get_date(x), reverse=True)
+  
+  for article in tagged:
+    feed.add(article.meta['title'], unicode(article.html),
+        content_type='html',
+        author='Jake Peck',
+        url=make_external_url(article.path),
+        updated=article.meta['date'])
+  
+  return feed.get_response()
+</t>
 </tnodes>
 </leo_file>
