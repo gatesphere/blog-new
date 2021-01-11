@@ -1,5 +1,88 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>Google failed me, use Python! | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Google failed me, use Python!</h1><span class="date">May 6, 2014</span><br/> <span class="tags">tags: <a href="/tag/python/">python</a>, <a href="/tag/stupid%20tricks/">stupid tricks</a>, <a href="/tag/sysadmin/">sysadmin</a>, <a href="/tag/Solaris%2010/">Solaris 10</a></span></header><section class="content"><p>So, yesterday I needed to know whether or not Solaris 10 enforces the maximum open file handles limit for processes running as root (I know, root-level processes are bad form... but it's legacy, so there's my excuse). Google told how to set it, how to check it, and what it defaults to, but didn't give me the all-important info of whether or not root is limited by it. So I decided to hack together a quick script to test it empirically on the server in question.</p><p>I was going to try it in bash, but it turns out that bash is too smart for it's own good here -- there's no trivial way of opening a file descriptor without it autoclosing on you. So I went with Python instead, carefully avoiding the <code>with</code> keyword. Here's what I hacked together:</p><table class="codehilitetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>Google failed me, use Python! | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>Google failed me, use Python!</h1>
+  <span class="date">May 6, 2014</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+    <a href="/tag/python/">python</a>,&nbsp;
+    
+    <a href="/tag/stupid%20tricks/">stupid tricks</a>,&nbsp;
+    
+    <a href="/tag/sysadmin/">sysadmin</a>,&nbsp;
+    
+    <a href="/tag/Solaris%2010/">Solaris 10</a>
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>So, yesterday I needed to know whether or not Solaris 10 enforces the maximum open file handles limit for processes running as root (I know, root-level processes are bad form... but it's legacy, so there's my excuse).  Google told how to set it, how to check it, and what it defaults to, but didn't give me the all-important info of whether or not root is limited by it.  So I decided to hack together a quick script to test it empirically on the server in question.</p>
+<p>I was going to try it in bash, but it turns out that bash is too smart for it's own good here -- there's no trivial way of opening a file descriptor without it autoclosing on you.  So I went with Python instead, carefully avoiding the <code>with</code> keyword.  Here's what I hacked together:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -8,21 +91,58 @@
  7
  8
  9
-10</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/usr/bin/env python</span>
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
 
 <span class="n">n</span> <span class="o">=</span> <span class="mi">10000</span>
 
 <span class="n">fds</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-  <span class="n">fname</span> <span class="o">=</span> <span class="s">'testfile'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-  <span class="n">fds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s">'w+'</span><span class="p">))</span>
-  <span class="k">print</span> <span class="n">i</span>
-</pre></div></td></tr></tbody></table><p>Its short, hacky, depends on throwing an exception to kill it (if indeed there is an imposed limit), and forces the user to manually clean out the filesystem of all <code>testfile*</code> files, but it worked. The result: yes, root is indeed slave to the kernel, and can only open up as many file descriptors as <code>plimit $$</code> claims.</p><p>I love Python. :)</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+  <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;testfile&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+  <span class="n">fds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">))</span>
+  <span class="nb">print</span> <span class="n">i</span>
+</code></pre></div>
+</td></tr></table>
+<p>Its short, hacky, depends on throwing an exception to kill it (if indeed there is an imposed limit), and forces the user to manually clean out the filesystem of all <code>testfile*</code> files, but it worked.  The result: yes, root is indeed slave to the kernel, and can only open up as many file descriptors as <code>plimit $$</code> claims.</p>
+<p>I love Python. :)</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

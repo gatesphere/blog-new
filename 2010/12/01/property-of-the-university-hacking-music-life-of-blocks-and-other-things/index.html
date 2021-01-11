@@ -1,9 +1,129 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>Property of the University, hacking, music, life of blocks, and other things... | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Property of the University, hacking, music, life of blocks, and other things...</h1><span class="date">December 1, 2010</span><br/> <span class="tags">tags:</span></header><section class="content"><p>Hello all,</p><p>I've been awful silent lately. Well, sorry about that. School's been making me it's property, so I haven't had much time to do anything else. Oh, and I've been playing <a href="http://www.minecraft.net/">Minecraft Alpha</a> a lot lately. But, there's only a week and a half left of class, and then finals, and I will be free again (for about a month). So, I'll be doing more cool things over my short break. Just stay tuned.</p><p>I have been thinking about some of my projects, mostly software related. Here's what I would like to accomplish during my break.</p><p>Firstly, I intend to make a backend for both blahgger and the current iteration of ceekrt (yes, current iteration... I'll come back to this). Currently, I am administering both of these projects by editing the MySQL databases directly, so this will have to change. Also, make the category system in both blahgger and ceekrt, and add permalinks to the current iteration of ceekrt.</p><p>Secondly, from playing Minecraft, and realizing that it is a clone of <a href="http://thesiteformerlyknownas.zachtronicsindustries.com/?p=713">Infiniminer</a>, something in me was compelled to play an old game I used to love, <a href="http://www.darksignsonline.com/forum/viewtopic.php?f=18&amp;t=922">Dark Signs</a>. (sorry, only link I could find for it, it's truly a dead game, which is a shame). Dark Signs is a "hacking simulation game", meaning that you are dumped into a console, with an email message requesting help to complete a "sensitive mission". It is crazy fun, if you're interested in computer security and puzzles. Well, I've decided that I'd like to make a cross-platform "clone" of sorts. I'd like to keep the same basic gameplay (connect, exploit, profit), but make it more real-world, and perhaps more complex. I have settled on Java as the language to program this in, with a partial list of features scribbled down haphazardly in my notebook. I have a feeling it's going to be a good thing, if I can actually follow through with it. I'm going to be using the (sadly abandoned, but still rather usable) <a href="http://sourceforge.net/projects/enigma-shell/">Enigma Console</a> Java library to handle console display in a cross-platform way - anything with a JVM that can handle Swing will be able to run this game. I'm calling it "coldnet" for now, and the shell is going to be called "blash" for "BLAck SHell" or something like that. Silly, I know, but it's a game. I know that I will not come anywhere near a finished version of this over a 1 month break, but I would like to at least get it started.</p><p>Thirdly, I started on a little something yesterday that I'm calling "fileslave". It's a single-file PHP file manager for running a personal or shared file-drop service. Think of it as <a href="http://greg-j.com/phpdl/">PHPDL</a> with upload/download capability, password protection, and other fancy features. It'll be open source, of course. And yeah, the name isn't exactly politically correct, but this will never be a commercial product, so I don't honestly care. Plus I think it sounds cool, and accurately purveys what the app will do.</p><p>Fourthly, I will continue work on MSPhere and start work on LPChere if at all possible.</p><p>Fifthly, I'll post here on a quick little build I did of what I'm calling "stickies", modified versions of the throwies that people post about all over the place. My build is much cheaper, costing only pennies per sticky, but at the cost of having to physically place them rather than throw them. Lots of room for improvement, but a cool idea nonetheless.</p><p>Sixthly, I might release (after a bit more work) a simple Java library I wrote to make parsing argument strings easier. I will definitely be using this in coldnet, so I might as well release it on it's own right. I call it JEclap, for Java Easy Command Line Argument Parser, but really, it works on any string of tokens.</p><p>Finally, and this is something for next semester, not over break, I will be rewriting the ceekrt engine and opening the site with a proper domain name. The site will no longer be called ceekrt (though the codebase will), but I cannot say what it will be called here. The reason for this is that ceekrt is my first major project that I have seen even a tiny bit of success with, and I am taking a web services course next semester, which requires students to come up with an idea for a web app and build it. I figured I'd take this opportunity to both make ceekrt something I can really be proud of, and also to add something to my resume. I'm slowly making a name for myself in the internet world, which will be all the more helpful when it comes time to find a real job.</p><p>However, all of this takes back seat to my Honors Thesis on Algorithmic Composition. I've come up with some clever ideas for that already, but I have a lot of research to do with that still. If you're interested, you can look at my work thus far at <a href="http://thesis.suspended-chord.info/">my thesis page</a>. Also, I will be working at least one day a week, most likely more. But, I at least have a to-do list.</p><p>That's it for me.</p><p>Happy December! And thanks for reading.</p><p>Keep tweaking~</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>Property of the University, hacking, music, life of blocks, and other things... | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>Property of the University, hacking, music, life of blocks, and other things...</h1>
+  <span class="date">December 1, 2010</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>Hello all,</p>
+<p>I've been awful silent lately. Well, sorry about that. School's been making me it's property, so I haven't had much time to do anything else. Oh, and I've been playing <a href="http://www.minecraft.net/">Minecraft Alpha</a> a lot lately. But, there's only a week and a half left of class, and then finals, and I will be free again (for about a month). So, I'll be doing more cool things over my short break. Just stay tuned.</p>
+<p>I have been thinking about some of my projects, mostly software related. Here's what I would like to accomplish during my break.</p>
+<p>Firstly, I intend to make a backend for both blahgger and the current iteration of ceekrt (yes, current iteration... I'll come back to this). Currently, I am administering both of these projects by editing the MySQL databases directly, so this will have to change. Also, make the category system in both blahgger and ceekrt, and add permalinks to the current iteration of ceekrt.</p>
+<p>Secondly, from playing Minecraft, and realizing that it is a clone of <a href="http://thesiteformerlyknownas.zachtronicsindustries.com/?p=713">Infiniminer</a>, something in me was compelled to play an old game I used to love, <a href="http://www.darksignsonline.com/forum/viewtopic.php?f=18&amp;t=922">Dark Signs</a>. (sorry, only link I could find for it, it's truly a dead game, which is a shame). Dark Signs is a "hacking simulation game", meaning that you are dumped into a console, with an email message requesting help to complete a "sensitive mission". It is crazy fun, if you're interested in computer security and puzzles. Well, I've decided that I'd like to make a cross-platform "clone" of sorts. I'd like to keep the same basic gameplay (connect, exploit, profit), but make it more real-world, and perhaps more complex. I have settled on Java as the language to program this in, with a partial list of features scribbled down haphazardly in my notebook. I have a feeling it's going to be a good thing, if I can actually follow through with it. I'm going to be using the (sadly abandoned, but still rather usable) <a href="http://sourceforge.net/projects/enigma-shell/">Enigma Console</a> Java library to handle console display in a cross-platform way - anything with a JVM that can handle Swing will be able to run this game. I'm calling it "coldnet" for now, and the shell is going to be called "blash" for "BLAck SHell" or something like that. Silly, I know, but it's a game. I know that I will not come anywhere near a finished version of this over a 1 month break, but I would like to at least get it started.</p>
+<p>Thirdly, I started on a little something yesterday that I'm calling "fileslave". It's a single-file PHP file manager for running a personal or shared file-drop service. Think of it as <a href="http://greg-j.com/phpdl/">PHPDL</a> with upload/download capability, password protection, and other fancy features. It'll be open source, of course. And yeah, the name isn't exactly politically correct, but this will never be a commercial product, so I don't honestly care. Plus I think it sounds cool, and accurately purveys what the app will do.</p>
+<p>Fourthly, I will continue work on MSPhere and start work on LPChere if at all possible.</p>
+<p>Fifthly, I'll post here on a quick little build I did of what I'm calling "stickies", modified versions of the throwies that people post about all over the place. My build is much cheaper, costing only pennies per sticky, but at the cost of having to physically place them rather than throw them. Lots of room for improvement, but a cool idea nonetheless.</p>
+<p>Sixthly, I might release (after a bit more work) a simple Java library I wrote to make parsing argument strings easier. I will definitely be using this in coldnet, so I might as well release it on it's own right. I call it JEclap, for Java Easy Command Line Argument Parser, but really, it works on any string of tokens.</p>
+<p>Finally, and this is something for next semester, not over break, I will be rewriting the ceekrt engine and opening the site with a proper domain name. The site will no longer be called ceekrt (though the codebase will), but I cannot say what it will be called here. The reason for this is that ceekrt is my first major project that I have seen even a tiny bit of success with, and I am taking a web services course next semester, which requires students to come up with an idea for a web app and build it. I figured I'd take this opportunity to both make ceekrt something I can really be proud of, and also to add something to my resume. I'm slowly making a name for myself in the internet world, which will be all the more helpful when it comes time to find a real job.</p>
+<p>However, all of this takes back seat to my Honors Thesis on Algorithmic Composition. I've come up with some clever ideas for that already, but I have a lot of research to do with that still. If you're interested, you can look at my work thus far at <a href="http://thesis.suspended-chord.info/">my thesis page</a>. Also, I will be working at least one day a week, most likely more. But, I at least have a to-do list.</p>
+<p>That's it for me.</p>
+<p>Happy December! And thanks for reading.</p>
+<p>Keep tweaking~</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

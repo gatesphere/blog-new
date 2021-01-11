@@ -1,9 +1,138 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>Compiling code offline for the mbed NXP LPC1768 | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Compiling code offline for the mbed NXP LPC1768</h1><span class="date">October 17, 2010</span><br/> <span class="tags">tags:</span></header><section class="content"><p>Hello all.</p><p>A while back on the <a href="http://43oh.com/">43oh!</a> forums, bluehash posted a <a href="http://www.circuitcellar.com/nxpmbeddesignchallenge/kit.htm">link to a contest</a> for the <a href="http://mbed.org/">mbed microcontroller platform</a>, including an application for a free evaluation mbed module. I applied, thinking that I wouldn't receive one, but it appears that NXP and Circuit Cellar are very generous and handed one out to me even though I specifically stated that I was a student (not a company), did this as a hobby (not a job), and had no idea what I would end up doing with it. They shipped one out to me, no questions asked. Unfortunately, free boards are no longer available, but I have to say, with the specs it has, it is a <a href="http://mbed.org/handbook/mbed-NXP-LPC1768">very nice kit</a> for the price (~$60US).</p><p>Anyway, all that niceness comes with a hitch. The mbed platform was designed around a "cloud compiler", a web-based IDE which operates in the cloud, compiling your code and handing you a downloadable binary file to drop onto the mbed's storage module. This works well, and the API that the mbed organization has developed is very easy to use and rather thorough (even compared to the offering from the <a href="http://arduino.cc/">Arduino</a> team), and with an online compiler, you never have to download new versions of software... everyone will be using the same version, pushed out to the server whenever there's an update.</p><p>But this approach has several drawbacks. Firstly, your code is stored on the cloud. This is fine for most home tinkerers like myself, but for someone using the mbed to simply have an easy to access LPC1768 while prototyping a product or something could have issues with this. Secondly, the mbed API is closed source. I am a major proponent of free libre open source software. Yes, I use TI's CCS, but that's because at the moment I don't have the time to delve into setting up mspgcc4. Thirdly, and this is the biggie for me, if you don't have an active or reliable internet connection, you are left out in the cold. The device, as presented by mbed, is unprogrammable without the internet. This point to me seems a bit ridiculous.</p><p>So, upon receiving my mbed and confirming that it works by burning the "hello world" blinky program to it, I decided to find a reliable, easy way to compile code for it offline, with free libre open source software if possible. After a bit of digging and a few dead ends, I found a dead-simple solution.</p><p>The mbed is nothing more than a (slightly neutered, slightly enhanced) LPC1768 platform. There is nothing stopping this thing from running any ARM Cortex-M3 code you throw at it. So, I simply looked around for a solution using gcc-arm. Turns out, there is a similar product called the <a href="http://ics.nxp.com/lpcxpresso/">LPCXpresso</a> (which I am considering purchasing), and there is a free version of the Code Red Suite IDE available for it called (uncreatively enough) the LPCXpresso IDE. This IDE is Eclipse based, so it is familiar to a lot of people (including those who use TI's CCS, which is also Eclipse based), and also very powerful. This one also has the advantage of using gcc-arm for the backend. The IDE is limited when using the LPCXpresso boards, as the free version (once registered) has a flash download limit of 128k. But because it uses arm-gcc as the backend, it has an unlimited compile size. And, as the mbed cannot be flashed in the traditional way thanks to it's "innovative" drag2flash magic-chip (their terms, not mine), this effectively renders the LPCXpresso IDE limitless when it comes to compiling code for the mbed.</p><p>So, enough of my bantering, on to how to do it. I'll list steps in an ordered list here to simplify the process as much as possible. Note, all of my instruction comes from working with a Windows machine. I do not know how the Linux version of the LPCXpresso IDE differs from the Windows version other than the obvious path names and such.</p><ol><li>Get an mbed.</li><li>Go to the <a href="http://lpcxpresso.code-red-tech.com/LPCXpresso/">LPCXpresso IDE</a> page, and register an account. Once that is done, download the appropriate version of the IDE for your platform.</li><li>Install the IDE. During setup, you might be asked if you want to install the Debug drivers and the NXP-link drivers. These are completely un-necessary if you are going to be using this IDE strictly for the mbed. The mbed unfortunately cannot be debugged, nor can the chip be completely reflashed, as the mbed module lacks the JTAG breakouts.</li><li>Once installed, run the IDE. To stop the annoying nag message, you should activate your product (it's free). To do this, go to Help&gt;Product Activation&gt;Create Serial number and Activate. This will give you a serial number. On the LPCXpresso IDE site, you can click My Registrations, and enter this serial number. Once you do that, check your email. You will have received an activation code. Go to Help&gt;Product Activation&gt;Enter Activation Code and paste in the code emailed to you. This will register your IDE. Again, this step is optional, but it prevents a nag-box from appearing every time you open the IDE.</li></ol><p>And that's all you need to get the IDE.</p><p>Now on to some code. The IDE comes with several examples to get you started. To import these examples, go to the button at the top of the IDE that looks like a blue circle with a lightbulb in it. From there, click browse, then go to NXP&gt;LPC1000&gt;LPC17xx&gt;RDB1768cmsis.zip. On the next screen, deselect all, then choose the first one (CMSIS) and the one called LEDflash. This will help us get a simple hello-world up and going. These projects will import, and be ready to compile.</p><p>Well, almost. This project (LEDflash, the CMSIS one is a low-level interface library between the C code and the registers in assembly which the LEDflash project depends upon) was designed for Code Red's LPC1768 board, which has LEDs on different pins than the mbed. So a few small changes to the code are in order. Open up "leds.h" and replace the first chunk with the correct pin numbers of the LEDs (change LED_5 to LED_1 wherever it appears in this file). According to the <a href="http://mbed.org/media/uploads/chris/mbed-005.1.pdf">mbed schematic</a>, The user LEDs are connected to P1.18 (LED1), P1.20 (LED2), P1.21 (LED3), and P1.23 (LED4). Change the values of the #defines accordingly. Save, now open up "main_ledflash.c". Wherever LED_5 appears, replace it with LED_1. Save, and you're ready to compile.</p><p>Go to Project&gt;Build Project. The project will build. There's one last step to getting it mbed-ready. Over in the left hand panel, click on binaries (under LEDflash), then right click on the .axf file, go to Binary Utilities&gt;Create binary. This will take almost no time at all, and the status bar at the bottom of the IDE will display "Successful". Now find the folder where your workspace is located (right click&gt;properties on the .axf file, and look under Location). In that folder will be a .bin file (created in the last step). Copy that .bin file to your mbed, hit the reset button, and enjoy your (extended) hello-world blinky example!</p><p>This has been a long post, but an enlightening one, I hope. I may end up developing an LPChere framework similar to my MSPhere framework, but not at this moment in time. For now, I'm just happy that I was able to find a solution, and I hope this has helped anyone who actually took time out of their day to read it. Thanks for reading, and comments are always appreciated :)</p><p>Keep tweaking~</p><p><strong>EDIT (21 May 2011):</strong> Daniel Marks just emailed me the following information that might be helpful for others:</p><p>I just read your blog entry from Oct 17 and I wanted to let you know that you can just use Codesourcery G++ lite (<a href="http://www.codesourcery.com/sgpp/lite/arm">http://www.codesourcery.com/sgpp/lite/arm</a>) or just compile arm-non-eabi-gcc toolchain yourself to use with the mbed. I did this for use with my open source project Jumentum (<a href="http://jumentum.sourceforge.net/">http://jumentum.sourceforge.net/</a>). My project is an open source BASIC language for LPC microcontrollers that resides on the microcontroller.</p><p>If you download the source code for Jumentum you will find ported CMSIS and other sample source code for LPC1768, or you could just try the mbed port of Jumentum directly.</p><p>Dan</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>Compiling code offline for the mbed NXP LPC1768 | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>Compiling code offline for the mbed NXP LPC1768</h1>
+  <span class="date">October 17, 2010</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>Hello all.</p>
+<p>A while back on the <a href="http://43oh.com/">43oh!</a> forums, bluehash posted a <a href="http://www.circuitcellar.com/nxpmbeddesignchallenge/kit.htm">link to a contest</a> for the <a href="http://mbed.org/">mbed microcontroller platform</a>, including an application for a free evaluation mbed module. I applied, thinking that I wouldn't receive one, but it appears that NXP and Circuit Cellar are very generous and handed one out to me even though I specifically stated that I was a student (not a company), did this as a hobby (not a job), and had no idea what I would end up doing with it. They shipped one out to me, no questions asked. Unfortunately, free boards are no longer available, but I have to say, with the specs it has, it is a <a href="http://mbed.org/handbook/mbed-NXP-LPC1768">very nice kit</a> for the price (~$60US).</p>
+<p>Anyway, all that niceness comes with a hitch. The mbed platform was designed around a "cloud compiler", a web-based IDE which operates in the cloud, compiling your code and handing you a downloadable binary file to drop onto the mbed's storage module. This works well, and the API that the mbed organization has developed is very easy to use and rather thorough (even compared to the offering from the <a href="http://arduino.cc/">Arduino</a> team), and with an online compiler, you never have to download new versions of software... everyone will be using the same version, pushed out to the server whenever there's an update.</p>
+<p>But this approach has several drawbacks. Firstly, your code is stored on the cloud. This is fine for most home tinkerers like myself, but for someone using the mbed to simply have an easy to access LPC1768 while prototyping a product or something could have issues with this. Secondly, the mbed API is closed source. I am a major proponent of free libre open source software. Yes, I use TI's CCS, but that's because at the moment I don't have the time to delve into setting up mspgcc4. Thirdly, and this is the biggie for me, if you don't have an active or reliable internet connection, you are left out in the cold. The device, as presented by mbed, is unprogrammable without the internet. This point to me seems a bit ridiculous.</p>
+<p>So, upon receiving my mbed and confirming that it works by burning the "hello world" blinky program to it, I decided to find a reliable, easy way to compile code for it offline, with free libre open source software if possible. After a bit of digging and a few dead ends, I found a dead-simple solution.</p>
+<p>The mbed is nothing more than a (slightly neutered, slightly enhanced) LPC1768 platform. There is nothing stopping this thing from running any ARM Cortex-M3 code you throw at it. So, I simply looked around for a solution using gcc-arm. Turns out, there is a similar product called the <a href="http://ics.nxp.com/lpcxpresso/">LPCXpresso</a> (which I am considering purchasing), and there is a free version of the Code Red Suite IDE available for it called (uncreatively enough) the LPCXpresso IDE. This IDE is Eclipse based, so it is familiar to a lot of people (including those who use TI's CCS, which is also Eclipse based), and also very powerful. This one also has the advantage of using gcc-arm for the backend. The IDE is limited when using the LPCXpresso boards, as the free version (once registered) has a flash download limit of 128k. But because it uses arm-gcc as the backend, it has an unlimited compile size. And, as the mbed cannot be flashed in the traditional way thanks to it's "innovative" drag2flash magic-chip (their terms, not mine), this effectively renders the LPCXpresso IDE limitless when it comes to compiling code for the mbed.</p>
+<p>So, enough of my bantering, on to how to do it. I'll list steps in an ordered list here to simplify the process as much as possible. Note, all of my instruction comes from working with a Windows machine. I do not know how the Linux version of the LPCXpresso IDE differs from the Windows version other than the obvious path names and such.</p>
+<ol>
+<li>Get an mbed.</li>
+<li>Go to the <a href="http://lpcxpresso.code-red-tech.com/LPCXpresso/">LPCXpresso IDE</a> page, and register an account. Once that is done, download the appropriate version of the IDE for your platform.</li>
+<li>Install the IDE. During setup, you might be asked if you want to install the Debug drivers and the NXP-link drivers. These are completely un-necessary if you are going to be using this IDE strictly for the mbed. The mbed unfortunately cannot be debugged, nor can the chip be completely reflashed, as the mbed module lacks the JTAG breakouts.</li>
+<li>Once installed, run the IDE. To stop the annoying nag message, you should activate your product (it's free). To do this, go to Help&gt;Product Activation&gt;Create Serial number and Activate. This will give you a serial number. On the LPCXpresso IDE site, you can click My Registrations, and enter this serial number. Once you do that, check your email. You will have received an activation code. Go to Help&gt;Product Activation&gt;Enter Activation Code and paste in the code emailed to you. This will register your IDE. Again, this step is optional, but it prevents a nag-box from appearing every time you open the IDE.</li>
+</ol>
+<p>And that's all you need to get the IDE.</p>
+<p>Now on to some code. The IDE comes with several examples to get you started. To import these examples, go to the button at the top of the IDE that looks like a blue circle with a lightbulb in it. From there, click browse, then go to NXP&gt;LPC1000&gt;LPC17xx&gt;RDB1768cmsis.zip. On the next screen, deselect all, then choose the first one (CMSIS) and the one called LEDflash. This will help us get a simple hello-world up and going. These projects will import, and be ready to compile.</p>
+<p>Well, almost. This project (LEDflash, the CMSIS one is a low-level interface library between the C code and the registers in assembly which the LEDflash project depends upon) was designed for Code Red's LPC1768 board, which has LEDs on different pins than the mbed. So a few small changes to the code are in order. Open up "leds.h" and replace the first chunk with the correct pin numbers of the LEDs (change LED_5 to LED_1 wherever it appears in this file). According to the <a href="http://mbed.org/media/uploads/chris/mbed-005.1.pdf">mbed schematic</a>, The user LEDs are connected to P1.18 (LED1), P1.20 (LED2), P1.21 (LED3), and P1.23 (LED4). Change the values of the #defines accordingly. Save, now open up "main_ledflash.c". Wherever LED_5 appears, replace it with LED_1. Save, and you're ready to compile.</p>
+<p>Go to Project&gt;Build Project. The project will build. There's one last step to getting it mbed-ready. Over in the left hand panel, click on binaries (under LEDflash), then right click on the .axf file, go to Binary Utilities&gt;Create binary. This will take almost no time at all, and the status bar at the bottom of the IDE will display "Successful". Now find the folder where your workspace is located (right click&gt;properties on the .axf file, and look under Location). In that folder will be a .bin file (created in the last step). Copy that .bin file to your mbed, hit the reset button, and enjoy your (extended) hello-world blinky example!</p>
+<p>This has been a long post, but an enlightening one, I hope. I may end up developing an LPChere framework similar to my MSPhere framework, but not at this moment in time. For now, I'm just happy that I was able to find a solution, and I hope this has helped anyone who actually took time out of their day to read it. Thanks for reading, and comments are always appreciated :)</p>
+<p>Keep tweaking~</p>
+<p><strong>EDIT (21 May 2011):</strong> Daniel Marks just emailed me the following information that might be helpful for others:</p>
+<p>I just read your blog entry from Oct 17 and I wanted to let you know that you can just use Codesourcery G++ lite (<a href="http://www.codesourcery.com/sgpp/lite/arm">http://www.codesourcery.com/sgpp/lite/arm</a>) or just compile arm-non-eabi-gcc toolchain yourself to use with the mbed. I did this for use with my open source project Jumentum (<a href="http://jumentum.sourceforge.net/">http://jumentum.sourceforge.net/</a>). My project is an open source BASIC language for LPC microcontrollers that resides on the microcontroller.</p>
+<p>If you download the source code for Jumentum you will find ported CMSIS and other sample source code for LPC1768, or you could just try the mbed port of Jumentum directly.</p>
+<p>Dan </p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

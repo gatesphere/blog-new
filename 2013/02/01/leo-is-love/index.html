@@ -1,37 +1,229 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>Leo is Love | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Leo is Love</h1><span class="date">February 1, 2013</span><br/> <span class="tags">tags: <a href="/tag/leo/">leo</a>, <a href="/tag/literate%20programming/">literate programming</a>, <a href="/tag/text%20editor/">text editor</a></span></header><section class="content"><p>Hello all.</p><p>Today I'm writing to evangelize my newest addiction, <a href="http://leoeditor.com/">Leo</a>.</p><p>Leo is a text editor, PIM tool, outliner, visual literate programming IDE, database, and way of life. Since discovering it a few days ago, I've started using it exclusively. In fact, this very article was written with it.</p><p>I thought I'd share a few tips on how to get it up and running on Windows systems, and then a few little snippets of fun that I've picked up along the way.</p><h2>Installing Leo on Windows systems</h2><p>Getting Leo running on Windows systems isn't as difficult as it seems. You do need a few things, though:</p><ol><li><p>Python 2.7, 32-bit. Available <a href="http://python.org/ftp/python/2.7.3/python-2.7.3.msi">here</a>. 64-bit Python does not work for PyEnchant, meaning that you won't have spellcheck if you go that route. Also, there isn't a 64-bit setuptools package at the moment, so installing docutils will be difficult. But Leo doesn't need much RAM, so this isn't a problem.</p></li><li><p>PyQT for 32-bit Python 2.7. Available <a href="http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.9.6/PyQt-Py2.7-x86-gpl-4.9.6-1.exe">here</a>.</p></li><li><p>PyEnchant for Python 2.7. Available <a href="http://pypi.python.org/packages/any/p/pyenchant/pyenchant-1.6.5.win32.exe">here</a>.</p></li><li><p>setuptools for Python 2.7. Available <a href="http://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11.win32-py2.7.exe#md5=57e1e64f6b7c7f1d2eddfc9746bbaf20">here</a>.</p></li><li><p>The latest Leo snapshot. Available <a href="http://www.greygreen.org/leo/leo-editor-latest.zip">here</a>.</p></li><li><p>Optional: create-leo.bat, available <a href="https://gist.github.com/4692706">here</a>.</p></li></ol><h3>Install Python, PyQT, PyEnchant, and setuptools, in that order.</h3><p>Pretty straight forward. Just accept the defaults and continue.</p><h3>Install pip and docutils</h3><p>Open up a command prompt, and enter the following commands:</p><div class="codehilite"><pre><span class="n">cd</span> <span class="n">C</span><span class="o">:</span><span class="err">\</span><span class="n">Python27</span><span class="err">\</span><span class="n">Scripts</span>
-<span class="n">easy_install</span><span class="p">.</span><span class="n">exe</span> <span class="n">pip</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">docutils</span>
-</pre></div><h3>Unzip the leo snapshot</h3><p>Pick somewhere you'll remember it.</p><p>That's it. You can now run Leo by doubleclicking <code>launchLeo.py</code>. However, we can integrate it into the OS a bit more, making it much nicer to use.</p><h3>Optional: run create-leo.bat</h3><p>Copy <code>create-leo.bat</code> to your Leo directory (the one with <code>launchLeo.py</code>). Now open a command prompt, and do the following:</p><div class="codehilite"><pre><span class="n">cd</span> <span class="n">C</span><span class="o">:</span><span class="err">\</span><span class="n">path</span><span class="err">\</span><span class="n">to</span><span class="err">\</span><span class="n">leo</span>
-<span class="n">create</span><span class="o">-</span><span class="n">leo</span><span class="p">.</span><span class="n">bat</span> <span class="s">"C:\Python27\python.exe"</span> <span class="k">register</span>
-</pre></div><p>That will do 2 things: create some .bat files, and register the .leo file extension to open with Leo. You are free to move <code>leo.bat</code> and <code>leoc.bat</code> anywhere on your system... double-click them and Leo will run (<code>leoc.bat</code> keeps the console open). Sinde .leo was registered to open with Leo, you can double-click on any .leo file to open it in Leo, too.</p><p>Congratulations, you have Leo on your system.</p><h2>Some Leo Tricks</h2><h3>Set up your myLeoSettings.leo file</h3><p>Seriously, there's crazy power in this file. It allows you to change the way most of Leo works.</p><p>Me? Mine's pretty simple at the moment.</p><div class="codehilite"><pre><span class="o">@</span>settings
-<span class="o">-</span> Plugins
-<span class="o">---</span> <span class="o">@</span>enabled<span class="o">-</span>plugins <span class="o">&lt;-</span> I<span class="s">'ve disabled the nav_qt.py</span>
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>Leo is Love | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>Leo is Love</h1>
+  <span class="date">February 1, 2013</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+    <a href="/tag/leo/">leo</a>,&nbsp;
+    
+    <a href="/tag/literate%20programming/">literate programming</a>,&nbsp;
+    
+    <a href="/tag/text%20editor/">text editor</a>
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>Hello all.</p>
+<p>Today I'm writing to evangelize my newest addiction, <a href="http://leoeditor.com/">Leo</a>.</p>
+<p>Leo is a text editor, PIM tool, outliner, visual literate programming IDE, database, and way of life.  Since
+discovering it a few days ago, I've started using it exclusively.  In fact, this very article was written with
+it.</p>
+<p>I thought I'd share a few tips on how to get it up and running on Windows systems, and then a few little 
+snippets of fun that I've picked up along the way.</p>
+<h2>Installing Leo on Windows systems</h2>
+<p>Getting Leo running on Windows systems isn't as difficult as it seems.  You do need a few things, though:</p>
+<ol>
+<li>
+<p>Python 2.7, 32-bit.  Available <a href="http://python.org/ftp/python/2.7.3/python-2.7.3.msi">here</a>.  64-bit 
+     Python does not work for PyEnchant, meaning that you won't have spellcheck if you go that route.  Also,
+     there isn't a 64-bit setuptools package at the moment, so installing docutils will be difficult.  But Leo 
+     doesn't need much RAM, so this isn't a problem.</p>
+</li>
+<li>
+<p>PyQT for 32-bit Python 2.7.  Available <a href="http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.9.6/PyQt-Py2.7-x86-gpl-4.9.6-1.exe">here</a>.</p>
+</li>
+<li>
+<p>PyEnchant for Python 2.7.  Available <a href="http://pypi.python.org/packages/any/p/pyenchant/pyenchant-1.6.5.win32.exe">here</a>.</p>
+</li>
+<li>
+<p>setuptools for Python 2.7.  Available <a href="http://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11.win32-py2.7.exe#md5=57e1e64f6b7c7f1d2eddfc9746bbaf20">here</a>.</p>
+</li>
+<li>
+<p>The latest Leo snapshot.  Available <a href="http://www.greygreen.org/leo/leo-editor-latest.zip">here</a>. </p>
+</li>
+<li>
+<p>Optional: create-leo.bat, available <a href="https://gist.github.com/4692706">here</a>.</p>
+</li>
+</ol>
+<h3>Install Python, PyQT, PyEnchant, and setuptools, in that order.</h3>
+<p>Pretty straight forward.  Just accept the defaults and continue.</p>
+<h3>Install pip and docutils</h3>
+<p>Open up a command prompt, and enter the following commands:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">cd C:\Python27\Scripts</span>
+<span class="err">easy_install.exe pip</span>
+<span class="err">pip install docutils</span>
+</code></pre></div>
+
+<h3>Unzip the leo snapshot</h3>
+<p>Pick somewhere you'll remember it.</p>
+<p>That's it.  You can now run Leo by doubleclicking <code>launchLeo.py</code>.  However, we can integrate it into 
+the OS a bit more, making it much nicer to use.</p>
+<h3>Optional: run create-leo.bat</h3>
+<p>Copy <code>create-leo.bat</code> to your Leo directory (the one with <code>launchLeo.py</code>).  Now open a command prompt,
+and do the following:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">cd C:\path\to\leo</span>
+<span class="err">create-leo.bat &quot;C:\Python27\python.exe&quot; register</span>
+</code></pre></div>
+
+<p>That will do 2 things: create some .bat files, and register the .leo file extension to open with Leo.
+You are free to move <code>leo.bat</code> and <code>leoc.bat</code> anywhere on your system... double-click them and Leo
+will run (<code>leoc.bat</code> keeps the console open).  Sinde .leo was registered to open with Leo, you can
+double-click on any .leo file to open it in Leo, too.</p>
+<p>Congratulations, you have Leo on your system.</p>
+<h2>Some Leo Tricks</h2>
+<h3>Set up your myLeoSettings.leo file</h3>
+<p>Seriously, there's crazy power in this file.  It allows you to change the way most of Leo works.</p>
+<p>Me? Mine's pretty simple at the moment.</p>
+<div class="codehilite"><pre><span></span><code><span class="o">@</span><span class="n">settings</span>
+<span class="o">-</span> <span class="n">Plugins</span>
+<span class="o">---</span> <span class="o">@</span><span class="n">enabled</span><span class="o">-</span><span class="n">plugins</span> <span class="o">&lt;-</span> <span class="n">I</span><span class="s">&#39;ve disabled the nav_qt.py</span>
 <span class="s">                        plugin, as I find it annoying</span>
 <span class="s">- Keyboard Shortcuts</span>
-<span class="s">--- @shortcuts MyKeybindings &lt;- I'</span>ve assigned <span class="sb">`tab-cycle-previous`</span> 
-                                and <span class="sb">`tab-cycle-next`</span> to 
-                                <span class="sb">`ctrl+shift+tab`</span> and <span class="sb">`ctrl+tab`</span><span class="p">,</span> 
-                                respectively<span class="p">,</span> as it mimics how 
-                                Firefox and Chrome handle 
-                                tab<span class="o">-</span>switching
-</pre></div><h3>Make some @buttons with external script references</h3><p>I wanted to make some @button nodes which would call a function with different parameters. Due to the way Leo scopes things, it wouldn't work to write the function in a separate script and reference it with a <code>&lt;&lt; script reference &gt;&gt;</code> notation, as in a @file node -- it won't be expanded.</p><p>The solution, provided to me on the leo-editor Google group by the author of Leo himself, is brilliant.</p><blockquote><p>Use exec to "inject" shared code into the namespace of the script being executed. This is a cute trick, but it doesn't seem to be in the faq. There are example of this trick in unitTest.leo: search for "@common".</p><p>Do the following:</p><p>A. Put the common code somewhere, say in a node called "@common code". Note that the node can be called anything: I use @common to draw they eye, but it's just my convention.</p><p>B. Start each script using the common code with::</p><div class="codehilite"><pre><span class="n">exec</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">findTestScript</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="err">'@</span><span class="n">common</span> <span class="n">code</span><span class="err">'</span><span class="p">))</span>
-</pre></div><p><code>g.findTestScript</code> returns the <em>expanded</em> code of the entire subtree whose head is the node "common code". Thus, you can use @others and section references in the "common code" subtree! It's cute.</p></blockquote><p>This translates into something like this:</p><div class="codehilite"><pre><span class="n">Node</span> <span class="err">`@</span><span class="n">common</span> <span class="n">code</span><span class="err">`</span><span class="o">:</span>
-  <span class="n">def</span> <span class="n">foo</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span><span class="o">:</span>
-    <span class="n">g</span><span class="p">.</span><span class="n">es</span><span class="p">(</span><span class="s">"Hiya, %s!"</span> <span class="o">%</span> <span class="n">bar</span><span class="p">)</span>
+<span class="s">--- @shortcuts MyKeybindings &lt;- I&#39;</span><span class="n">ve</span> <span class="n">assigned</span> <span class="n">`tab-cycle-previous`</span> 
+                                <span class="n">and</span> <span class="n">`tab-cycle-next`</span> <span class="n">to</span> 
+                                <span class="n">`ctrl+shift+tab`</span> <span class="n">and</span> <span class="n">`ctrl+tab`</span><span class="p">,</span> 
+                                <span class="n">respectively</span><span class="p">,</span> <span class="n">as</span> <span class="n">it</span> <span class="n">mimics</span> <span class="n">how</span> 
+                                <span class="n">Firefox</span> <span class="n">and</span> <span class="n">Chrome</span> <span class="n">handle</span> 
+                                <span class="n">tab</span><span class="o">-</span><span class="n">switching</span>
+</code></pre></div>
 
-<span class="n">Node</span> <span class="err">`@</span><span class="n">button</span> <span class="n">george</span><span class="err">`</span><span class="o">:</span>
-  <span class="n">exec</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">findTestScript</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="err">'@</span><span class="n">common</span> <span class="n">code</span><span class="err">'</span><span class="p">))</span>
-  <span class="n">foo</span><span class="p">(</span><span class="err">'</span><span class="n">george</span><span class="err">'</span><span class="p">)</span>
+<h3>Make some @buttons with external script references</h3>
+<p>I wanted to make some @button nodes which would call a function with different parameters.  Due
+to the way Leo scopes things, it wouldn't work to write the function in a separate script and
+reference it with a <code>&lt;&lt; script reference &gt;&gt;</code> notation, as in a @file node -- it won't be expanded.</p>
+<p>The solution, provided to me on the leo-editor Google group by the author of Leo himself, is brilliant.</p>
+<blockquote>
+<p>Use exec to "inject" shared code into the namespace of the script being executed.   This is a cute trick, but it doesn't seem to be in the faq.  There are example of this trick in unitTest.leo:  search for "@common".</p>
+<p>Do the following:</p>
+<p>A. Put the common code somewhere, say in a node called "@common code".  Note that the node can be called anything: I use @common to draw they eye, but it's just my convention.</p>
+<p>B. Start each script using the common code with::</p>
+<div class="codehilite"><pre><span></span><code><span class="err">exec(g.findTestScript(c,&#39;@common code&#39;))</span>
+</code></pre></div>
 
-<span class="n">Node</span> <span class="err">`@</span><span class="n">button</span> <span class="n">clem</span><span class="err">`</span><span class="o">:</span>
-  <span class="n">exec</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">findTestScript</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="err">'@</span><span class="n">common</span> <span class="n">code</span><span class="err">'</span><span class="p">))</span>
-  <span class="n">foo</span><span class="p">(</span><span class="err">'</span><span class="n">clem</span><span class="err">'</span><span class="p">)</span>
-</pre></div><p>2 buttons calling 1 script, without code repetition! This is nice, and it shows the power that Leo has, by giving you the ability to access your entire document programmatically. Simply beautiful, in my book.</p><p>I've used what I've learned so far to begin creating a Leo workbook helpful for running tabletop RPGs. It's on Github if you're curious: <a href="https://github.com/gatesphere/rpg.leo">gatesphere/rpg.leo</a>.</p><p>Thanks for reading!</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<p><code>g.findTestScript</code> returns the <em>expanded</em> code of the entire subtree whose head is the node "common code".  Thus, you can use @others and section references in the "common code" subtree! It's cute.</p>
+</blockquote>
+<p>This translates into something like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Node</span><span class="w"> </span><span class="err">`</span><span class="nv">@common</span><span class="w"> </span><span class="n">code</span><span class="err">`:</span><span class="w"></span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">g</span><span class="p">.</span><span class="n">es</span><span class="p">(</span><span class="ss">&quot;Hiya, %s!&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">bar</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">Node</span><span class="w"> </span><span class="err">`</span><span class="nv">@button</span><span class="w"> </span><span class="n">george</span><span class="err">`:</span><span class="w"></span>
+<span class="w">  </span><span class="k">exec</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">findTestScript</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="s1">&#39;@common code&#39;</span><span class="p">))</span><span class="w"></span>
+<span class="w">  </span><span class="n">foo</span><span class="p">(</span><span class="s1">&#39;george&#39;</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">Node</span><span class="w"> </span><span class="err">`</span><span class="nv">@button</span><span class="w"> </span><span class="n">clem</span><span class="err">`:</span><span class="w"></span>
+<span class="w">  </span><span class="k">exec</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">findTestScript</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="s1">&#39;@common code&#39;</span><span class="p">))</span><span class="w"></span>
+<span class="w">  </span><span class="n">foo</span><span class="p">(</span><span class="s1">&#39;clem&#39;</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<p>2 buttons calling 1 script, without code repetition!  This is nice, and it shows the power that Leo has, by
+giving you the ability to access your entire document programmatically.  Simply beautiful, in my book.</p>
+<p>I've used what I've learned so far to begin creating a Leo workbook helpful for running tabletop RPGs.  It's
+on Github if you're curious: <a href="https://github.com/gatesphere/rpg.leo">gatesphere/rpg.leo</a>.</p>
+<p>Thanks for reading!</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

@@ -1,9 +1,140 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>Reverse-engineering a simple software licensing scheme | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Reverse-engineering a simple software licensing scheme</h1><span class="date">September 20, 2011</span><br/> <span class="tags">tags:</span></header><section class="content"><p>Hello all,</p><p>This post should have the subtitle "or, DON'T DO THIS". So, today I was curious about what makes independently developed commercial software licensing work. My target software shall remain unnamed (I'll call it X here), but lets say that it is a drawing tool of some sort, and programmed in Java. Java is relatively easy to decompile, with the right tools, providing next to no security if your validation scheme is embedded in the code itself. But how else is one to check licensing keys? I'll move on to that one later. First, onto the goods.</p><p>So, X comes in two versions: free and paid. The free version is more than most people will ever need or use, but the paid version offers some nice functionality. The free version and the paid version are the same executable, simply feature-locked without a valid license key. Hmm...</p><p>Decompiling the code was easy. Finding the validation section was even easier (it was clearly labled "VALIDATE CODE"). Finding this section of the code revealed all I needed to know about the license key to craft one myself that would give me a perpetual license to the paid version.</p><p>Here's what I found in X's validation section:</p><p>The license key must be exactly 16 characters.</p><p>All characters in the license key must be numbers.</p><p>The sum of the first twelve characters modulo 10 must exactly equal the 14th digit (first checksum).</p><p>The sum of the first twelve characters and the first checksum must equal exactly the two digit number formed by the 15th digit*10 + the 16th digit (second checksum).</p><p>There is a license expiration date encoded into the above characters, formed by the value of the 3rd digit*1000 + 5th digit*100 + 8th digit*10 + 13th digit.</p><p>This expiration date is a 4 digit number that corresponds to a certain number of days from January 1st, 2000.</p><p>If this expiration date manages to add up to a number between 7581 inclusive and 7694 inclusive, a perpetual license is granted.</p><p>With this in mind, I worked with pencil and paper to generate the following code:</p><p>0070600403000020</p><p>As you see, the value of X3*1000 + X5*100 + X8*10 + X13 = 7640, a number chosen at random to fall in the perpetual license range. The value of X1 + ... + X12 = 20. 20 % 10 = 0, which equals X14, satisfying the first checksum. 20 + 0 = 20, which is X15*10 + X16, satisfying the second checksum. So, in theory, this should work. And trying it in the software (which doesn't "phone home" except to pull updates) gives a successful update of license, and unlocks the paid version's features. Simple as pie.</p><p>But that's not all that reversing X's license did. X happens to be one of a family of software, also containing product Y. The validation code for Y's licenes is essentially the same thing, with the digit order scrambled around. So for Y, the following code grants perpetual paid access:</p><p>0070603400200000</p><p>You'll notice that the 7640 is embedded in the same location. The checksums have moved, such that X10 is the first checksum and X11*10 + X12 is the second checksum. The sum to compare these against is formed by X1 + ... + X8 + X13 + ... + X16. Like I said, just re-arranging numbers. This code was tested and verified to unlock Y perpetually.</p><p>Now, for the bad. THIS IS INCREDIBLY STUPID. Granted, most users won't have the knowhow to do this, but coding a simple verification scheme like this allows those with knowhow to generate licenses on demand with little more than pencil and paper, as well as distribute them to whomever they wish, reducing your profits and dilluting your efforts. Granted, for a software like X (and it's cousin Y), this is simple enough. The target demographic isn't usually the technically minded. X (and to a lesser extent, Y) is a very nicely presented software, and is almost bug free. The free version is way more than what one would expect for a crippled version of a shareware. But, this is still an issue if one is attempting to maintain a strong level of security in their licensing scheme.</p><p>What could have been done better? Well, for one, length doesn't typically matter, if you're simply using a checksum or two with embedded data like this. Once the algorithm is figured out, any number of keys can be generated regardless of length. So, short keys like the above are acceptable for this purpose.</p><p>Using all numeric characters is also fine, in as much as if your licensing scheme relies upon checksums and encoded data, numbers or not if it is cracked, keys can be generated. The same argument as above applies.</p><p>Not phoning home is the lynchpin of safe licensing. Each license should be generated and added to a master database, and checked upon entry for validity against the home server. Each license should also have a limited amount of legal activations before the license no longer unlocks a piece of software. But this is a minor point.</p><p>Essentially, the problem with licensed software is that there is nearly always a way to break it. If it is downloadable to the user's own computer, an intrepid cracker will find a way around the registration. If it is a web-service, someone will share a validated account. So, I suppose, the only way to win in software licensing and use-limiting, is to not play at all.</p><p>Just my two cents.</p><p>Keep tweaking~</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>Reverse-engineering a simple software licensing scheme | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>Reverse-engineering a simple software licensing scheme</h1>
+  <span class="date">September 20, 2011</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>Hello all,</p>
+<p>This post should have the subtitle "or, DON'T DO THIS". So, today I was curious about what makes independently developed commercial software licensing work. My target software shall remain unnamed (I'll call it X here), but lets say that it is a drawing tool of some sort, and programmed in Java. Java is relatively easy to decompile, with the right tools, providing next to no security if your validation scheme is embedded in the code itself. But how else is one to check licensing keys? I'll move on to that one later. First, onto the goods.</p>
+<p>So, X comes in two versions: free and paid. The free version is more than most people will ever need or use, but the paid version offers some nice functionality. The free version and the paid version are the same executable, simply feature-locked without a valid license key. Hmm...</p>
+<p>Decompiling the code was easy. Finding the validation section was even easier (it was clearly labled "VALIDATE CODE"). Finding this section of the code revealed all I needed to know about the license key to craft one myself that would give me a perpetual license to the paid version.</p>
+<p>Here's what I found in X's validation section:</p>
+<p>The license key must be exactly 16 characters.</p>
+<p>All characters in the license key must be numbers.</p>
+<p>The sum of the first twelve characters modulo 10 must exactly equal the 14th digit (first checksum).</p>
+<p>The sum of the first twelve characters and the first checksum must equal exactly the two digit number formed by the 15th digit*10 + the 16th digit (second checksum).</p>
+<p>There is a license expiration date encoded into the above characters, formed by the value of the 3rd digit*1000 + 5th digit*100 + 8th digit*10 + 13th digit.</p>
+<p>This expiration date is a 4 digit number that corresponds to a certain number of days from January 1st, 2000.</p>
+<p>If this expiration date manages to add up to a number between 7581 inclusive and 7694 inclusive, a perpetual license is granted.</p>
+<p>With this in mind, I worked with pencil and paper to generate the following code:</p>
+<p>0070600403000020</p>
+<p>As you see, the value of X3*1000 + X5*100 + X8*10 + X13 = 7640, a number chosen at random to fall in the perpetual license range. The value of X1 + ... + X12 = 20. 20 % 10 = 0, which equals X14, satisfying the first checksum. 20 + 0 = 20, which is X15*10 + X16, satisfying the second checksum. So, in theory, this should work. And trying it in the software (which doesn't "phone home" except to pull updates) gives a successful update of license, and unlocks the paid version's features. Simple as pie.</p>
+<p>But that's not all that reversing X's license did. X happens to be one of a family of software, also containing product Y. The validation code for Y's licenes is essentially the same thing, with the digit order scrambled around. So for Y, the following code grants perpetual paid access:</p>
+<p>0070603400200000</p>
+<p>You'll notice that the 7640 is embedded in the same location. The checksums have moved, such that X10 is the first checksum and X11*10 + X12 is the second checksum. The sum to compare these against is formed by X1 + ... + X8 + X13 + ... + X16. Like I said, just re-arranging numbers. This code was tested and verified to unlock Y perpetually.</p>
+<p>Now, for the bad. THIS IS INCREDIBLY STUPID. Granted, most users won't have the knowhow to do this, but coding a simple verification scheme like this allows those with knowhow to generate licenses on demand with little more than pencil and paper, as well as distribute them to whomever they wish, reducing your profits and dilluting your efforts. Granted, for a software like X (and it's cousin Y), this is simple enough. The target demographic isn't usually the technically minded. X (and to a lesser extent, Y) is a very nicely presented software, and is almost bug free. The free version is way more than what one would expect for a crippled version of a shareware. But, this is still an issue if one is attempting to maintain a strong level of security in their licensing scheme.</p>
+<p>What could have been done better? Well, for one, length doesn't typically matter, if you're simply using a checksum or two with embedded data like this. Once the algorithm is figured out, any number of keys can be generated regardless of length. So, short keys like the above are acceptable for this purpose.</p>
+<p>Using all numeric characters is also fine, in as much as if your licensing scheme relies upon checksums and encoded data, numbers or not if it is cracked, keys can be generated. The same argument as above applies.</p>
+<p>Not phoning home is the lynchpin of safe licensing. Each license should be generated and added to a master database, and checked upon entry for validity against the home server. Each license should also have a limited amount of legal activations before the license no longer unlocks a piece of software. But this is a minor point.</p>
+<p>Essentially, the problem with licensed software is that there is nearly always a way to break it. If it is downloadable to the user's own computer, an intrepid cracker will find a way around the registration. If it is a web-service, someone will share a validated account. So, I suppose, the only way to win in software licensing and use-limiting, is to not play at all.</p>
+<p>Just my two cents.</p>
+<p>Keep tweaking~ </p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

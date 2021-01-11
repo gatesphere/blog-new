@@ -1,18 +1,202 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>A Monologue on API Flexibility | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>A Monologue on API Flexibility</h1><span class="date">September 10, 2012</span><br/> <span class="tags">tags: <a href="/tag/java/">java</a>, <a href="/tag/blackberry/">blackberry</a>, <a href="/tag/api/">api</a>, <a href="/tag/ruby/">ruby</a>, <a href="/tag/verbosity/">verbosity</a>, <a href="/tag/complexity/">complexity</a>, <a href="/tag/expression/">expression</a>, <a href="/tag/language/">language</a></span></header><section class="content"><p>Hello everyone.</p><p>It's been a while since I've written here. Sorry about that. I've been working, and getting accustomed to my new responsibilities.</p><p>Don't worry about CSMM, more lessons are forthcoming! I really want to finish that course material. I'm really excited about it.</p><p>But today, I want to write about a topic that has recently become a focal point for me. I'd like to discuss API design a bit.</p><p>This is a topic that has been beaten to death. "Design simple APIs". But, it's not that easy, apparently.</p><p>This past week I've been working with both Ruby on Rails, and the BlackBerry Java Development Environment. And let me tell you... one of those two is a joy to work with.</p><p>Here's an example from Ruby on Rails which exemplifies the qualities of an easy-to-use API that I'm looking for:</p><div class="codehilite"><pre><span class="mf">1.</span><span class="n">day</span><span class="p">.</span><span class="n">from_now</span><span class="p">.</span><span class="n">in_time_zone</span><span class="p">(</span><span class="err">'</span><span class="n">Eastern</span> <span class="n">Time</span> <span class="p">(</span><span class="n">US</span> <span class="o">&amp;</span> <span class="n">Canada</span><span class="p">)</span><span class="err">'</span><span class="p">)</span>
-</pre></div><p>One line, and it tells you EXACTLY what it does. Not only that, but the API is simple, succinct, and elegant. Compare that to the corresponding Java:</p><div class="codehilite"><pre><span class="n">Calendar</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Calendar</span><span class="p">.</span><span class="n">getInstance</span><span class="p">(</span><span class="n">TimeZone</span><span class="p">.</span><span class="n">getTimeZone</span><span class="p">(</span><span class="s">"EST"</span><span class="p">));</span>
-<span class="n">c</span><span class="p">.</span><span class="n">setTime</span><span class="p">(</span><span class="n">new</span> <span class="n">Date</span><span class="p">());</span>
-<span class="n">c</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Calendar</span><span class="p">.</span><span class="n">DATE</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</pre></div><p>Atrocious. But this highlights my main bone of contention between these APIs. Atomically, they're both <em>simple</em>. The difference is that the RoR API was built for <em>molecular simplicity</em>.</p><p>When you put simple parts together in RoR, or in Ruby in general, you usually end up with something that is still pretty simple, reducing the cognitive load. You build a simple molecule out of simple atoms. Java, on the other hand, suffers when making this leap. As atomic parts of Java calls are glued together, you get something that grows unweildy farily quickly.</p><p>Now, do not get me wrong here. I enjoy programming in Java. It is not my favorite language by far, but it is nice. And I also know that I am unfairly comparing two different languages here, each with their own idioms that support their unique uses. But the problem remains... and is being added to by professional APIs that are over-engineered and over-verbalized.</p><p>To prove my point further, here's an example from the BlackBerry Java API docs, on how to scan a QR code:</p><div class="codehilite"><pre><span class="n">Hashtable</span> <span class="n">hints</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Hashtable</span><span class="p">();</span>
-<span class="n">Vector</span> <span class="n">formats</span>  <span class="o">=</span> <span class="n">new</span> <span class="n">Vector</span><span class="p">();</span>
-<span class="n">formats</span><span class="p">.</span><span class="n">addElement</span><span class="p">(</span><span class="n">BarcodeFormat</span><span class="p">.</span><span class="n">QR_CODE</span><span class="p">);</span>
-<span class="n">hints</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="n">DecodeHintType</span><span class="p">.</span><span class="n">POSSIBLE_FORMATS</span><span class="p">,</span> <span class="n">formats</span><span class="p">);</span>
-<span class="n">BarcodeDecoder</span> <span class="n">decoder</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BarcodeDecoder</span><span class="p">(</span><span class="n">hints</span><span class="p">);</span>
-</pre></div><p>That's the setup code for initializing the decoder to read a QR code. 5 lines.</p><p>Now, this makes a lot of sense if you want to scan multiple different types, or provide several different hints to the decoder, but let's look at what's going on here if you want to scan just QR codes:</p><ol><li>Create an empty <code>Hashtable</code></li><li>Create an empty <code>Vector</code></li><li>Populate the <code>Vector</code> with a single entry</li><li>Put that <code>Vector</code> into the <code>Hashtable</code> as it's only entry</li><li>Hand that <code>Hashtable</code> to the <code>BarcodeDecoder</code>'s constructor</li></ol><p>So, we've created two junk objects just to pass a single parameter to the decoder. This is unacceptible, in my opinion. While allowing flexibility is good, allowing clean, succinct code should also be a priority. No one will like using your API if it's simple to make misakes, just because you decided that you want your api to allow people to shoot off their own leg.</p><p>I suppose my argument here is, if you design an API, the users will have to bend to your will. Make their life pleasant. Design clean interfaces. And don't be afraid to limit their flexibility in order to make their life simpler. Developers are an interesting bunch, but I don't know many who prefer to write five lines for something that should be done in 1. We are lazy, and proud of it. Allow us to work efficiently, and your API will prosper.</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>A Monologue on API Flexibility | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>A Monologue on API Flexibility</h1>
+  <span class="date">September 10, 2012</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+    <a href="/tag/java/">java</a>,&nbsp;
+    
+    <a href="/tag/blackberry/">blackberry</a>,&nbsp;
+    
+    <a href="/tag/api/">api</a>,&nbsp;
+    
+    <a href="/tag/ruby/">ruby</a>,&nbsp;
+    
+    <a href="/tag/verbosity/">verbosity</a>,&nbsp;
+    
+    <a href="/tag/complexity/">complexity</a>,&nbsp;
+    
+    <a href="/tag/expression/">expression</a>,&nbsp;
+    
+    <a href="/tag/language/">language</a>
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>Hello everyone.</p>
+<p>It's been a while since I've written here.  Sorry about that.  I've been working,
+and getting accustomed to my new responsibilities.</p>
+<p>Don't worry about CSMM, more lessons are forthcoming!  I really want to finish 
+that course material.  I'm really excited about it.</p>
+<p>But today, I want to write about a topic that has recently become a focal point
+for me.  I'd like to discuss API design a bit.</p>
+<p>This is a topic that has been beaten to death.  "Design simple APIs".  But, 
+it's not that easy, apparently.</p>
+<p>This past week I've been working with both Ruby on Rails, and the BlackBerry
+Java Development Environment.  And let me tell you... one of those two is a
+joy to work with.</p>
+<p>Here's an example from Ruby on Rails which exemplifies the qualities of an
+easy-to-use API that I'm looking for:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">1.day.from_now.in_time_zone(&#39;Eastern Time (US &amp; Canada)&#39;)</span>
+</code></pre></div>
+
+<p>One line, and it tells you EXACTLY what it does.  Not only that, but the
+API is simple, succinct, and elegant.  Compare that to the corresponding
+Java:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">Calendar c = Calendar.getInstance(TimeZone.getTimeZone(&quot;EST&quot;));</span>
+<span class="err">c.setTime(new Date());</span>
+<span class="err">c.add(Calendar.DATE, 1);</span>
+</code></pre></div>
+
+<p>Atrocious.  But this highlights my main bone of contention between these
+APIs.  Atomically, they're both <em>simple</em>.  The difference is that the RoR
+API was built for <em>molecular simplicity</em>.  </p>
+<p>When you put simple parts together in RoR, or in Ruby in general, you 
+usually end up with something that is still pretty simple, reducing the 
+cognitive load.  You build a simple molecule out of simple atoms.  Java,
+on the other hand, suffers when making this leap.  As atomic parts of Java
+calls are glued together, you get something that grows unweildy farily 
+quickly.</p>
+<p>Now, do not get me wrong here.  I enjoy programming in Java.  It is not my
+favorite language by far, but it is nice.  And I also know that I am unfairly
+comparing two different languages here, each with their own idioms that
+support their unique uses.  But the problem remains... and is being added
+to by professional APIs that are over-engineered and over-verbalized.</p>
+<p>To prove my point further, here's an example from the BlackBerry Java API docs,
+on how to scan a QR code:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">Hashtable hints = new Hashtable();</span>
+<span class="err">Vector formats  = new Vector();</span>
+<span class="err">formats.addElement(BarcodeFormat.QR_CODE);</span>
+<span class="err">hints.put(DecodeHintType.POSSIBLE_FORMATS, formats);</span>
+<span class="err">BarcodeDecoder decoder = new BarcodeDecoder(hints);</span>
+</code></pre></div>
+
+<p>That's the setup code for initializing the decoder to read a QR code.  5 lines.</p>
+<p>Now, this makes a lot of sense if you want to scan multiple different types,
+or provide several different hints to the decoder, but let's look at what's
+going on here if you want to scan just QR codes:</p>
+<ol>
+<li>Create an empty <code>Hashtable</code></li>
+<li>Create an empty <code>Vector</code></li>
+<li>Populate the <code>Vector</code> with a single entry</li>
+<li>Put that <code>Vector</code> into the <code>Hashtable</code> as it's only entry</li>
+<li>Hand that <code>Hashtable</code> to the <code>BarcodeDecoder</code>'s constructor</li>
+</ol>
+<p>So, we've created two junk objects just to pass a single parameter to the
+decoder.  This is unacceptible, in my opinion.  While allowing flexibility
+is good, allowing clean, succinct code should also be a priority.  No one
+will like using your API if it's simple to make misakes, just because you
+decided that you want your api to allow people to shoot off their own leg.</p>
+<p>I suppose my argument here is, if you design an API, the users will have
+to bend to your will.  Make their life pleasant.  Design clean interfaces.
+And don't be afraid to limit their flexibility in order to make their life
+simpler.  Developers are an interesting bunch, but I don't know many who
+prefer to write five lines for something that should be done in 1.  We are
+lazy, and proud of it.  Allow us to work efficiently, and your API will 
+prosper.</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

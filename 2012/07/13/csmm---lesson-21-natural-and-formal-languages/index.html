@@ -1,9 +1,183 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>CSMM - Lesson 2.1: Natural and Formal Languages | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>CSMM - Lesson 2.1: Natural and Formal Languages</h1><span class="date">July 13, 2012</span><br/> <span class="tags">tags: <a href="/tag/csmm/">csmm</a>, <a href="/tag/languages/">languages</a>, <a href="/tag/set%20theory/">set theory</a></span></header><section class="content"><h2>An introduction</h2><p>Hello all, and welcome to chapter 2 of CSMM. This chapter is a short one, discussing the various linguistic concepts as they relate to computer science. First up is a discussion of natural languages, and how they differ from formal languages, which are what computer scientists think of when discussing languages. Let's get to it!</p><h2>Natural language</h2><p>So, what is natural language? To be quite blunt, a natural language is a language spoken by humans, such as English, Spanish, German, etc. Natural languages allow us to express ourselves and communicate information to others who listen. And they have a lot going for them--they've worked for many thousands of years and they will continue to work until we evolve past vocal communication. But, for all their perks, natural languages have some faults which make them unsuitable for discussing in a computational sense.</p><h2>Formal language</h2><p>To move into the realm of discussing languages as a computer scientist, we need a formalism of some sort. A so-called formal language is just that formalism.</p><p>A formal language is defined as some set of words derived over an alphabet. But the terms "word" and "alphabet" probably have a different meaning than you're thinking. The alphabet is a set of symbols which can be combined into words, and words are a combination of zero or more symbols from the alphabet. This makes sense, right? Well, yes, except that if you were to map English, say, onto a formal language, the alphabet would consist of every English word, and the words would consist of every possible English sentence. That is, the concept of a "sentence" in a natural language is roughly equivalent to the concept of a "word" in a formal language, as is "words" to "alphabet".</p><h2>Business casual</h2><p>In general, a language \(L\) is defined as a subset of the list of all possible words \(\Sigma\)* over the alphabet \(\Sigma\). In set theory terms, \(\Sigma\)* is the Kleene closure over \(\Sigma\), meaning that \(\Sigma\)* contains <em>every</em> possible combination of symbols from \(\Sigma\), including the null or empty word, usually denoted \(\varnothing\).</p><p>So the following language is perfectly valid:</p><p>$$L = \{a, b, ab, aab, abb, aa, bb\}$$ $$\Sigma = \{a, b\}$$</p><p>Using the same alphabet \(\Sigma\), so is this one:</p><p>$$L = \{a, aa, aaa, aaaa, aaaaa\}$$</p><p>As long as \(L \subset \Sigma\)<em>, \(L\) is a valid formal language. However, note that \(\Sigma\)* is an infinite set so long as \(\Sigma\) has at least one symbol. There are infinite combinations of even a single symbol. This means that by definition, \(L\) may be an infinite subset of \(\Sigma\)*, meaning \(L\) is an</em>infinite<em>language. Surely writing out the entirety of \(L\) in this situation is unfeasable. Instead, we can define a number of rules that</em>define legal words within \(L\)*.</p><h2>Keep it simple</h2><p>Here's an example of an infinite language \(L\) defined over the alphabet \(\Sigma = \{a,b\}\):</p><ol><li>A word is in \(L\) if it begins with exactly one \(a\).</li><li>A word which ends in any number of \(b\) symbols is in \(L\) <em>only if</em> it begins with another valid word in \(L\).</li></ol><p>Following this, we see that the first few words we can define in \(L\) are:</p><p>$$L = \{a, ab, abb, abbb, abbbb, \ldots\}$$</p><p>We can see that this language is infinite, but we have a clear, complete discription of \(L\) without performing a miracle and writing out the infinite set. More often than not, as a computer scientist, you'll be interested in infinite languages, and you'll be describing them in terms of a list of rules.</p><h2>Wrapping up</h2><p>Well, that was a short, sweet introduction to the world of formal languages. Next lesson, we'll see the concept of a grammar arise, giving us a formal way of writing a set of rules upon which a formal language can be derived. But until then, don't forget your <a href="https://github.com/gatesphere/blog-resources/raw/master/downloads/csmm/lesson2-1.pdf">homework</a>!</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>CSMM - Lesson 2.1: Natural and Formal Languages | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>CSMM - Lesson 2.1: Natural and Formal Languages</h1>
+  <span class="date">July 13, 2012</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+    <a href="/tag/csmm/">csmm</a>,&nbsp;
+    
+    <a href="/tag/languages/">languages</a>,&nbsp;
+    
+    <a href="/tag/set%20theory/">set theory</a>
+    
+  </span>
+  </header>
+  <section class="content">
+    <h2>An introduction</h2>
+<p>Hello all, and welcome to chapter 2 of CSMM.  This chapter is a short one, discussing
+the various linguistic concepts as they relate to computer science.  First up is
+a discussion of natural languages, and how they differ from formal languages, which
+are what computer scientists think of when discussing languages.  Let's get to it!</p>
+<h2>Natural language</h2>
+<p>So, what is natural language?  To be quite blunt, a natural language is a language
+spoken by humans, such as English, Spanish, German, etc.  Natural languages allow
+us to express ourselves and communicate information to others who listen.  And they
+have a lot going for them--they've worked for many thousands of years and they will
+continue to work until we evolve past vocal communication.  But, for all their perks,
+natural languages have some faults which make them unsuitable for discussing in a
+computational sense.</p>
+<h2>Formal language</h2>
+<p>To move into the realm of discussing languages as a computer scientist, we need a
+formalism of some sort.  A so-called formal language is just that formalism.</p>
+<p>A formal language is defined as some set of words derived over an alphabet.  But
+the terms "word" and "alphabet" probably have a different meaning than you're thinking.
+The alphabet is a set of symbols which can be combined into words, and words are
+a combination of zero or more symbols from the alphabet.  This makes sense, right?
+Well, yes, except that if you were to map English, say, onto a formal language,
+the alphabet would consist of every English word, and the words would consist of
+every possible English sentence.  That is, the concept of a "sentence" in a natural
+language is roughly equivalent to the concept of a "word" in a formal language, as
+is "words" to "alphabet".</p>
+<h2>Business casual</h2>
+<p>In general, a language \(L\) is defined as a subset of the list of all possible 
+words \(\Sigma\)* over the alphabet \(\Sigma\).  In set theory terms, \(\Sigma\)*
+is the Kleene closure over \(\Sigma\), meaning that \(\Sigma\)* contains <em>every</em>
+possible combination of symbols from \(\Sigma\), including the null or empty word, 
+usually denoted \(\varnothing\).</p>
+<p>So the following language is perfectly valid:</p>
+<p>$$L = \{a, b, ab, aab, abb, aa, bb\}$$
+$$\Sigma = \{a, b\}$$</p>
+<p>Using the same alphabet \(\Sigma\), so is this one:</p>
+<p>$$L = \{a, aa, aaa, aaaa, aaaaa\}$$</p>
+<p>As long as \(L \subset \Sigma\)<em>, \(L\) is a valid formal language.  However,
+note that \(\Sigma\)* is an infinite set so long as \(\Sigma\) has at least
+one symbol.  There are infinite combinations of even a single symbol.  This means
+that by definition, \(L\) may be an infinite subset of \(\Sigma\)*, meaning 
+\(L\) is an </em>infinite<em> language.  Surely writing out the entirety of \(L\) in
+this situation is unfeasable.  Instead, we can define a number of rules that </em>define
+legal words within \(L\)*.  </p>
+<h2>Keep it simple</h2>
+<p>Here's an example of an infinite language \(L\) defined over the alphabet 
+\(\Sigma = \{a,b\}\):</p>
+<ol>
+<li>A word is in \(L\) if it begins with exactly one \(a\).</li>
+<li>A word which ends in any number of \(b\) symbols is in \(L\) <em>only if</em> it
+     begins with another valid word in \(L\).</li>
+</ol>
+<p>Following this, we see that the first few words we can define in \(L\) are:</p>
+<p>$$L = \{a, ab, abb, abbb, abbbb, \ldots\}$$</p>
+<p>We can see that this language is infinite, but we have a clear, complete discription
+of \(L\) without performing a miracle and writing out the infinite set.  More 
+often than not, as a computer scientist, you'll be interested in infinite languages,
+and you'll be describing them in terms of a list of rules.</p>
+<h2>Wrapping up</h2>
+<p>Well, that was a short, sweet introduction to the world of formal languages.  Next
+lesson, we'll see the concept of a grammar arise, giving us a formal way of writing
+a set of rules upon which a formal language can be derived.  But until then, don't
+forget your <a href="https://github.com/gatesphere/blog-resources/raw/master/downloads/csmm/lesson2-1.pdf">homework</a>!</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

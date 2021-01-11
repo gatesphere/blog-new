@@ -1,9 +1,132 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>Idea: CoreWars meets the LaunchPad | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Idea: CoreWars meets the LaunchPad</h1><span class="date">September 19, 2010</span><br/> <span class="tags">tags:</span></header><section class="content"><p>Hello all, I stumbled upon a really cool project called <a href="http://battledroids.net/">Battle Droids</a> for the Atmel AVR microcontrollers. Basically, you build a physical representation of a battle droid by building a circuit of sensors around an AVR, then program it with their firmware, connect it to your computer, and have it do battle online through a client software. Your droid would gain experience, level up, and be able to purchase upgrades by winning fights. Unfortunately, this project has stagnated and seems to be out of development, and stuck in pre-beta with nothing of any note released.</p><p>Now, years ago, as a kid, I used to play <a href="http://en.wikipedia.org/wiki/Core_War">Core War</a> (or CoreWars, how I say it). Basically, in CoreWars, you write a program in Red Code, a modified version of ASM, and have it do battle on a virtual "hill" to claim the title King of the Hill.</p><p>Here's where the idea is... I would like to something smimilar to CoreWars (with the emphasis on programming), but add in a physical layer like Battle Droids. Basically, you would choose a core, build a circuit of sensors and other input devices, write a program to control it, and have it fight other internet-connected bots. I think I'd call it something like "LaunchBots" or something else equally cheesy.</p><p>Here are some basic rules:</p><ol><li>All programs would have to be submitted to the administrator of the hill for verification and compilation. This is to allow the administrator to add a bit of security code to the file to allow the program to be authenticated by the server, to help prevent cheating. All programs will be checked against the guidelines set forth in the bot protocol document, and against the hill it was submitted for. An approved program will be sent back, compiled, with a secret security code added into the binary. This compiled binary is what the commander would upload to their bot.</li><li>All programs must be written in C or MSP430 ASM, and have specific notes regarding which compiler to use. Programs which do not compile will not be accepted for obvious reasons.</li><li>All bots would need to have a photo and a schematic submitted along with the program.</li><li>All bots would need to connect using the client software, unmodified. This is to allow the authentication of bots and programs, and to prevent cheating. The client software will be open source, but will contain obfusticated encryption algorithms to help preserve the integrity of the competition.</li><li>All commanders would be required to have their bot connected and the client software running during the entirety of the scheduled battle time. Any bots not connected when the battle is scheduled to begin will be disqualified, as will any who lose connection more than twice in a match. Disqualified bots will recieve maximum negative points for their leaderboard standings.</li></ol><p>There will be a bot protocol document describing the various items to take into consideration during programming, including specifications which must be adhered to. There will be different speed classes (directly proportional to baud rate)- 4800 baud, 2400 baud, 1200 baud, 600 baud, 300 baud, 110 baud for stock, higher classes may be created for those using an external serial or usb-serial converter (such as an FTDI). Such classes would be subject to approval by a judge. Speed class is directly related to how quick your bot would be able to issue commands, but comes at a price of code size and efficiency.</p><p>There will also be various core classes, depending on the MSP430 device used (only ones supported directly by the LaunchPad's 14/20 pin socket will be allowed to compete).</p><p>The server software will be open source, allowing for people to run their own hills with or without the verification steps, and also to allow the builders/coders to test their bot before submitting it.</p><p>That's it for the basic idea. I'm going to look into this as a serious idea, and I welcome any suggestions/help from anyone else who thinks this would be a cool idea. If anything comes of this, it would be a LONG way away, but it would still be a really fun thing, I think. Let me know below!</p><p>Keep tweaking~</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>Idea: CoreWars meets the LaunchPad | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>Idea: CoreWars meets the LaunchPad</h1>
+  <span class="date">September 19, 2010</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>Hello all,
+I stumbled upon a really cool project called <a href="http://battledroids.net/">Battle Droids</a> for the Atmel AVR microcontrollers. Basically, you build a physical representation of a battle droid by building a circuit of sensors around an AVR, then program it with their firmware, connect it to your computer, and have it do battle online through a client software. Your droid would gain experience, level up, and be able to purchase upgrades by winning fights. Unfortunately, this project has stagnated and seems to be out of development, and stuck in pre-beta with nothing of any note released.</p>
+<p>Now, years ago, as a kid, I used to play <a href="http://en.wikipedia.org/wiki/Core_War">Core War</a> (or CoreWars, how I say it). Basically, in CoreWars, you write a program in Red Code, a modified version of ASM, and have it do battle on a virtual "hill" to claim the title King of the Hill.</p>
+<p>Here's where the idea is... I would like to something smimilar to CoreWars (with the emphasis on programming), but add in a physical layer like Battle Droids. Basically, you would choose a core, build a circuit of sensors and other input devices, write a program to control it, and have it fight other internet-connected bots. I think I'd call it something like "LaunchBots" or something else equally cheesy.</p>
+<p>Here are some basic rules:</p>
+<ol>
+<li>All programs would have to be submitted to the administrator of the hill for verification and compilation. This is to allow the administrator to add a bit of security code to the file to allow the program to be authenticated by the server, to help prevent cheating. All programs will be checked against the guidelines set forth in the bot protocol document, and against the hill it was submitted for. An approved program will be sent back, compiled, with a secret security code added into the binary. This compiled binary is what the commander would upload to their bot.</li>
+<li>All programs must be written in C or MSP430 ASM, and have specific notes regarding which compiler to use. Programs which do not compile will not be accepted for obvious reasons.</li>
+<li>All bots would need to have a photo and a schematic submitted along with the program.</li>
+<li>All bots would need to connect using the client software, unmodified. This is to allow the authentication of bots and programs, and to prevent cheating. The client software will be open source, but will contain obfusticated encryption algorithms to help preserve the integrity of the competition.</li>
+<li>All commanders would be required to have their bot connected and the client software running during the entirety of the scheduled battle time. Any bots not connected when the battle is scheduled to begin will be disqualified, as will any who lose connection more than twice in a match. Disqualified bots will recieve maximum negative points for their leaderboard standings.</li>
+</ol>
+<p>There will be a bot protocol document describing the various items to take into consideration during programming, including specifications which must be adhered to. There will be different speed classes (directly proportional to baud rate)- 4800 baud, 2400 baud, 1200 baud, 600 baud, 300 baud, 110 baud for stock, higher classes may be created for those using an external serial or usb-serial converter (such as an FTDI). Such classes would be subject to approval by a judge. Speed class is directly related to how quick your bot would be able to issue commands, but comes at a price of code size and efficiency.</p>
+<p>There will also be various core classes, depending on the MSP430 device used (only ones supported directly by the LaunchPad's 14/20 pin socket will be allowed to compete).</p>
+<p>The server software will be open source, allowing for people to run their own hills with or without the verification steps, and also to allow the builders/coders to test their bot before submitting it.</p>
+<p>That's it for the basic idea. I'm going to look into this as a serious idea, and I welcome any suggestions/help from anyone else who thinks this would be a cool idea. If anything comes of this, it would be a LONG way away, but it would still be a really fun thing, I think. Let me know below!</p>
+<p>Keep tweaking~ </p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

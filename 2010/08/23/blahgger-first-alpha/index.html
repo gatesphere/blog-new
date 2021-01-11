@@ -1,9 +1,141 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>blahgger First Alpha | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>blahgger First Alpha</h1><span class="date">August 23, 2010</span><br/> <span class="tags">tags:</span></header><section class="content"><p>Hello all.</p><p>The blog that you are reading is running the first alpha version of my blogging software, blahgger.</p><p>blahgger is being developed as a lightweight, single-file (with external stylesheet) PHP/MySQL blogging solution. I undertook this as a bit of a personal challenge, although I mainly wanted to avoid the bloat associated with the major-name blogging CMS's (<em>cough</em>WordPress<em>cough</em>), which although provides modularity and impressive features, just feels a bit too heavy for my needs: getting things posted. So, I decided to write my own.</p><p>Current features include:</p><p>Full HTML posting Commenting Pagination External Stylesheet Simple edit-generate tables-edit-done installation process Single-file portability Auto-formatting Sanitizing and HTML scraping for comments, to prevent abuse Post permalinks Unfortunately, I only have the front-end worked on. Once I have worked on the back-end to the point where it's usable (and I don't have to manually edit my MySQL tables to post and moderate), I will release it under the GPL.</p><p>Oh, it also has a logo, released under the Creative Commons 3.0-by-nd-nc license. Here it is:</p><p><img alt="blahgger logo" src="https://github.com/gatesphere/blog-resources/raw/master/downloads/images/blahgger.png"/></p><p>Leave a comment, tell me what you think, and suggest any future features that you would like to see!</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>blahgger First Alpha | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>blahgger First Alpha</h1>
+  <span class="date">August 23, 2010</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>Hello all.</p>
+<p>The blog that you are reading is running the first alpha version of my blogging 
+software, blahgger.</p>
+<p>blahgger is being developed as a lightweight, single-file (with external stylesheet)
+ PHP/MySQL blogging solution. I undertook this as a bit of a personal challenge, 
+ although I mainly wanted to avoid the bloat associated with the major-name 
+ blogging CMS's (<em>cough</em>WordPress<em>cough</em>), which although provides modularity 
+ and impressive features, just feels a bit too heavy for my needs: getting 
+ things posted. So, I decided to write my own.</p>
+<p>Current features include:</p>
+<p>Full HTML posting
+Commenting
+Pagination
+External Stylesheet
+Simple edit-generate tables-edit-done installation process
+Single-file portability
+Auto-formatting
+Sanitizing and HTML scraping for comments, to prevent abuse
+Post permalinks
+Unfortunately, I only have the front-end worked on. Once I have worked on the 
+back-end to the point where it's usable (and I don't have to manually edit my
+ MySQL tables to post and moderate), I will release it under the GPL.</p>
+<p>Oh, it also has a logo, released under the Creative Commons 3.0-by-nd-nc license. 
+Here it is:</p>
+<p><img alt="blahgger logo" src="https://github.com/gatesphere/blog-resources/raw/master/downloads/images/blahgger.png" /></p>
+<p>Leave a comment, tell me what you think, and suggest any future features that you would like to see! </p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

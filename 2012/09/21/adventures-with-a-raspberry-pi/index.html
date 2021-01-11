@@ -1,9 +1,185 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>Adventures with a Raspberry Pi | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Adventures with a Raspberry Pi</h1><span class="date">September 21, 2012</span><br/> <span class="tags">tags: <a href="/tag/raspberry%20pi/">raspberry pi</a>, <a href="/tag/rpi/">rpi</a>, <a href="/tag/raspi/">raspi</a>, <a href="/tag/sysadmin/">sysadmin</a>, <a href="/tag/embedded/">embedded</a>, <a href="/tag/raspbian/">raspbian</a>, <a href="/tag/io/">io</a></span></header><section class="content"><p>Hello all,</p><p>When I came home Wednesday afternoon, I was surprised to see my Raspberry Pi waiting for me. Well, that's a lie, as I had been tracking it all day online. But I was happy that it was here!</p><p>One of my goals with the Raspberry Pi is assembling a small, cheap computing cluster, so that I might understand more about distributed computing and clustering in general. My initial plan is a 4+1 node cluster, running distributed python software by built with the use of the <a href="http://dispy.sourceforge.net/">dispy framework</a>. I have no real goals for what I want this software to do yet, but the idea is that if I can get a cluster up and running and talking to each other with dispy, I can find an embarrasingly parallel problem and tackle it.<br/> I'm already thinking of running huge Game of Life simulations and such, with each node rendering roughly a quadrant of the world. And other things too, but that's not important at the moment.</p><p>So, what do I mean by a 4+1 cluster? Well, perhaps my recent system administration leanings are kicking in here, but I would like there to be a dedicated administration and monitoring node, which controls and looks after the other four nodes, and also acts as the central server which collects the compute data from the other nodes and stitches it together, massaging it into a form that's useful. So there will be four compute nodes, and one command and control node. This might be a bottleneck, and I'm aware of that. But I'm not looking for the absolute best performance, I'm looking for something that's stable, managable, and scalable... plus, the 10/100 NIC on the RPi kind of prevents massive throughput anyway. As for the monitoring side of things, I'm writing a package of shell scripts at the moment to collect system information and generate a webpage. I know there are packages out there to do this for me, but I want to write it myself... it's fun.</p><p>So, the RPi I currently have, which I'm calling orison at the moment, will end up being the command control node, orison-locus. The compute nodes, orison-foci-1 throubh orison-foci-4, will need to be ordered.</p><p>Until I have a bit more cash to throw down for this, I've decided to play around with what I have. So, here's a list of what I've done on orison so far, and what will probably make it into orison-locus and orison-foci in the end.</p><ul><li>Formatted SD card with most recent version of the official Raspian Wheezy distro</li><li>Enabled sshd to start on system startup</li><li>Enabled overclocking - Turbo mode (mine has Samsung ram, so it should be fine)</li><li>Tested overclocking - it works!</li><li>Set up wi-fi</li><li>Updated + upgraded all packages from the apt repositories</li><li>Set up the <a href="http://binerry.de/post/28263824530/raspberry-pi-watchdog-timer">watchdog timer</a>, so if my RPi is ever hung, it will reboot itself, tested this with a forkbomb</li><li>Changed hostname from 'raspberrypi' to 'orison'</li><li>Installed avahi-daemon, to allow connecting to the machine with orison.local</li><li>Installed sysstat</li><li>Installed gcc-4.7 (gcc-4.6, installed by default, is broken and buggy)</li><li>Installed git</li><li>Installed <a href="https://github.com/Hexxeh/rpi-update">rpi-update</a></li><li>Managed to get <a href="http://iolanguage.com/">Io</a> to compile (iobin package coming later today!)</li><li>Changed password on the default 'pi' user</li><li>Created a new user account for myself (should delete the pi user)</li><li>Edited sudoers to require a password for sudo</li><li>Set up ssh keys for key-based auth</li></ul><p>So I have a fairly stable, overclocking on-demand system now. I'm happy.</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>Adventures with a Raspberry Pi | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>Adventures with a Raspberry Pi</h1>
+  <span class="date">September 21, 2012</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+    <a href="/tag/raspberry%20pi/">raspberry pi</a>,&nbsp;
+    
+    <a href="/tag/rpi/">rpi</a>,&nbsp;
+    
+    <a href="/tag/raspi/">raspi</a>,&nbsp;
+    
+    <a href="/tag/sysadmin/">sysadmin</a>,&nbsp;
+    
+    <a href="/tag/embedded/">embedded</a>,&nbsp;
+    
+    <a href="/tag/raspbian/">raspbian</a>,&nbsp;
+    
+    <a href="/tag/io/">io</a>
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>Hello all,</p>
+<p>When I came home Wednesday afternoon, I was surprised to see my Raspberry
+Pi waiting for me.  Well, that's a lie, as I had been tracking it all
+day online.  But I was happy that it was here!</p>
+<p>One of my goals with the Raspberry Pi is assembling a small, cheap computing
+cluster, so that I might understand more about distributed computing and 
+clustering in general.  My initial plan is a 4+1 node cluster, running distributed
+python software by built with the use of the <a href="http://dispy.sourceforge.net/">dispy framework</a>.
+I have no real goals for what I want this software to do yet, but the idea
+is that if I can get a cluster up and running and talking to each other
+with dispy, I can find an embarrasingly parallel problem and tackle it.<br />
+I'm already thinking of running huge Game of Life simulations and such, 
+with each node rendering roughly a quadrant of the world.  And other things
+too, but that's not important at the moment.</p>
+<p>So, what do I mean by a 4+1 cluster?  Well, perhaps my recent system administration
+leanings are kicking in here, but I would like there to be a dedicated 
+administration and monitoring node, which controls and looks after the
+other four nodes, and also acts as the central server which collects
+the compute data from the other nodes and stitches it together, massaging
+it into a form that's useful.  So there will be four compute nodes, and 
+one command and control node.  This might be a bottleneck, and I'm aware
+of that.  But I'm not looking for the absolute best performance, I'm looking
+for something that's stable, managable, and scalable... plus, the 10/100
+NIC on the RPi kind of prevents massive throughput anyway.  As for the
+monitoring side of things, I'm writing a package of shell scripts
+at the moment to collect system information and generate a webpage.  I
+know there are packages out there to do this for me, but I want to write
+it myself... it's fun.</p>
+<p>So, the RPi I currently have, which I'm calling orison at the moment, 
+will end up being the command control node, orison-locus.  The compute
+nodes, orison-foci-1 throubh orison-foci-4, will need to be ordered.</p>
+<p>Until I have a bit more cash to throw down for this,  I've decided to
+play around with what I have.  So, here's a list of what I've done on 
+orison so far, and what will probably make it into orison-locus and
+orison-foci in the end.</p>
+<ul>
+<li>Formatted SD card with most recent version of the official Raspian Wheezy distro</li>
+<li>Enabled sshd to start on system startup</li>
+<li>Enabled overclocking - Turbo mode (mine has Samsung ram, so it should be fine)</li>
+<li>Tested overclocking - it works!</li>
+<li>Set up wi-fi</li>
+<li>Updated + upgraded all packages from the apt repositories</li>
+<li>Set up the <a href="http://binerry.de/post/28263824530/raspberry-pi-watchdog-timer">watchdog timer</a>, so if my RPi is ever hung, it will reboot itself, tested this with a forkbomb</li>
+<li>Changed hostname from 'raspberrypi' to 'orison'</li>
+<li>Installed avahi-daemon, to allow connecting to the machine with orison.local</li>
+<li>Installed sysstat</li>
+<li>Installed gcc-4.7 (gcc-4.6, installed by default, is broken and buggy)</li>
+<li>Installed git</li>
+<li>Installed <a href="https://github.com/Hexxeh/rpi-update">rpi-update</a></li>
+<li>Managed to get <a href="http://iolanguage.com/">Io</a> to compile (iobin package coming later today!)</li>
+<li>Changed password on the default 'pi' user</li>
+<li>Created a new user account for myself (should delete the pi user)</li>
+<li>Edited sudoers to require a password for sudo</li>
+<li>Set up ssh keys for key-based auth</li>
+</ul>
+<p>So I have a fairly stable, overclocking on-demand system now.  I'm happy.</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

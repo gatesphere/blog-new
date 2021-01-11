@@ -1,9 +1,191 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>Leo Things Done Revised | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Leo Things Done Revised</h1><span class="date">November 18, 2013</span><br/> <span class="tags">tags: <a href="/tag/tag/">tag</a>, <a href="/tag/your/">your</a>, <a href="/tag/life/">life</a>, <a href="/tag/away/">away</a></span></header><section class="content"><h1>Introduction</h1><p>This is a rewrite of my earlier article <a href="/2013/09/20/leo-things-done/">Leo Things Done</a>, explaining my LTD productivity system as it stands currently. It is much simplified from the original version, and now is pretty much just Leo, a few plugins, and a few scripts.</p><h1>The system</h1><p>LTD is a combination of parts of ZTD and GTD, and it uses Leo to maintain itself.</p><h2>What you need</h2><ul><li>A computer with Leo</li><li>Willpower</li></ul><h2>Setting up Leo</h2><p>The core of this system is Leo. You'll need the following plugins enabled:</p><ul><li>mod_scripting.py</li><li>todo.py</li><li>nodewatch.py</li><li>contextmenu.py</li></ul><p>Additionally, you'll need at least the following python module installed:</p><ul><li>python-dateutil</li></ul><p>A .leo outline with the following LTD chapters should be kept:</p><ul><li>Recurring (for daily, weekly, monthly, etc. tasks)</li><li>Long-term Projects</li><li>Notes</li><li>Ideas</li><li>Reports</li></ul><p>I also have a few other chapters, as I run LTD from my workbook.leo file:</p><ul><li>RSS Feeds (for rss.py plugin)</li><li>Web Bookmarks</li></ul><p>Within each of those LTD chapters, create the following 3 nodes:</p><ul><li>Work</li><li>Responsibility</li><li>Leisure</li></ul><p>Within the 'main' chapter, create an '@settings' node. This will store various LTD-centric settings, buttons, and scripts. The scripts themselves are in the ltd-barebones.leo file, <a href="https://github.com/gatesphere/ltd-barebones">up on Github</a>.</p><h2>Using the system</h2><p>Use the Notes chapter to scribble down notes that are related to tasks. You can clone from notes to a child of a task if you wish, to keep yourself organized.</p><p>Use the Ideas chapter to scribble down ideas that are unrelated to current tasks. Ideas are always good to keep in mind, because in the future they may be promoted to tasks, once you have the time to approach them, or the desire to do something new.</p><p>Use the Recurring chapter for daily, weekly, monthly, etc tasks. Tasks need a task-type directive (one of '@work', '@responsibility', or '@leisure') in their bodies. Additionally, recurring tasks need a valid recurrance, one of '@daily', '@daily-weekdays', '@weekly', '@biweekly', '@monthly', '@bimonthly', '@quarterly', '@triannually', '@semianually', '@anually', '@yearly' (a synonym for @anually). These two directives are used by the LTD scripts, and are very important. Lastly, using the todo.py Task tab, set a due date, next-work date, or both. The scripts will take care of re-setting the dates for you when you complete a recurring task.</p><p>Use the Long-term Projects chapter to keep yourself on track with the long term projects you're working on. Be sure to include a tasktype. A due-date/next-work-date is not necessary, but supported.</p><p>Each day, your flow should be like this:</p><ul><li>Skim through your Nodewatch 'LTD: 00 Past Due' list and do them -- you've slacked off!</li><li>Skim through your Nodewatch 'LTD: 01 Due Today' list and do them.</li><li>If you have time, skim through your Nodewatch 'LTD: 02 Due Tomorrow' or 'LTD: 03 Due This Week' nodes to prepare yourself.</li></ul><p>When you complete a task, right click on the headline and select 'Mark task done'. This does a few non-trivial actions for you:</p><ul><li>Sends a copy of the node to your Reports chapter, under the correct date and category, marking it 'done'.</li><li>If the task recurrs, it sets the next work date according to the recurrence directive.</li></ul><p>Additionally, once a week, write a summarized bullet point list of what you did. I'm doing mine publicly on this blog. LTD provides a script for this, too: select a week node in your Reports chapter, and right click on the ltd button, selecting 'generate-week-report'. You'll now have a nice categorized report for your use of your week's activities.</p><p>Thanks for reading!</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>Leo Things Done Revised | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>Leo Things Done Revised</h1>
+  <span class="date">November 18, 2013</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+    <a href="/tag/tag/">tag</a>,&nbsp;
+    
+    <a href="/tag/your/">your</a>,&nbsp;
+    
+    <a href="/tag/life/">life</a>,&nbsp;
+    
+    <a href="/tag/away/">away</a>
+    
+  </span>
+  </header>
+  <section class="content">
+    <h1>Introduction</h1>
+<p>This is a rewrite of my earlier article <a href="/2013/09/20/leo-things-done/">Leo Things Done</a>,
+explaining my LTD productivity system as it stands currently.  It is much simplified
+from the original version, and now is pretty much just Leo, a few plugins, and
+a few scripts.</p>
+<h1>The system</h1>
+<p>LTD is a combination of parts of ZTD and GTD, and it uses Leo to maintain itself.</p>
+<h2>What you need</h2>
+<ul>
+<li>A computer with Leo</li>
+<li>Willpower</li>
+</ul>
+<h2>Setting up Leo</h2>
+<p>The core of this system is Leo.  You'll need the following plugins enabled:</p>
+<ul>
+<li>mod_scripting.py</li>
+<li>todo.py</li>
+<li>nodewatch.py</li>
+<li>contextmenu.py</li>
+</ul>
+<p>Additionally, you'll need at least the following python module installed:</p>
+<ul>
+<li>python-dateutil</li>
+</ul>
+<p>A .leo outline with the following LTD chapters should be kept:</p>
+<ul>
+<li>Recurring (for daily, weekly, monthly, etc. tasks)</li>
+<li>Long-term Projects</li>
+<li>Notes</li>
+<li>Ideas</li>
+<li>Reports</li>
+</ul>
+<p>I also have a few other chapters, as I run LTD from my workbook.leo file:</p>
+<ul>
+<li>RSS Feeds (for rss.py plugin)</li>
+<li>Web Bookmarks</li>
+</ul>
+<p>Within each of those LTD chapters, create the following 3 nodes:</p>
+<ul>
+<li>Work</li>
+<li>Responsibility</li>
+<li>Leisure</li>
+</ul>
+<p>Within the 'main' chapter, create an '@settings' node.  This will store various LTD-centric
+settings, buttons, and scripts.  The scripts themselves are in the ltd-barebones.leo file, 
+<a href="https://github.com/gatesphere/ltd-barebones">up on Github</a>.</p>
+<h2>Using the system</h2>
+<p>Use the Notes chapter to scribble down notes that are related to tasks.  You can clone from notes to a child of a task if you wish, to keep
+yourself organized.</p>
+<p>Use the Ideas chapter to scribble down ideas that are unrelated to current tasks.  Ideas are always good to keep in mind, because in the
+future they may be promoted to tasks, once you have the time to approach them, or the desire to do something new.</p>
+<p>Use the Recurring chapter for daily, weekly, monthly, etc tasks.  Tasks need a task-type directive (one of '@work', '@responsibility', or '@leisure') in their bodies.
+Additionally, recurring tasks need a valid recurrance, one of '@daily', '@daily-weekdays', '@weekly', '@biweekly', '@monthly', '@bimonthly', '@quarterly', '@triannually', '@semianually', '@anually', '@yearly' (a synonym for @anually).  These two directives are used by the LTD scripts, and are very important.  Lastly, using the todo.py Task
+tab, set a due date, next-work date, or both.  The scripts will take care of re-setting the dates for you when you complete a recurring task. </p>
+<p>Use the Long-term Projects chapter to keep yourself on track with the long term projects you're working on. Be sure to include a tasktype.  A due-date/next-work-date is not necessary, but supported.</p>
+<p>Each day, your flow should be like this:</p>
+<ul>
+<li>Skim through your Nodewatch 'LTD: 00 Past Due' list and do them -- you've slacked off!</li>
+<li>Skim through your Nodewatch 'LTD: 01 Due Today' list and do them.</li>
+<li>If you have time, skim through your Nodewatch 'LTD: 02 Due Tomorrow' or 'LTD: 03 Due This Week' nodes to prepare yourself.</li>
+</ul>
+<p>When you complete a task, right click on the headline and select 'Mark task done'.  This does a few non-trivial actions for you:</p>
+<ul>
+<li>Sends a copy of the node to your Reports chapter, under the correct date and category, marking it 'done'.</li>
+<li>If the task recurrs, it sets the next work date according to the recurrence directive.</li>
+</ul>
+<p>Additionally, once a week, write a summarized bullet point list of what you did.  I'm doing mine publicly on this blog.  LTD provides a script for this, too: select a week node in your Reports chapter, and right click on the ltd button, selecting 'generate-week-report'.  You'll now have a nice categorized report for your use of your week's activities.</p>
+<p>Thanks for reading!</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

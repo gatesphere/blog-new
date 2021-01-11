@@ -1,10 +1,132 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>MSPhere Framework | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>MSPhere Framework</h1><span class="date">August 25, 2010</span><br/> <span class="tags">tags:</span></header><section class="content"><p>I have been developing a framework of helper functions for the TI MSP430 microcontrollers, with the aim of making the Arduino function collection available for the LaunchPad environment. So far, I have accomplished quite a bit of progress, but also hit a few walls.</p><p>First up, for the progress:</p><ul><li>Created a core header file which defines main() and init(), and the HIGH, LOW, INPUT, and OUTPUT constants, and declares setup() and loop().</li><li>Mapped the GPIO pins to single numbers, like Arduino (P1.0-P1.7 are pins 0-7, P2.0-P2.7 are 8-15... meaning the 14 pin devices only have pins 0-7,14, and 15, but still...)</li><li>Created a header file defining the Arduino digital I/O functions (pinMode, digitalRead, digitalWrite) and tested.</li><li>Created a header file defining some of the Arduino math functions (min, max, abs, constrain, and map).</li></ul><p>Now for the walls. It appears that including all of these functions in the code leads to severe overhead. My basic test program (blinks leds at intervals, and samples the math functions into variables) clocks in at</p><div class="codehilite"><pre><span class="n">Code</span> <span class="n">Size</span> <span class="o">-</span> <span class="n">Text</span><span class="o">:</span> <span class="mi">1166</span> <span class="n">bytes</span>  <span class="n">Data</span><span class="o">:</span> <span class="mi">2</span> <span class="n">bytes</span>
-</pre></div><p>so I am making the code modular, so that if one doesn't need a particular set of functions, they won't be adding bloat to the codebase. I will, however, also be looking into ways to condense these functions to take up less code space.</p><p>Oh, about the name. I had originally called it MSPduino, but <a href="http://msp430launchpad.com/">NJC</a> suggested that I call it msphere, as a subtle way to include my web name. I recapitalized it as MSPhere, and realized that when capitalized this way, it emphasizes MSP and "here", signifying ease of use and control, while still giving me a subtle ego boost.</p><p>Where do I see this going? Potentially a free IDE ala Arduino, but that would be a long way down the road. Due to the current code bloat, I don't see myself using it for many of my own projects--once I get bit masking down, it'll become rather useless to me--but I do want to help the user community as much as possible, and all of this is a good exercise to introduce myself more fully to the MSP430 architecture and the LaunchPad platform.</p><p>Anyways, once I get a bit more done on it, I will release it to the community under the GNU GPLv3 license, and continue to update it as time allows. I will also encourage anyone who wishes to build upon it, so long as I am informed in some manner. I want to see it grow and prosper :)</p><p>Thanks for reading, and until next time, keep hacking.</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>MSPhere Framework | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>MSPhere Framework</h1>
+  <span class="date">August 25, 2010</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>I have been developing a framework of helper functions for the TI MSP430 microcontrollers, with the aim of making the Arduino function collection available for the LaunchPad environment. So far, I have accomplished quite a bit of progress, but also hit a few walls.</p>
+<p>First up, for the progress:</p>
+<ul>
+<li>Created a core header file which defines main() and init(), and the HIGH, LOW, INPUT, and OUTPUT constants, and declares setup() and loop().</li>
+<li>Mapped the GPIO pins to single numbers, like Arduino (P1.0-P1.7 are pins 0-7, P2.0-P2.7 are 8-15... meaning the 14 pin devices only have pins 0-7,14, and 15, but still...)</li>
+<li>Created a header file defining the Arduino digital I/O functions (pinMode, digitalRead, digitalWrite) and tested.</li>
+<li>Created a header file defining some of the Arduino math functions (min, max, abs, constrain, and map).</li>
+</ul>
+<p>Now for the walls. It appears that including all of these functions in the code leads to severe overhead. My basic test program (blinks leds at intervals, and samples the math functions into variables) clocks in at</p>
+<div class="codehilite"><pre><span></span><code><span class="err">Code Size - Text: 1166 bytes  Data: 2 bytes</span>
+</code></pre></div>
+
+<p>so I am making the code modular, so that if one doesn't need a particular set of functions, they won't be adding bloat to the codebase. I will, however, also be looking into ways to condense these functions to take up less code space.</p>
+<p>Oh, about the name. I had originally called it MSPduino, but <a href="http://msp430launchpad.com/">NJC</a> suggested that I call it msphere, as a subtle way to include my web name. I recapitalized it as MSPhere, and realized that when capitalized this way, it emphasizes MSP and "here", signifying ease of use and control, while still giving me a subtle ego boost.</p>
+<p>Where do I see this going? Potentially a free IDE ala Arduino, but that would be a long way down the road. Due to the current code bloat, I don't see myself using it for many of my own projects--once I get bit masking down, it'll become rather useless to me--but I do want to help the user community as much as possible, and all of this is a good exercise to introduce myself more fully to the MSP430 architecture and the LaunchPad platform.</p>
+<p>Anyways, once I get a bit more done on it, I will release it to the community under the GNU GPLv3 license, and continue to update it as time allows. I will also encourage anyone who wishes to build upon it, so long as I am informed in some manner. I want to see it grow and prosper :)</p>
+<p>Thanks for reading, and until next time, keep hacking. </p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

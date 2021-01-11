@@ -1,35 +1,190 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>A proposition for a small purely functional, typeless language | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>A proposition for a small purely functional, typeless language</h1><span class="date">October 5, 2012</span><br/> <span class="tags">tags: <a href="/tag/axio/">axio</a>, <a href="/tag/functional/">functional</a>, <a href="/tag/language/">language</a>, <a href="/tag/Turing/">Turing</a>, <a href="/tag/lambda/">lambda</a></span></header><section class="content"><p>So, one of my favorite pasttimes is language design, and a few weeks ago I whipped up the following grammar for a purely functional, typeless language, which consistes solely of lambdas and symbols. It's essentially the \(\lambda\)-calculus, with global, immutable binds (much like substituting a symbol).</p><p>Anyways, here's the grammar:</p><div class="codehilite"><pre><span class="n">lam</span> <span class="o">::=</span> <span class="p">(</span><span class="err">\</span> <span class="n">var1</span> <span class="p">...</span> <span class="n">varn</span> <span class="o">::</span> <span class="n">exp</span><span class="p">)</span>
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
 
-<span class="n">exp</span> <span class="o">::=</span> <span class="n">lam</span>
-      <span class="o">|</span> <span class="n">var</span>
-      <span class="o">|</span> <span class="p">(</span><span class="n">prim</span> <span class="n">exp1</span> <span class="p">...</span> <span class="n">expn</span><span class="p">)</span>
-      <span class="o">|</span> <span class="p">(</span><span class="n">exp1</span> <span class="p">...</span> <span class="n">expn</span><span class="p">)</span>
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
 
-<span class="n">prim</span> <span class="o">::=</span> <span class="err">#</span><span class="n">bind</span> <span class="o">|</span> <span class="err">#</span><span class="n">halt</span>
-</pre></div><p>Aside from the grammar, comments are defined with double slashes and run to the end of the line, C++/Java style.</p><p>The two primitives have the following meaning:</p><div class="codehilite"><pre><span class="p">(</span><span class="err">#</span><span class="n">bind</span> <span class="n">sym</span> <span class="n">val</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">binds</span> <span class="n">sym</span> <span class="n">to</span> <span class="n">val</span> <span class="n">in</span> <span class="n">the</span> <span class="n">global</span> <span class="n">symbol</span> <span class="n">table</span>
-<span class="p">(</span><span class="err">#</span><span class="n">halt</span> <span class="n">exp</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="n">evaluates</span> <span class="n">exp</span> <span class="n">and</span> <span class="n">returns</span> <span class="n">that</span> <span class="n">value</span> <span class="n">to</span> <span class="n">the</span> 
-                   <span class="n">calling</span> <span class="n">context</span> <span class="p">(</span><span class="n">OS</span> <span class="n">level</span><span class="p">)</span> <span class="n">as</span> <span class="n">a</span> <span class="n">string</span>
-</pre></div><p>As I mentioned, it's small. Masochistically small, it appears. There's also absolutely no concept of I/O aside from return values. But it fully supports the \(\lambda\)-calculus, and therefore is Turing complete.</p><p>However, in implementation, a few things would be pre-bound to make the programmer's life simpler. These would not be part of the grammar, and therefore not a part of the syntax of the language, as they would be stored like any other bound symbol internally. There would be one exception to these pre-bound values, and that's the storage of numbers. Church numerals would be auto-converted on the fly, and then cached into the global bind table.</p><p>Semantically speaking, functions would be evaluated identically to the \(\lambda\)-calculus. Also, the interpreter would perform automated currying internally.</p><div class="codehilite"><pre><span class="p">(</span><span class="err">\</span> <span class="n">a</span> <span class="n">b</span> <span class="o">::</span> <span class="n">b</span> <span class="n">a</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="err">\</span> <span class="n">a</span> <span class="o">::</span> <span class="p">(</span><span class="err">\</span> <span class="n">b</span> <span class="o">::</span> <span class="n">b</span> <span class="n">a</span><span class="p">))</span>
-<span class="p">(</span><span class="err">\</span> <span class="n">a</span> <span class="n">b</span> <span class="o">::</span> <span class="n">b</span> <span class="n">a</span><span class="p">)</span> <span class="n">someval</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="err">\</span> <span class="n">a</span> <span class="o">::</span> <span class="p">(</span><span class="err">\</span> <span class="n">b</span> <span class="o">::</span> <span class="n">b</span> <span class="n">a</span><span class="p">))</span> <span class="n">someval</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="err">\</span> <span class="n">b</span> <span class="o">::</span> <span class="n">b</span> <span class="n">someval</span><span class="p">)</span>
-</pre></div><p>Here's an example program in this small language, which I'd like to call axio:</p><div class="codehilite"><pre><span class="c1">// fibonacci generator</span>
-<span class="c1">// supporting functions</span>
-<span class="p">(#</span><span class="k">bind</span> <span class="n">succ</span> <span class="p">(</span><span class="err">\</span> <span class="n">w</span> <span class="n">y</span> <span class="n">x</span> <span class="o">::</span> <span class="n">y</span> <span class="p">(</span><span class="n">w</span> <span class="n">y</span> <span class="n">x</span><span class="p">)))</span>
-<span class="p">(#</span><span class="k">bind</span> <span class="o">+</span> <span class="p">(</span><span class="err">\</span> <span class="n">a</span> <span class="n">b</span> <span class="o">::</span> <span class="n">a</span> <span class="n">succ</span> <span class="n">b</span><span class="p">))</span>
-<span class="p">(#</span><span class="k">bind</span> <span class="n">phi</span> <span class="p">(</span><span class="err">\</span> <span class="n">a</span> <span class="n">b</span> <span class="n">f</span> <span class="o">::</span> <span class="n">f</span> <span class="n">a</span> <span class="n">b</span><span class="p">))</span>
-<span class="p">(#</span><span class="k">bind</span> <span class="n">sigma</span> <span class="p">(</span><span class="err">\</span> <span class="n">x</span> <span class="o">::</span> <span class="n">phi</span> <span class="p">(</span><span class="n">x</span> <span class="n">false</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="n">true</span><span class="p">)</span> <span class="p">(</span><span class="n">x</span> <span class="n">false</span><span class="p">))))</span> 
-<span class="p">(#</span><span class="k">bind</span> <span class="n">fib</span> <span class="p">(</span><span class="err">\</span> <span class="n">n</span> <span class="o">::</span> <span class="p">(</span><span class="n">n</span> <span class="n">sigma</span> <span class="p">(</span><span class="n">phi</span> <span class="mh">0</span> <span class="mh">1</span><span class="p">))</span> <span class="n">false</span><span class="p">))</span>
 
-<span class="c1">// fib</span>
-<span class="p">(</span><span class="n">fib</span> <span class="p">(</span><span class="n">fib</span> <span class="mh">5</span><span class="p">))</span>
 
-<span class="c1">// exit</span>
-<span class="p">(#</span><span class="n">halt</span><span class="p">)</span>
-</pre></div><p>This would calculate the 5th Fibonacci number, let's call it f_5, and then would calculate the f_5th Fibonacci number.</p><p>There really isn't much purpose to this language, especially given the complete lack of I/O, other than it may be a neat challenge to implement, and an excuse to write a state-machine interpreter.</p><p>Ah well, that's axio.</p><p>Thanks for reading!</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>A proposition for a small purely functional, typeless language | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>A proposition for a small purely functional, typeless language</h1>
+  <span class="date">October 5, 2012</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+    <a href="/tag/axio/">axio</a>,&nbsp;
+    
+    <a href="/tag/functional/">functional</a>,&nbsp;
+    
+    <a href="/tag/language/">language</a>,&nbsp;
+    
+    <a href="/tag/Turing/">Turing</a>,&nbsp;
+    
+    <a href="/tag/lambda/">lambda</a>
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>So, one of my favorite pasttimes is language design, and a few weeks ago
+I whipped up the following grammar for a purely functional, typeless
+language, which consistes solely of lambdas and symbols.  It's essentially
+the \(\lambda\)-calculus, with global, immutable binds (much like 
+substituting a symbol).</p>
+<p>Anyways, here's the grammar:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">lam</span> <span class="p">::</span><span class="o">=</span> <span class="p">(</span>\ <span class="n">var1</span> <span class="o">...</span> <span class="n">varn</span> <span class="p">::</span> <span class="nb">exp</span><span class="p">)</span>
+
+<span class="nb">exp</span> <span class="p">::</span><span class="o">=</span> <span class="n">lam</span>
+      <span class="o">|</span> <span class="k">var</span>
+      <span class="o">|</span> <span class="p">(</span><span class="n">prim</span> <span class="n">exp1</span> <span class="o">...</span> <span class="n">expn</span><span class="p">)</span>
+      <span class="o">|</span> <span class="p">(</span><span class="n">exp1</span> <span class="o">...</span> <span class="n">expn</span><span class="p">)</span>
+
+<span class="n">prim</span> <span class="p">::</span><span class="o">=</span> <span class="c1">#bind | #halt</span>
+</code></pre></div>
+
+<p>Aside from the grammar, comments are defined with double slashes and run
+to the end of the line, C++/Java style.</p>
+<p>The two primitives have the following meaning:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">(#bind sym val) =&gt; binds sym to val in the global symbol table</span>
+<span class="err">(#halt exp)     =&gt; evaluates exp and returns that value to the </span>
+<span class="err">                   calling context (OS level) as a string</span>
+</code></pre></div>
+
+<p>As I mentioned, it's small.  Masochistically small, it appears.  There's
+also absolutely no concept of I/O aside from return values.  But it fully 
+supports the \(\lambda\)-calculus, and therefore is Turing complete.</p>
+<p>However, in implementation, a few things would be pre-bound to make
+the programmer's life simpler.  These would not be part of the grammar,
+and therefore not a part of the syntax of the language, as they would be
+stored like any other bound symbol internally.  There would be one exception
+to these pre-bound values, and that's the storage of numbers.  Church numerals
+would be auto-converted on the fly, and then cached into the global bind
+table.</p>
+<p>Semantically speaking, functions would be evaluated identically to the
+\(\lambda\)-calculus.  Also, the interpreter would perform automated
+currying internally.</p>
+<div class="codehilite"><pre><span></span><code><span class="err">(\ a b :: b a) =&gt; (\ a :: (\ b :: b a))</span>
+<span class="err">(\ a b :: b a) someval =&gt; (\ a :: (\ b :: b a)) someval =&gt; (\ b :: b someval)</span>
+</code></pre></div>
+
+<p>Here's an example program in this small language, which I'd like to call
+axio:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">//</span> <span class="n">fibonacci</span> <span class="n">generator</span>
+<span class="o">//</span> <span class="n">supporting</span> <span class="n">functions</span>
+<span class="p">(</span><span class="o">#</span><span class="n">bind</span> <span class="n">succ</span> <span class="p">(</span><span class="err">\</span> <span class="n">w</span> <span class="n">y</span> <span class="n">x</span> <span class="p">::</span> <span class="n">y</span> <span class="p">(</span><span class="n">w</span> <span class="n">y</span> <span class="n">x</span><span class="p">)))</span>
+<span class="p">(</span><span class="o">#</span><span class="n">bind</span> <span class="o">+</span> <span class="p">(</span><span class="err">\</span> <span class="n">a</span> <span class="n">b</span> <span class="p">::</span> <span class="n">a</span> <span class="n">succ</span> <span class="n">b</span><span class="p">))</span>
+<span class="p">(</span><span class="o">#</span><span class="n">bind</span> <span class="n">phi</span> <span class="p">(</span><span class="err">\</span> <span class="n">a</span> <span class="n">b</span> <span class="n">f</span> <span class="p">::</span> <span class="n">f</span> <span class="n">a</span> <span class="n">b</span><span class="p">))</span>
+<span class="p">(</span><span class="o">#</span><span class="n">bind</span> <span class="n">sigma</span> <span class="p">(</span><span class="err">\</span> <span class="n">x</span> <span class="p">::</span> <span class="n">phi</span> <span class="p">(</span><span class="n">x</span> <span class="k">false</span><span class="p">)</span> <span class="p">(</span><span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="k">true</span><span class="p">)</span> <span class="p">(</span><span class="n">x</span> <span class="k">false</span><span class="p">))))</span> 
+<span class="p">(</span><span class="o">#</span><span class="n">bind</span> <span class="n">fib</span> <span class="p">(</span><span class="err">\</span> <span class="n">n</span> <span class="p">::</span> <span class="p">(</span><span class="n">n</span> <span class="n">sigma</span> <span class="p">(</span><span class="n">phi</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">))</span> <span class="k">false</span><span class="p">))</span>
+
+<span class="o">//</span> <span class="n">fib</span>
+<span class="p">(</span><span class="n">fib</span> <span class="p">(</span><span class="n">fib</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="o">//</span> <span class="n">exit</span>
+<span class="p">(</span><span class="o">#</span><span class="n">halt</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This would calculate the 5th Fibonacci number, let's call it f_5, and then
+would calculate the f_5th Fibonacci number.</p>
+<p>There really isn't much purpose to this language, especially given the 
+complete lack of I/O, other than it may be a neat challenge to implement,
+and an excuse to write a state-machine interpreter.</p>
+<p>Ah well, that's axio.</p>
+<p>Thanks for reading!</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

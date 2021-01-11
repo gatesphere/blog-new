@@ -1,9 +1,113 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>Intro to Leo scripting | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>Intro to Leo scripting</h1><span class="date">January 28, 2014</span><br/> <span class="tags">tags: <a href="/tag/leo/">leo</a>, <a href="/tag/scripting/">scripting</a>, <a href="/tag/tutorial/">tutorial</a></span></header><section class="content"><p>Hello all,</p><p>I thought I'd do a tutorial on scripting Leo today. It's a tricky but powerful feature of my favorite editor, and one I think deserves more attention. For those who are interested in learning more than what I touch on here, the <a href="http://leoeditor.com/leo_toc.html">official Leo documentation</a> has both a <a href="http://leoeditor.com/tutorial-scripting.html">tutorial</a> and a <a href="http://leoeditor.com/scripting-miscellany.html">neat script tricks</a> page. Also, a very useful (but regrettably incomplete) resource is the <a href="http://leo-editor.readthedocs.org/en/latest/">Leo API documentation</a>.</p><h2><strong>Before we begin</strong></h2><p>This tutorial assumes you have Leo installed, and know the basics of its operations -- i.e., how to create and move nodes around, how to use <code>&lt;&lt; section &gt;&gt;</code> references and the <code>@others</code> driective, and how to configure Leo's settings. Additionally, it assumes you have the <code>mod_scripting.py</code> plugin enabled, but Leo ships with this by default, so you should be set. Also, you can't script Leo if you don't know basic Python, so brush up on that first too.</p><h2><strong>Your first script</strong></h2><p>Let's begin simple. Open up a new .leo file and create a node. Let's call it 'hello'.</p><p>The body of this node should be the following:</p><div class="codehilite"><pre><span class="err">@</span><span class="n">language</span> <span class="n">python</span>
-<span class="n">g</span><span class="p">.</span><span class="n">es</span><span class="p">(</span><span class="err">'</span><span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="o">!</span><span class="err">'</span><span class="p">)</span>
-</pre></div><p>That is your very first Leo script! It's the Leo equivalent of the famous 'Hello World' program. One note -- 'g.es' isn't a very clear name. It means 'echo string', where the target of the echo is the Log pane. It is short and easy to remember, so it's stuck around a while. Also, it's used often, so it is good to have a short name.</p><p>Let's run it. Make sure you have the node selected in the outline pane, and then type Ctrl-B. You should see <code>Hello, world!</code> in the Log pane.</p><h2><strong>About Ctrl-B</strong></h2><p>What's so magical about Ctrl-B? Nothing, really. it is just a keybinding for executing the command <code>execute-script</code>. Instead of doing a Ctrl+B, you could instead do Alt-X <code>execute-script</code> in the minibuffer, and the script would run as well.</p><h2><strong>About Buttons</strong></h2><p>There's another way of running your 'hello' script: a script button. Up at the top of the Leo screen you should see a yellow button that says 'script-button' on it. Clicking this button adds another button to the bar which runs the script that you had selected when you clicked the yellow button. Highlight your 'hello' node and click script-button. A new 'hello' button should now be on the bar. Click it -- you'll see that your hello script runs!</p><p>Note, buttons are powerful. They run their script no matter which node is selected in the outline pane. This is an important feature that we'll run into later when we write scripts that modifiy other nodes!</p><p>To make a button automatically when your .leo outline runs, simply put <code>@button</code> in front of the script's headline. Do this with 'hello' (so that the headline now reads '<code>@button hello</code>'), save your outline, and close Leo. Now reopen Leo and your outline. You should have a 'hello' button automatically created.</p><h2><strong>Leo Scripts -- the important facts</strong></h2><p>The unique thing about Leo is that the entirety of Leo's codebase is accessible from Leo scripts. This means that your scripts can modify and access the data in your current outline.</p><p>Another powerful feature is that your Leo scripts are fully-functioning python scripts. Any valid python code is a valid Leo script.</p><p>The third powerful feature is that Leo expands your scripts just like it expands your @files, meaning you can (and should) use <code>@others</code> and <code>&lt;&lt; section &gt;&gt;</code> references in your scripts to make them more readable.</p><p>Lets combine some of these features to make a more powerful script.</p><h2><strong>Going Deeper -- Leo's API</strong></h2><p>Say we wanted a button that would create a new @file node with some pre-filled information gathered from the outline. I use a similar script to the one we'll be building here in the .leo file I use to write this very blog, actually!</p><p>Say you had a 'design-notes' node, under which you had various 'class' nodes, under which there were 'method' and 'property' nodes. These are just notes, but you'd like a script to transform them into a proper Python file filled with functions you can stub out. Here's the data I'm going to be using for this example (Headlines start with '-', but that's not actually a part of the headline. Body text is indented two spaces beneath the headline. Child headlines are indented 4 spaces from the parent headline):</p><div class="codehilite"><pre><span class="o">-</span><span class="n">design</span><span class="o">-</span><span class="n">notes</span> <span class="n">accumulator</span><span class="p">.</span><span class="n">py</span>
-  <span class="n">A</span> <span class="n">general</span> <span class="n">accumulator</span> <span class="n">and</span> <span class="n">reverse</span> <span class="n">accumulator</span> <span class="n">class</span> <span class="n">library</span>
-    <span class="o">-</span><span class="n">class</span> <span class="n">Accumulator</span>
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>Intro to Leo scripting | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>Intro to Leo scripting</h1>
+  <span class="date">January 28, 2014</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+    <a href="/tag/leo/">leo</a>,&nbsp;
+    
+    <a href="/tag/scripting/">scripting</a>,&nbsp;
+    
+    <a href="/tag/tutorial/">tutorial</a>
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>Hello all,</p>
+<p>I thought I'd do a tutorial on scripting Leo today.  It's a tricky but powerful feature of my favorite editor, and one I think deserves more attention.  For those who are interested in learning more than what I touch on here, the <a href="http://leoeditor.com/leo_toc.html">official Leo documentation</a> has both a <a href="http://leoeditor.com/tutorial-scripting.html">tutorial</a> and a <a href="http://leoeditor.com/scripting-miscellany.html">neat script tricks</a> page.  Also, a very useful (but regrettably incomplete) resource is the <a href="http://leo-editor.readthedocs.org/en/latest/">Leo API documentation</a>.</p>
+<h2><strong>Before we begin</strong></h2>
+<p>This tutorial assumes you have Leo installed, and know the basics of its operations -- i.e., how to create and move nodes around, how to use <code>&lt;&lt; section &gt;&gt;</code> references and the <code>@others</code> driective, and how to configure Leo's settings.  Additionally, it assumes you have the <code>mod_scripting.py</code> plugin enabled, but Leo ships with this by default, so you should be set.  Also, you can't script Leo if you don't know basic Python, so brush up on that first too.</p>
+<h2><strong>Your first script</strong></h2>
+<p>Let's begin simple.  Open up a new .leo file and create a node.  Let's call it 'hello'.</p>
+<p>The body of this node should be the following:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">@language python</span>
+<span class="err">g.es(&#39;Hello, world!&#39;)</span>
+</code></pre></div>
+
+<p>That is your very first Leo script!  It's the Leo equivalent of the famous 'Hello World' program.  One note -- 'g.es' isn't a very clear name.  It means 'echo string', where the target of the echo is the Log pane. It is short and easy to remember, so it's stuck around a while.  Also, it's used often, so it is good to have a short name.</p>
+<p>Let's run it.  Make sure you have the node selected in the outline pane, and then type Ctrl-B.  You should see <code>Hello, world!</code> in the Log pane.</p>
+<h2><strong>About Ctrl-B</strong></h2>
+<p>What's so magical about Ctrl-B?  Nothing, really.  it is just a keybinding for executing the command <code>execute-script</code>.  Instead of doing a Ctrl+B, you could instead do Alt-X <code>execute-script</code> in the minibuffer, and the script would run as well.</p>
+<h2><strong>About Buttons</strong></h2>
+<p>There's another way of running your 'hello' script: a script button.  Up at the top of the Leo screen you should see a yellow button that says 'script-button' on it.  Clicking this button adds another button to the bar which runs the script that you had selected when you clicked the yellow button.  Highlight your 'hello' node and click script-button.  A new 'hello' button should now be on the bar.  Click it -- you'll see that your hello script runs!</p>
+<p>Note, buttons are powerful.  They run their script no matter which node is selected in the outline pane.  This is an important feature that we'll run into later when we write scripts that modifiy other nodes!</p>
+<p>To make a button automatically when your .leo outline runs, simply put <code>@button</code> in front of the script's headline.  Do this with 'hello' (so that the headline now reads '<code>@button hello</code>'), save your outline, and close Leo.  Now reopen Leo and your outline.  You should have a 'hello' button automatically created.</p>
+<h2><strong>Leo Scripts -- the important facts</strong></h2>
+<p>The unique thing about Leo is that the entirety of Leo's codebase is accessible from Leo scripts.  This means that your scripts can modify and access the data in your current outline.</p>
+<p>Another powerful feature is that your Leo scripts are fully-functioning python scripts.  Any valid python code is a valid Leo script.</p>
+<p>The third powerful feature is that Leo expands your scripts just like it expands your @files, meaning you can (and should) use <code>@others</code> and <code>&lt;&lt; section &gt;&gt;</code> references in your scripts to make them more readable.</p>
+<p>Lets combine some of these features to make a more powerful script.</p>
+<h2><strong>Going Deeper -- Leo's API</strong></h2>
+<p>Say we wanted a button that would create a new @file node with some pre-filled information gathered from the outline.  I use a similar script to the one we'll be building here in the .leo file I use to write this very blog, actually!</p>
+<p>Say you had a 'design-notes' node, under which you had various 'class' nodes, under which there were 'method' and 'property' nodes.  These are just notes, but you'd like a script to transform them into a proper Python file filled with functions you can stub out.  Here's the data I'm going to be using for this example (Headlines start with '-', but that's not actually a part of the headline.  Body text is indented two spaces beneath the headline.  Child headlines are indented 4 spaces from the parent headline):</p>
+<div class="codehilite"><pre><span></span><code><span class="o">-</span><span class="n">design</span><span class="o">-</span><span class="n">notes</span> <span class="n">accumulator</span><span class="o">.</span><span class="n">py</span>
+  <span class="n">A</span> <span class="n">general</span> <span class="n">accumulator</span> <span class="ow">and</span> <span class="n">reverse</span> <span class="n">accumulator</span> <span class="k">class</span> <span class="n">library</span>
+    <span class="o">-</span><span class="k">class</span> <span class="n">Accumulator</span>
       <span class="n">An</span> <span class="n">accumulator</span> <span class="n">that</span> <span class="n">counts</span> <span class="n">up</span>
         <span class="o">-</span><span class="n">method</span> <span class="n">__init__</span>
           <span class="n">constructor</span>
@@ -11,7 +115,7 @@
           <span class="n">the</span> <span class="n">current</span> <span class="n">count</span>
         <span class="o">-</span><span class="n">method</span> <span class="n">tick</span>
           <span class="n">increases</span> <span class="n">value</span> <span class="n">by</span> <span class="mi">1</span>
-    <span class="o">-</span><span class="n">class</span> <span class="n">ReverseAccumulator</span>
+    <span class="o">-</span><span class="k">class</span> <span class="n">ReverseAccumulator</span>
       <span class="n">An</span> <span class="n">accumulator</span> <span class="n">that</span> <span class="n">counts</span> <span class="n">down</span>
         <span class="o">-</span><span class="n">method</span> <span class="n">__init__</span>
           <span class="n">constructor</span>
@@ -19,100 +123,176 @@
           <span class="n">the</span> <span class="n">current</span> <span class="n">count</span>
         <span class="o">-</span><span class="n">method</span> <span class="n">tick</span>
           <span class="n">decreases</span> <span class="n">value</span> <span class="n">by</span> <span class="mi">1</span>
-</pre></div><p>Create this outline in a new .leo file -- our script will be needing it. If you want, you can use clones for the 'method __init__' and 'property value' nodes, as they're identical. Our script won't care one way or the other.</p><h2><strong>First things first</strong></h2><p>The first thing we want from our script is a button. This is simple. Create a new top-level node named '@button design-to-file'</p><p>The body of that node at this point should look like this:</p><div class="codehilite"><pre><span class="err">@</span><span class="n">language</span> <span class="n">python</span>
+</code></pre></div>
 
-<span class="o">&lt;&lt;</span> <span class="n">declarations</span> <span class="o">&gt;&gt;</span>
+<p>Create this outline in a new .leo file -- our script will be needing it.  If you want, you can use clones for the 'method __init__' and 'property value' nodes, as they're identical.  Our script won't care one way or the other.</p>
+<h2><strong>First things first</strong></h2>
+<p>The first thing we want from our script is a button.  This is simple.  Create a new top-level node named '@button design-to-file'</p>
+<p>The body of that node at this point should look like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">@language</span><span class="w"> </span><span class="n">python</span><span class="w"></span>
 
-<span class="cp">#to do: logic</span>
-<span class="err">@</span><span class="n">others</span>
-</pre></div><p>Next, to make our lives easier, make a child node named '&lt;&lt; declarations &gt;&gt;', with this body:</p><div class="codehilite"><pre><span class="cp"># the following are Leo directives, so we have to trick </span>
-<span class="cp"># Leo by constructing them in the script</span>
-<span class="cp"># we'll be using them a lot, so doing it once here saves</span>
-<span class="cp"># typing later</span>
-<span class="n">others</span> <span class="o">=</span> <span class="sc">'@'</span> <span class="o">+</span> <span class="err">'</span><span class="n">others</span><span class="err">'</span>
-<span class="n">docstring</span> <span class="o">=</span> <span class="sc">'&lt;'</span> <span class="o">+</span> <span class="sc">'&lt;'</span> <span class="o">+</span> <span class="err">'</span> <span class="n">docstring</span> <span class="err">'</span> <span class="o">+</span> <span class="sc">'&gt;'</span> <span class="o">+</span> <span class="sc">'&gt;'</span>
-<span class="n">imports</span> <span class="o">=</span> <span class="sc">'&lt;'</span> <span class="o">+</span> <span class="sc">'&lt;'</span> <span class="o">+</span> <span class="err">'</span> <span class="n">imports</span> <span class="err">'</span> <span class="o">+</span> <span class="sc">'&gt;'</span> <span class="o">+</span> <span class="sc">'&gt;'</span>
-<span class="n">declarations</span> <span class="o">=</span> <span class="sc">'&lt;'</span> <span class="o">+</span> <span class="sc">'&lt;'</span> <span class="o">+</span> <span class="err">'</span> <span class="n">declarations</span> <span class="err">'</span> <span class="o">+</span> <span class="sc">'&gt;'</span> <span class="o">+</span> <span class="sc">'&gt;'</span>
-</pre></div><p>Alright, now to do something.</p><h2><strong>Make an @file node</strong></h2><p>The first step to getting our design-notes into a @file is to create a new node and fill its headline and body with the right stuff.</p><p>At this point, I should mention the three variables that Leo exposes to scripts. <code>g</code> is the 'globals' variable, and contains all sorts of useful functions that work all throughout Leo (including the <code>g.es</code> we used earlier). <code>c</code> is the current outline's 'controller', an object that has information and methods pertaining to the current outline, such as controlling the selection, redrawing, etc. <code>p</code> is the currently selected node in the outline pane, and is really just a shortcut for <code>c.p</code>.</p><p>We're mostly interested in <code>p</code> today, particularly <code>p.h</code>, <code>p.b</code>, and <code>p.insertAsLastChild()</code>. <code>p.h</code> is the headline of the node <code>p</code>, and <code>p.b</code> is the body. <code>p.insertAsLastChild()</code> returns a new node as the last child of <code>p</code>. We'll also be seeing <code>p.copy()</code> which returns a copy of <code>p</code>, and <code>p.insertAfter()</code> which returns a new node that is a sibling of <code>p</code>, as well as <code>p.children()</code>, which is a python generator that yields all the child nodes of <code>p</code>.</p><p>If you understood the above, you're likely beginning to see the power of these three variables. Indeed, the entirety of Leo's codebase is accessible through them. But we'll slow down a bit now. Let's make a @file node.</p><p>In <code>@button design-to-file</code>, add the following below the <code>@others</code> line:</p><div class="codehilite"><pre><span class="cp"># get the design node</span>
-<span class="n">designnode</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="k">if</span> <span class="n">not</span> <span class="n">designnode</span><span class="p">.</span><span class="n">h</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="err">'</span><span class="n">design</span><span class="o">-</span><span class="n">notes</span><span class="err">'</span><span class="p">)</span><span class="o">:</span>
-  <span class="n">g</span><span class="p">.</span><span class="n">es</span><span class="p">(</span><span class="err">'</span><span class="n">Not</span> <span class="n">a</span> <span class="n">design</span><span class="o">-</span><span class="n">notes</span> <span class="n">node</span><span class="p">,</span> <span class="n">exiting</span><span class="p">.</span><span class="err">'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="err">'</span><span class="n">red</span><span class="err">'</span><span class="p">)</span>
-<span class="nl">else:</span>
-  <span class="err">#</span> <span class="n">create</span> <span class="n">the</span> <span class="err">@</span><span class="n">file</span> <span class="n">node</span>
-  <span class="n">filenode</span> <span class="o">=</span> <span class="n">create_file_node</span><span class="p">(</span><span class="n">designnode</span><span class="p">)</span>
+<span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">declarations</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"></span>
 
-  <span class="err">#</span> <span class="n">create</span> <span class="n">the</span> <span class="n">class</span> <span class="n">nodes</span>
-  <span class="n">create_class_nodes</span><span class="p">(</span><span class="n">designnode</span><span class="p">,</span> <span class="n">filenode</span><span class="p">)</span>
+<span class="n">#to</span><span class="w"> </span><span class="nl">do</span><span class="p">:</span><span class="w"> </span><span class="n">logic</span><span class="w"></span>
+<span class="nv">@others</span><span class="w"></span>
+</code></pre></div>
 
-  <span class="n">c</span><span class="p">.</span><span class="n">redraw_now</span><span class="p">()</span>
-  <span class="n">g</span><span class="p">.</span><span class="n">es</span><span class="p">(</span><span class="err">'</span><span class="n">Done</span><span class="err">'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="err">'</span><span class="n">forestgreen</span><span class="err">'</span><span class="p">)</span>
-</pre></div><p>That's the body of our script -- the heavy lifting will be handled by the various functions defined in it. The <code>p.copy()</code> bit is needed because we're going to be changing the outline. When the outline changes, positions become invalid, so we need to get a copy of the position before that happens.</p><p>We see that we're going to need <code>create_file_node</code> and <code>create_class_nodes</code> functions. We're starting with the <code>create_file_node</code> function here. Create a child node named 'create_file_node' and fill it with this:</p><div class="codehilite"><pre><span class="n">def</span> <span class="n">create_file_node</span><span class="p">(</span><span class="n">designnode</span><span class="p">)</span><span class="o">:</span>
-  <span class="err">#</span> <span class="n">create</span> <span class="n">the</span> <span class="err">@</span><span class="n">file</span> <span class="n">node</span>
-  <span class="n">filename</span> <span class="o">=</span> <span class="n">designnode</span><span class="p">.</span><span class="n">h</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sc">' '</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="err">#</span> <span class="n">trim</span> <span class="n">the</span> <span class="err">'</span><span class="n">design</span><span class="o">-</span><span class="n">notes</span><span class="err">'</span>
-                                          <span class="err">#</span> <span class="n">from</span> <span class="n">the</span> <span class="n">headline</span>
-  <span class="n">filenode</span> <span class="o">=</span> <span class="n">designnode</span><span class="p">.</span><span class="n">insertAfter</span><span class="p">()</span> <span class="err">#</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">child</span>
-  <span class="n">filenode</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="err">'@</span><span class="n">file</span> <span class="o">%</span><span class="n">s</span><span class="err">'</span> <span class="o">%</span> <span class="n">filename</span> <span class="err">#</span> <span class="n">set</span> <span class="n">the</span> <span class="n">headline</span> <span class="n">of</span> 
-                                     <span class="err">#</span> <span class="n">the</span> <span class="n">new</span> <span class="n">node</span>
-  <span class="err">#</span> <span class="n">set</span> <span class="n">the</span> <span class="n">body</span>
-  <span class="n">filenode</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="s">"""@language python</span>
+<p>Next, to make our lives easier, make a child node named '&lt;&lt; declarations &gt;&gt;', with this body:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># the following are Leo directives, so we have to trick </span>
+<span class="c1"># Leo by constructing them in the script</span>
+<span class="c1"># we&#39;ll be using them a lot, so doing it once here saves</span>
+<span class="c1"># typing later</span>
+<span class="ss">others =</span> <span class="err">&#39;</span><span class="p">@</span><span class="err">&#39;</span> <span class="o">+</span> <span class="err">&#39;</span>others&#39;
+<span class="ss">docstring =</span> <span class="err">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="err">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="err">&#39;</span> docstring <span class="err">&#39;</span> <span class="o">+</span> <span class="err">&#39;&gt;&#39;</span> <span class="o">+</span> <span class="err">&#39;&gt;&#39;</span>
+<span class="ss">imports =</span> <span class="err">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="err">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="err">&#39;</span> imports <span class="err">&#39;</span> <span class="o">+</span> <span class="err">&#39;&gt;&#39;</span> <span class="o">+</span> <span class="err">&#39;&gt;&#39;</span>
+<span class="ss">declarations =</span> <span class="err">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="err">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="err">&#39;</span> declarations <span class="err">&#39;</span> <span class="o">+</span> <span class="err">&#39;&gt;&#39;</span> <span class="o">+</span> <span class="err">&#39;&gt;&#39;</span>
+</code></pre></div>
 
-<span class="o">%</span><span class="n">s</span>
-<span class="o">%</span><span class="n">s</span>
-<span class="o">%</span><span class="n">s</span>
+<p>Alright, now to do something.</p>
+<h2><strong>Make an @file node</strong></h2>
+<p>The first step to getting our design-notes into a @file is to create a new node and fill its headline and body with the right stuff.</p>
+<p>At this point, I should mention the three variables that Leo exposes to scripts.  <code>g</code> is the 'globals' variable, and contains all sorts of useful functions that work all throughout Leo (including the <code>g.es</code> we used earlier).  <code>c</code> is the current outline's 'controller', an object that has information and methods pertaining to the current outline, such as controlling the selection, redrawing, etc.  <code>p</code> is the currently selected node in the outline pane, and is really just a shortcut for <code>c.p</code>.</p>
+<p>We're mostly interested in <code>p</code> today, particularly <code>p.h</code>, <code>p.b</code>, and <code>p.insertAsLastChild()</code>.  <code>p.h</code> is the headline of the node <code>p</code>, and <code>p.b</code> is the body.  <code>p.insertAsLastChild()</code> returns a new node as the last child of <code>p</code>.  We'll also be seeing <code>p.copy()</code> which returns a copy of <code>p</code>, and <code>p.insertAfter()</code> which returns a new node that is a sibling of <code>p</code>, as well as <code>p.children()</code>, which is a python generator that yields all the child nodes of <code>p</code>.</p>
+<p>If you understood the above, you're likely beginning to see the power of these three variables.  Indeed, the entirety of Leo's codebase is accessible through them.  But we'll slow down a bit now.  Let's make a @file node.</p>
+<p>In <code>@button design-to-file</code>, add the following below the <code>@others</code> line:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">design</span><span class="w"> </span><span class="n">node</span><span class="w"></span>
+<span class="n">designnode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">designnode</span><span class="p">.</span><span class="n">h</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;design-notes&#39;</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">  </span><span class="n">g</span><span class="p">.</span><span class="n">es</span><span class="p">(</span><span class="s1">&#39;Not a design-notes node, exiting.&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="k">else</span><span class="err">:</span><span class="w"></span>
+<span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nv">@file</span><span class="w"> </span><span class="n">node</span><span class="w"></span>
+<span class="w">  </span><span class="n">filenode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_file_node</span><span class="p">(</span><span class="n">designnode</span><span class="p">)</span><span class="w"></span>
 
-<span class="o">%</span><span class="n">s</span>
-<span class="s">""" % (docstring, imports, declarations, others)</span>
+<span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="n">nodes</span><span class="w"></span>
+<span class="w">  </span><span class="n">create_class_nodes</span><span class="p">(</span><span class="n">designnode</span><span class="p">,</span><span class="w"> </span><span class="n">filenode</span><span class="p">)</span><span class="w"></span>
 
-  <span class="err">#</span> <span class="n">create</span> <span class="n">the</span> <span class="n">docstring</span> <span class="n">node</span>
+<span class="w">  </span><span class="n">c</span><span class="p">.</span><span class="n">redraw_now</span><span class="p">()</span><span class="w"></span>
+<span class="w">  </span><span class="n">g</span><span class="p">.</span><span class="n">es</span><span class="p">(</span><span class="s1">&#39;Done&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;forestgreen&#39;</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<p>That's the body of our script -- the heavy lifting will be handled by the various functions defined in it.  The <code>p.copy()</code> bit is needed because we're going to be changing the outline.  When the outline changes, positions become invalid, so we need to get a copy of the position before that happens.</p>
+<p>We see that we're going to need <code>create_file_node</code> and <code>create_class_nodes</code> functions.  We're starting with the <code>create_file_node</code> function here.  Create a child node named 'create_file_node' and fill it with this:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">create_file_node</span><span class="p">(</span><span class="n">designnode</span><span class="p">)</span><span class="o">:</span>
+  <span class="cp"># create the @file node</span>
+  <span class="n">filename</span> <span class="o">=</span> <span class="n">designnode</span><span class="p">.</span><span class="n">h</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="err">#</span> <span class="n">trim</span> <span class="n">the</span> <span class="err">&#39;</span><span class="n">design</span><span class="o">-</span><span class="n">notes</span><span class="err">&#39;</span>
+                                          <span class="cp"># from the headline</span>
+  <span class="n">filenode</span> <span class="o">=</span> <span class="n">designnode</span><span class="p">.</span><span class="n">insertAfter</span><span class="p">()</span> <span class="err">#</span> <span class="n">create</span> <span class="n">a</span> <span class="k">new</span> <span class="n">child</span>
+  <span class="n">filenode</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="err">&#39;@</span><span class="n">file</span> <span class="nf">%s</span><span class="err">&#39;</span> <span class="o">%</span> <span class="n">filename</span> <span class="err">#</span> <span class="n">set</span> <span class="n">the</span> <span class="n">headline</span> <span class="n">of</span> 
+                                     <span class="err">#</span> <span class="n">the</span> <span class="k">new</span> <span class="n">node</span>
+  <span class="cp"># set the body</span>
+  <span class="n">filenode</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;@language python</span>
+
+<span class="nf">%s</span>
+<span class="nf">%s</span>
+<span class="nf">%s</span>
+
+<span class="nf">%s</span>
+<span class="s">&quot;&quot;&quot; % (docstring, imports, declarations, others)</span>
+
+  <span class="cp"># create the docstring node</span>
   <span class="n">docstringnode</span> <span class="o">=</span> <span class="n">filenode</span><span class="p">.</span><span class="n">insertAsLastChild</span><span class="p">()</span>
   <span class="n">docstringnode</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">docstring</span>
-  <span class="n">docstringnode</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="err">'</span><span class="s">"""%s"""</span><span class="err">'</span> <span class="o">%</span> <span class="n">designnode</span><span class="p">.</span><span class="n">b</span>
+  <span class="n">docstringnode</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="err">&#39;</span><span class="s">&quot;&quot;&quot;%s&quot;&quot;&quot;</span><span class="err">&#39;</span> <span class="o">%</span> <span class="n">designnode</span><span class="p">.</span><span class="n">b</span>
 
-  <span class="err">#</span> <span class="n">create</span> <span class="n">the</span> <span class="n">imports</span> <span class="n">node</span> <span class="p">(</span><span class="n">empty</span><span class="p">)</span>
+  <span class="cp"># create the imports node (empty)</span>
   <span class="n">importsnode</span> <span class="o">=</span> <span class="n">docstringnode</span><span class="p">.</span><span class="n">insertAfter</span><span class="p">()</span>
   <span class="n">importsnode</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">imports</span>
 
-  <span class="err">#</span> <span class="n">create</span> <span class="n">the</span> <span class="n">declarations</span> <span class="n">node</span> <span class="p">(</span><span class="n">empty</span><span class="p">)</span>
+  <span class="cp"># create the declarations node (empty)</span>
   <span class="n">declarationsnode</span> <span class="o">=</span> <span class="n">importsnode</span><span class="p">.</span><span class="n">insertAfter</span><span class="p">()</span>
   <span class="n">declarationsnode</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">declarations</span>
 
-  <span class="err">#</span> <span class="k">return</span> <span class="n">the</span> <span class="n">filenode</span>
+  <span class="cp"># return the filenode</span>
   <span class="k">return</span> <span class="n">filenode</span>
-</pre></div><p>The code is fairly straightforward, but basically it creates a new @file node, gives it a proper body, and then creates the &lt;&lt; docstring &gt;&gt;, &lt;&lt; imports &gt;&gt;, and &lt;&lt; declarations &gt;&gt; nodes that the body references. It also fills in the &lt;&lt; docstring &gt;&gt; node with the note we typed into the design-notes outline.</p><p>If you comment out the <code>create_class_nodes</code> line from the script body, this script will already run. Make sure the design-notes node is selected, and click the button. You should get an @file node with some &lt;&lt; section &gt;&gt;-style children. Hooray, progress!</p><h2><strong>Make the class nodes</strong></h2><p>Next up is <code>create_class_nodes</code>, which will search through the children of a node that it was passed and create nodes specifying classes with the appropriate methods.</p><p>The first part of this is to create the class nodes. Here's the code for create_class_nodes, which goes into a node called 'create_class_nodes':</p><div class="codehilite"><pre><span class="n">def</span> <span class="n">create_class_nodes</span><span class="p">(</span><span class="n">designnode</span><span class="p">,</span> <span class="n">filenode</span><span class="p">)</span><span class="o">:</span>
-  <span class="k">for</span> <span class="n">ch</span> <span class="n">in</span> <span class="n">designnode</span><span class="p">.</span><span class="n">children</span><span class="p">()</span><span class="o">:</span>
-    <span class="n">create_class_node</span><span class="p">(</span><span class="n">filenode</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span>
-</pre></div><p>This doesn't do much at all! It just cycles through every child node of the designnode, which is the node with the name 'design-notes blah...', and then calls a helper method <code>create_class_node</code> with it, and the destination @file node.</p><p>Here's what <code>create_class_node</code> looks like (again, in a node called 'create_class_node'):</p><div class="codehilite"><pre><span class="n">def</span> <span class="n">create_class_node</span><span class="p">(</span><span class="n">filenode</span><span class="p">,</span> <span class="n">classnode</span><span class="p">)</span><span class="o">:</span>
-  <span class="err">#</span> <span class="n">create</span> <span class="n">the</span> <span class="n">class</span> <span class="n">node</span>
+</code></pre></div>
+
+<p>The code is fairly straightforward, but basically it creates a new @file node, gives it a proper body, and then creates the &lt;&lt; docstring &gt;&gt;, &lt;&lt; imports &gt;&gt;, and &lt;&lt; declarations &gt;&gt; nodes that the body references.  It also fills in the &lt;&lt; docstring &gt;&gt; node with the note we typed into the design-notes outline.</p>
+<p>If you comment out the <code>create_class_nodes</code> line from the script body, this script will already run.  Make sure the design-notes node is selected, and click the button.  You should get an @file node with some &lt;&lt; section &gt;&gt;-style children.  Hooray, progress!</p>
+<h2><strong>Make the class nodes</strong></h2>
+<p>Next up is <code>create_class_nodes</code>, which will search through the children of a node that it was passed and create nodes specifying classes with the appropriate methods.</p>
+<p>The first part of this is to create the class nodes.  Here's the code for create_class_nodes, which goes into a node called 'create_class_nodes':</p>
+<div class="codehilite"><pre><span></span><code><span class="err">def create_class_nodes(designnode, filenode):</span>
+<span class="err">  for ch in designnode.children():</span>
+<span class="err">    create_class_node(filenode, ch)</span>
+</code></pre></div>
+
+<p>This doesn't do much at all!  It just cycles through every child node of the designnode, which is the node with the name 'design-notes blah...', and then calls a helper method <code>create_class_node</code> with it, and the destination @file node.</p>
+<p>Here's what <code>create_class_node</code> looks like (again, in a node called 'create_class_node'):</p>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">create_class_node</span><span class="p">(</span><span class="n">filenode</span><span class="p">,</span> <span class="n">classnode</span><span class="p">)</span><span class="o">:</span>
+  <span class="cp"># create the class node</span>
   <span class="n">newclassnode</span> <span class="o">=</span> <span class="n">filenode</span><span class="p">.</span><span class="n">insertAsLastChild</span><span class="p">()</span>
   <span class="n">newclassnode</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">classnode</span><span class="p">.</span><span class="n">h</span>
-  <span class="n">newclassnode</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="s">"""%s:</span>
-  <span class="o">%</span><span class="n">s</span>
-  <span class="o">%</span><span class="n">s</span>
-<span class="s">""" % (classnode.h, docstring, others)</span>
-  <span class="err">#</span> <span class="n">create</span> <span class="n">the</span> <span class="n">docstring</span> <span class="n">node</span>
+  <span class="n">newclassnode</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;%s:</span>
+  <span class="nf">%s</span>
+  <span class="nf">%s</span>
+<span class="s">&quot;&quot;&quot; % (classnode.h, docstring, others)</span>
+  <span class="cp"># create the docstring node</span>
   <span class="n">docstringnode</span> <span class="o">=</span> <span class="n">newclassnode</span><span class="p">.</span><span class="n">insertAsLastChild</span><span class="p">()</span>
   <span class="n">docstringnode</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">docstring</span>
-  <span class="n">docstringnode</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="err">'</span><span class="s">"""%s"""</span><span class="err">'</span> <span class="o">%</span> <span class="n">classnode</span><span class="p">.</span><span class="n">b</span>
+  <span class="n">docstringnode</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="err">&#39;</span><span class="s">&quot;&quot;&quot;%s&quot;&quot;&quot;</span><span class="err">&#39;</span> <span class="o">%</span> <span class="n">classnode</span><span class="p">.</span><span class="n">b</span>
 
-  <span class="err">#</span> <span class="n">create</span> <span class="n">the</span> <span class="n">method</span> <span class="n">nodes</span>
-  <span class="err">#</span> <span class="n">ignore</span> <span class="n">the</span> <span class="n">property</span> <span class="n">nodes</span> <span class="o">--</span> <span class="n">they</span><span class="err">'</span><span class="n">re</span> <span class="n">notes</span>
+  <span class="cp"># create the method nodes</span>
+  <span class="cp"># ignore the property nodes -- they&#39;re notes</span>
   <span class="n">create_method_nodes</span><span class="p">(</span><span class="n">newclassnode</span><span class="p">,</span> <span class="n">classnode</span><span class="p">)</span>
-</pre></div><p>This code creates a new child node under the @file node, and fills in the headline and body appropriately. It then creates a child &lt;&lt; docstring &gt;&gt; node underneath that, and fills that in appropriately too. Finally, it calls yet another helper, which creates the method nodes underneath it.</p><p><code>create_method_nodes</code> is similar to <code>create_class_nodes</code>, in that it is a wrapper around a helper:</p><div class="codehilite"><pre><span class="n">def</span> <span class="n">create_method_nodes</span><span class="p">(</span><span class="n">classnode</span><span class="p">,</span> <span class="n">designnode</span><span class="p">)</span><span class="o">:</span>
-  <span class="k">for</span> <span class="n">ch</span> <span class="n">in</span> <span class="n">designnode</span><span class="p">.</span><span class="n">children</span><span class="p">()</span><span class="o">:</span>
-    <span class="k">if</span> <span class="n">ch</span><span class="p">.</span><span class="n">h</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="err">'</span><span class="n">method</span><span class="err">'</span><span class="p">)</span><span class="o">:</span>
-      <span class="n">create_method_node</span><span class="p">(</span><span class="n">classnode</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span>
-</pre></div><p>This time around, <code>designnode</code> refers to the node with the name 'class Blah...'. And our good friend the helper method comes along again with <code>create_method_node</code>:</p><div class="codehilite"><pre><span class="n">def</span> <span class="n">create_method_node</span><span class="p">(</span><span class="n">classnode</span><span class="p">,</span> <span class="n">methodnode</span><span class="p">)</span><span class="o">:</span>
-  <span class="n">newmethodnode</span> <span class="o">=</span> <span class="n">classnode</span><span class="p">.</span><span class="n">insertAsLastChild</span><span class="p">()</span>
-  <span class="n">newmethodnode</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">methodnode</span><span class="p">.</span><span class="n">h</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sc">' '</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-  <span class="n">newmethodnode</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="s">"""def %s(self):</span>
-    <span class="err">\</span><span class="s">"</span><span class="se">\"\"</span><span class="s">%s</span><span class="se">\"\"\"</span>
-    <span class="n">pass</span>
-<span class="s">""" % (newmethodnode.h, methodnode.b)</span>
-</pre></div><p>This method does perhaps the least bit of work in the whole script. It creates a new node, gives it a proper headline, and fills in the body with a empty method definition (all it does is <code>pass</code>), along with a docstring.</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+</code></pre></div>
+
+<p>This code creates a new child node under the @file node, and fills in the headline and body appropriately.  It then creates a child &lt;&lt; docstring &gt;&gt; node underneath that, and fills that in appropriately too.  Finally, it calls yet another helper, which creates the method nodes underneath it.</p>
+<p><code>create_method_nodes</code> is similar to <code>create_class_nodes</code>, in that it is a wrapper around a helper:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">def create_method_nodes(classnode, designnode):</span>
+<span class="err">  for ch in designnode.children():</span>
+<span class="err">    if ch.h.startswith(&#39;method&#39;):</span>
+<span class="err">      create_method_node(classnode, ch)</span>
+</code></pre></div>
+
+<p>This time around, <code>designnode</code> refers to the node with the name 'class Blah...'.  And our good friend the helper method comes along again with <code>create_method_node</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">def create_method_node(classnode, methodnode):</span>
+<span class="err">  newmethodnode = classnode.insertAsLastChild()</span>
+<span class="err">  newmethodnode.h = methodnode.h.split(&#39; &#39;,1)[1]</span>
+<span class="err">  newmethodnode.b = &quot;&quot;&quot;def %s(self):</span>
+<span class="err">    \&quot;\&quot;\&quot;%s\&quot;\&quot;\&quot;</span>
+<span class="err">    pass</span>
+<span class="err">&quot;&quot;&quot; % (newmethodnode.h, methodnode.b)</span>
+</code></pre></div>
+
+<p>This method does perhaps the least bit of work in the whole script.  It creates a new node, gives it a proper headline, and fills in the body with a empty method definition (all it does is <code>pass</code>), along with a docstring.</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->

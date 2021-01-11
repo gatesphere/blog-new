@@ -1,40 +1,285 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"/><link href="http://feeds.feedburner.com/suspended-chord/blog" rel="alternate" title="a-&gt;ab" type="application/rss+xml"/><link href="https://plus.google.com/114523146530319290209/posts" rel="author"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css"/><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-    </script><title>The Enigma, a look at the WW2 German cypher machine | a-&gt;ab</title></head><body><div class="container"><header><h1>a→ab</h1><h2>computation, game design, and experimentation</h2><br/> <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class="rss"><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span></header><section><div class="column"><article class="post"><header><h1>The Enigma, a look at the WW2 German cypher machine</h1><span class="date">June 19, 2012</span><br/> <span class="tags">tags: <a href="/tag/enigma/">enigma</a>, <a href="/tag/ww2/">ww2</a>, <a href="/tag/german/">german</a>, <a href="/tag/cypher/">cypher</a>, <a href="/tag/cryptology/">cryptology</a>, <a href="/tag/code-dump/">code-dump</a>, <a href="/tag/github/">github</a></span></header><section class="content"><p>As of late, my fascinations have been turned toward the physical machines used to encrypt messages in wartime, particularly during World War II. Chief among such machines lies <a href="http://en.wikipedia.org/wiki/Enigma_machine">The Enigma</a>.<br/> The Enigma has a sort of air of legend surrounding it, at least among cryptologists, mathematicians, computer scientists with a hankering for history, and WW2 intelligence buffs. But how did it actually work? This article will attempt to explain, an an easy to understand manner, how the Enigma managed to encode it's messages, and at the end, I will provide a link to a program I wrote yesterday simulating the workings of an Enigma-style machine.</p><p>Before we get started, it's worth noting that whenever I refer to "The Enigma" as a singular, I'm referring to any of a class of cypher machines that went by the name Enigma. There were several different models of Enigma machines produced for different branches of the German military, each with subtle differences, but they all operate on the same basic principles which I lay out below.</p><p>So, hopefully, most of us have created simple cyphers as kids. You know the kind, you write down a little key somewhere (1=A, 2=B, etc.) and then use your key to encode a message. Then you send your message and key to a friend and they decode it. Simple, insecure, but fun. Believe it or not, this is the same principle that the Enigma machine uses, but evolved a bit to make it <em>much</em> more secure.</p><p>The scenario above describes what's known as a substitution cypher, where one symbol in the coded message maps to one character in the decoded message, and the mappings between symbols and characters never change. In essence, you're substituting one alphabet for another, and so long as your friend knows how to determine your mapping, your friend can read your message. Simple as pie. Below is a key and an encoding of a message in such a system:</p><div class="codehilite"><pre><span class="n">key</span>         <span class="n">original</span> <span class="n">message</span>        <span class="n">encoded</span> <span class="n">message</span>
-<span class="o">----</span>        <span class="o">----------------</span>        <span class="o">-------------------------</span>
- <span class="mi">1</span><span class="o">=</span><span class="n">A</span>        <span class="n">HELLO</span> <span class="n">WORLD</span>             <span class="mi">8</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">23</span><span class="o">-</span><span class="mi">15</span><span class="o">-</span><span class="mi">18</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">4</span>
- <span class="mi">2</span><span class="o">=</span><span class="n">B</span>
- <span class="mi">3</span><span class="o">=</span><span class="n">C</span>
- <span class="mi">4</span><span class="o">=</span><span class="n">D</span>
- <span class="mi">5</span><span class="o">=</span><span class="n">E</span>
- <span class="mi">6</span><span class="o">=</span><span class="n">F</span>
- <span class="mi">7</span><span class="o">=</span><span class="n">G</span>
- <span class="mi">8</span><span class="o">=</span><span class="n">H</span>
- <span class="mi">9</span><span class="o">=</span><span class="n">I</span>
-<span class="mi">10</span><span class="o">=</span><span class="n">J</span>
-<span class="mi">11</span><span class="o">=</span><span class="n">K</span>
-<span class="mi">12</span><span class="o">=</span><span class="n">L</span>
-<span class="mi">13</span><span class="o">=</span><span class="n">M</span>
-<span class="mi">14</span><span class="o">=</span><span class="n">N</span>
-<span class="mi">15</span><span class="o">=</span><span class="n">O</span>
-<span class="mi">16</span><span class="o">=</span><span class="n">P</span>
-<span class="mi">17</span><span class="o">=</span><span class="n">Q</span>
-<span class="mi">18</span><span class="o">=</span><span class="n">R</span>
-<span class="mi">19</span><span class="o">=</span><span class="n">S</span>
-<span class="mi">20</span><span class="o">=</span><span class="n">T</span>
-<span class="mi">21</span><span class="o">=</span><span class="n">U</span>
-<span class="mi">22</span><span class="o">=</span><span class="n">V</span>
-<span class="mi">23</span><span class="o">=</span><span class="n">W</span>
-<span class="mi">24</span><span class="o">=</span><span class="n">X</span>
-<span class="mi">25</span><span class="o">=</span><span class="n">Y</span>
-<span class="mi">26</span><span class="o">=</span><span class="n">Z</span>
-</pre></div><p>This code is pretty simple to break, and not just because the mapping is 1=A, 2=B, etc., but because for example, every L is encoded to 12. If someone figured out just that one bit, they'd be able to see 3 letters of the above message, and with a bit of finagling, they could probably work out the rest. Simple substitution cyphers are fragile and insecure.</p><p>Now suppose you wanted to increase the security of your substitution cypher a bit. One thing you could do is make your cypher <em>rotate</em>, or have a new mapping apply for <em>each</em> character in the source text. One way you could do this is by shifting the encoding alphabet one position forward each time you encode a character. For example, starting with the key above, we would encode the <code>H</code> as <code>8</code>, like we expect, but then we shift the indexes up one position, so that <code>2=A</code>, <code>3=B</code>, <code>...</code>, <code>26=Y</code>, <code>1=Z</code>. Now when we encode the <code>E</code>, we encode it as <code>6</code> instead of <code>5</code>. The whole message, encoded with a rotating substitution cypher is now:</p><div class="codehilite"><pre><span class="n">original</span> <span class="n">message</span>     <span class="n">encoded</span> <span class="n">message</span>
-<span class="o">----------------</span>     <span class="o">--------------------------</span>
-<span class="n">HELLO</span> <span class="n">WORLD</span>          <span class="mi">8</span><span class="o">-</span><span class="mi">6</span><span class="o">-</span><span class="mi">14</span><span class="o">-</span><span class="mi">15</span><span class="o">-</span><span class="mi">19</span> <span class="mi">2</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="mi">25</span><span class="o">-</span><span class="mi">20</span><span class="o">-</span><span class="mi">13</span>
-</pre></div><p>Here, we see that this cypher is much more secure, as every L is encoded as a different symbol, first <code>14</code>, then <code>15</code>, and finally <code>20</code>. In fact, you'd have to go 25 characters between L's to have them encode to the same symbol. This kind of cypher is harder to crack, because you've now shifted it from a single substitution to a polyaphabetic substitution, meaning that you've used multiple, unique alphabets to encode a single message.</p><p>The Enigma machine operates on this rotating substitution cypher principle, but adds several layers of obfuscation to the mix just for added security. One of these layers is having <em>multiple</em> rotating cyphers that a single message is sent through. The enigma machine accomplished this with a series of interchangable rotors, each of which implemented a very complex mapping of wires internally, with markings on the outer rings to inform the operator of the number and orientation of the rotor.</p><p>The most widely used Enigma machines came with 5 rotors, of which 3 were used at a time in series, in any combination. The rotors themselves were marked with a roman numeral, identifying them as either I, II, III, IV, or V. The Enigma came with one each of these, and they are unique with respect to one another, but every I rotor is identical, as is every II, every III, and so on. These rotors were also marked on the outside with a ring of the letters of the alphabets, which were used as an index when the operator was setting up the machine. In this way, an operator could write down a key extremely simply and concisely as follows: I-IV-II K-C-S means left-to-right ordering of the rotors is I, IV, and then II, and they are indexed at K, C, and S, respectively. In this way, the key could be transmitted to the decoder.</p><p>To the far left of the rotors is a part known as the reflector, which is hard-wired in identical fashion on every machine of the same model. The reflector's purpose is two-fold: first, it re-encodes the character through the three rotors a second time by a different pathway, making for 6 total transformations (three in, reflect, three out), and second, it allowed a message to be decoded by setting up the machine identically to the way it was set up when the message was encoded.</p><p>So, to encode a message, the operator selects three rotors and their positions, places them in the machine, and types the message, one character at a time. As he types each character, a light is lit, indicating the encoded character. This character is written down, becoming the encoded message as the last character is encoded. Simple operation, but what's happening inside the machine to make this secure?</p><p>When the operator presses a key, an electrical signal is sent through a wire in the right-most rotor, which is wired so that another wire in the middle rotor is powered, which is wired to another wire in the left-most rotor. Upon leaving the left-most rotor, the reflector re-routes the signal to another path in the left-most rotor, which powers another path in the middle rotor, which powers another path in the right-most rotor, which finally powers a tiny lamp. This is nice, but there's a step missing here, and it's vital. Before any of the electrical pathways are formed, the right-most rotor is rotated forward one position, just like in the rotating cypher earlier. And, if the first rotor has advanced enough, the second rotor is turned as well. And if the second rotor has advanced enough, the third rotor is also turned. All this variation makes the rotating cypher <em>many orders of magnitude stronger</em> than a simple rotating cypher. This is where the Enigma's strength lies. The following diagram hopefully explains this better (from Wikipedia, original <a href="http://en.wikipedia.org/wiki/File:Enigma-action.svg">here</a>)</p><p><img alt="Enigma action" src="http://upload.wikimedia.org/wikipedia/commons/6/6c/Enigma-action.svg"/></p><p>Here, we see an A being encoded to a G, and then, the next key press, the A is encoded to a C instead. Note also that the pathways work just as well backwards as forwards thanks to the reflector, such that encoding GC with the initial setup will result in AA--the original text!</p><p>Now, the Enigma is <em>already</em> an extremely strong machine with this form of operation, but just to throw a wrench into the works, there was another component of the machine designed to scramble the letters before and after encoding, called the plugboard. The plugboard was filled with as many as 13, but usually 10, pairs of plug cables, which paired two letters together. These letters were switched both before going into the first rotor, and after coming out of the first rotor before switching on the light. The following diagram shows an example encoding with the plugboard populated (from Wikipedia, original <a href="http://en.wikipedia.org/wiki/File:Enigma_wiring_kleur.svg">here</a>)</p><p><img alt="Enigma with plugboard" src="http://upload.wikimedia.org/wikipedia/commons/5/53/Enigma_wiring_kleur.svg"/></p><p>Following along with the numbers, we can trace the electrical signal from (1) the battery, to (2) the depressed switch of the A key, to (3) the plugboard (notice how there is no plug in A, so it is not transformed), to (4,5,6) the rotor/reflector assembly (went in as A, came out as S), to (7) the plugboard again, to (8) the plug cord (S was matched with D, so S becomes D), finally to (9) the light for D.</p><p>All of this complexity, and the Enigma machine was still cracked thanks to some serious efforts put forward by the mathematicians at Bletchley Park and also independent Polish researchers. It turns out that there are still two flaws with the Enigma, but only one of them is inherent with in the design. Firstly, due to the reflector, no symbol will <em>ever</em> be encoded to itself. If there's an X in some position in the cyphertext, you know it cannot possibly be an X in the cleartext. Secondly, user error, compounded with the stresses of war and captured equipment, helped the Allies crack the code. Turns out that for all the obfuscation the plugboard was included to add, the Germans didn't use it correctly, causing patterns to arise in encoded messages. It is estimated that if the plugboard was used correctly, the Enigma codes would have been uncrackable. But, hey, who's to say for certain?</p><p>Anyways, I'll leave you with a bit of code. I hope you've enjoyed this post, as I had a lot of fun writing it, and it's an incredibly fascinating topic to me.</p><p>My Enigma machine simulator in Io is available on github. Get it <a href="https://github.com/gatesphere/io-codejams/blob/master/2012/06/20120618_enigma/enigma.io">here</a>. It's not a 100% accurate simulation, and a lot of it is guesswork. Most notably missing is the double-step feature of the Enigma. But it was fun to write.</p><p>Thanks for reading!</p></section><section class="comments"><div id="disqus_thread"></div><script src="http://disqus.com/forums/suschord/embed.js" type="text/javascript"> </script><noscript>&lt;a href="http://suschord.disqus.com/?url=ref"&gt;View the discussion thread.&lt;/a&gt;</noscript><a class="dsq-brlink" href="http://disqus.com">blog comments powered by <span class="logo-disqus">Disqus</span></a></section></article></div></section><footer>a→ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a></footer><script type="text/javascript">
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6610: * @file page.html-->
+<!--@@language html-->
+<!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6614: * @file base.html-->
+<!--@@language html-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  
+    
+      <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6607: * @file _meta.html-->
+<!--@@language html-->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="a-&gt;ab" href="http://feeds.feedburner.com/suspended-chord/blog">
+<link rel="author" href="https://plus.google.com/114523146530319290209/posts">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<!--@-leo-->
+    
+  
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6608: * @file _style.html-->
+<!--@@language html-->
+
+
+    <link href="/static/assets/packed.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--@-leo-->
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6605: * @file _js.html-->
+<!--@@language html-->
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<!--@-leo-->
+
+  <title>The Enigma, a look at the WW2 German cypher machine | a->ab</title>
+
+</head>
+<body>
+  <div class="container">
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6604: * @file _header.html-->
+<!--@@language html-->
+
+<header>
+  <h1>a&rarr;ab</h1><h2>computation, game design, and experimentation</h2><br />
+  <a href="/">front page</a> | <a href="/about">about</a> | <a href="/archives">archives</a> | <a href="/code-dump">code dump</a> | <a href="/csmm">c.s. for mere mortals</a> | <a href="/tags">tags</a> | <span class='rss'><a href="http://feeds.feedburner.com/suspended-chord/blog">rss feed</a></span>
+</header>
+ 
+<!--@-leo-->
+
+<section>
+<div class="column">
+
+
+  <article class="post">
+  <header>
+  <h1>The Enigma, a look at the WW2 German cypher machine</h1>
+  <span class="date">June 19, 2012</span><br />
+  <span class="tags">
+    tags:&nbsp;
+    
+    <a href="/tag/enigma/">enigma</a>,&nbsp;
+    
+    <a href="/tag/ww2/">ww2</a>,&nbsp;
+    
+    <a href="/tag/german/">german</a>,&nbsp;
+    
+    <a href="/tag/cypher/">cypher</a>,&nbsp;
+    
+    <a href="/tag/cryptology/">cryptology</a>,&nbsp;
+    
+    <a href="/tag/code-dump/">code-dump</a>,&nbsp;
+    
+    <a href="/tag/github/">github</a>
+    
+  </span>
+  </header>
+  <section class="content">
+    <p>As of late, my fascinations have been turned toward the physical machines used
+to encrypt messages in wartime, particularly during World War II.  Chief among
+such machines lies <a href="http://en.wikipedia.org/wiki/Enigma_machine">The Enigma</a>.<br />
+The Enigma has a sort of air of legend surrounding it, at least among cryptologists,
+mathematicians, computer scientists with a hankering for history, and WW2 intelligence
+buffs.  But how did it actually work?  This article will attempt to explain, an
+an easy to understand manner, how the Enigma managed to encode it's messages, and
+at the end, I will provide a link to a program I wrote yesterday simulating the 
+workings of an Enigma-style machine.</p>
+<p>Before we get started, it's worth noting that whenever I refer to "The Enigma" as
+a singular, I'm referring to any of a class of cypher machines that went by the name
+Enigma.  There were several different models of Enigma machines produced for different
+branches of the German military, each with subtle differences, but they all operate
+on the same basic principles which I lay out below.</p>
+<p>So, hopefully, most of us have created simple cyphers as kids.  You know the kind,
+you write down a little key somewhere (1=A, 2=B, etc.) and then use your key to encode
+a message.  Then you send your message and key to a friend and they decode it.  Simple,
+insecure, but fun.  Believe it or not, this is the same principle that the Enigma
+machine uses, but evolved a bit to make it <em>much</em> more secure.</p>
+<p>The scenario above describes what's known as a substitution cypher, where one symbol
+in the coded message maps to one character in the decoded message, and the mappings
+between symbols and characters never change.  In essence, you're substituting one
+alphabet for another, and so long as your friend knows how to determine your mapping,
+your friend can read your message.  Simple as pie.  Below is a key and an encoding of
+a message in such a system:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">key         original message        encoded message</span>
+<span class="err">----        ----------------        -------------------------</span>
+<span class="err"> 1=A        HELLO WORLD             8-5-12-12-15 23-15-18-12-4</span>
+<span class="err"> 2=B</span>
+<span class="err"> 3=C</span>
+<span class="err"> 4=D</span>
+<span class="err"> 5=E</span>
+<span class="err"> 6=F</span>
+<span class="err"> 7=G</span>
+<span class="err"> 8=H</span>
+<span class="err"> 9=I</span>
+<span class="err">10=J</span>
+<span class="err">11=K</span>
+<span class="err">12=L</span>
+<span class="err">13=M</span>
+<span class="err">14=N</span>
+<span class="err">15=O</span>
+<span class="err">16=P</span>
+<span class="err">17=Q</span>
+<span class="err">18=R</span>
+<span class="err">19=S</span>
+<span class="err">20=T</span>
+<span class="err">21=U</span>
+<span class="err">22=V</span>
+<span class="err">23=W</span>
+<span class="err">24=X</span>
+<span class="err">25=Y</span>
+<span class="err">26=Z</span>
+</code></pre></div>
+
+<p>This code is pretty simple to break, and not just because the mapping is 1=A, 2=B,
+etc., but because for example, every L is encoded to 12.  If someone figured out 
+just that one bit, they'd be able to see 3 letters of the above message, and with
+a bit of finagling, they could probably work out the rest.  Simple substitution 
+cyphers are fragile and insecure.</p>
+<p>Now suppose you wanted to increase the security of your substitution cypher a bit.
+One thing you could do is make your cypher <em>rotate</em>, or have a new mapping apply
+for <em>each</em> character in the source text.  One way you could do this is by shifting
+the encoding alphabet one position forward each time you encode a character.  For 
+example, starting with the key above, we would encode the <code>H</code> as <code>8</code>, like we expect,
+but then we shift the indexes up one position, so that <code>2=A</code>, <code>3=B</code>, <code>...</code>, <code>26=Y</code>, <code>1=Z</code>.
+Now when we encode the <code>E</code>, we encode it as <code>6</code> instead of <code>5</code>.  The whole message,
+encoded with a rotating substitution cypher is now:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">original message     encoded message</span>
+<span class="err">----------------     --------------------------</span>
+<span class="err">HELLO WORLD          8-6-14-15-19 2-21-25-20-13</span>
+</code></pre></div>
+
+<p>Here, we see that this cypher is much more secure, as every L is encoded as a
+different symbol, first <code>14</code>, then <code>15</code>, and finally <code>20</code>.  In fact, you'd have
+to go 25 characters between L's to have them encode to the same symbol.  This kind
+of cypher is harder to crack, because you've now shifted it from a single substitution
+to a polyaphabetic substitution, meaning that you've used multiple, unique alphabets
+to encode a single message.</p>
+<p>The Enigma machine operates on this rotating substitution cypher principle, but adds
+several layers of obfuscation to the mix just for added security.  One of these layers
+is having <em>multiple</em> rotating cyphers that a single message is sent through.  The enigma
+machine accomplished this with a series of interchangable rotors, each of which implemented
+a very complex mapping of wires internally, with markings on the outer rings to inform
+the operator of the number and orientation of the rotor.</p>
+<p>The most widely used Enigma machines came with 5 rotors, of which 3 were used at a time in series, 
+in any combination.  The rotors themselves were marked with a roman numeral, identifying 
+them as either I, II, III, IV, or V.  The Enigma came with one each of these, and they 
+are unique with respect to one another, but every I rotor is identical, as is every II, 
+every III, and so on.  These rotors were also marked on the outside with a ring of the
+letters of the alphabets, which were used as an index when the operator was setting up
+the machine.  In this way, an operator could write down a key extremely simply and concisely
+as follows: I-IV-II K-C-S means left-to-right ordering of the rotors is I, IV, and then
+II, and they are indexed at K, C, and S, respectively.  In this way, the key could be
+transmitted to the decoder.</p>
+<p>To the far left of the rotors is a part known as the reflector, which is hard-wired
+in identical fashion on every machine of the same model.  The reflector's purpose is
+two-fold: first, it re-encodes the character through the three rotors a second time
+by a different pathway, making for 6 total transformations (three in, reflect, three out),
+and second, it allowed a message to be decoded by setting up the machine identically
+to the way it was set up when the message was encoded.</p>
+<p>So, to encode a message, the operator selects three rotors and their positions,
+places them in the machine, and types the message, one character at a time.  As he
+types each character, a light is lit, indicating the encoded character.  This character
+is written down, becoming the encoded message as the last character is encoded.  Simple
+operation, but what's happening inside the machine to make this secure?</p>
+<p>When the operator presses a key, an electrical signal is sent through a wire in the 
+right-most rotor, which is wired so that another wire in the middle rotor is powered,
+which is wired to another wire in the left-most rotor.  Upon leaving the left-most rotor,
+the reflector re-routes the signal to another path in the left-most rotor, which
+powers another path in the middle rotor, which powers another path in the right-most
+rotor, which finally powers a tiny lamp.  This is nice, but there's a step missing
+here, and it's vital.  Before any of the electrical pathways are formed, the right-most
+rotor is rotated forward one position, just like in the rotating cypher earlier.  And,
+if the first rotor has advanced enough, the second rotor is turned as well.  And
+if the second rotor has advanced enough, the third rotor is also turned.  All this
+variation makes the rotating cypher <em>many orders of magnitude stronger</em> than a
+simple rotating cypher.  This is where the Enigma's strength lies. The following 
+diagram hopefully explains this
+better (from Wikipedia, original <a href="http://en.wikipedia.org/wiki/File:Enigma-action.svg">here</a>)</p>
+<p><img alt="Enigma action" src="http://upload.wikimedia.org/wikipedia/commons/6/6c/Enigma-action.svg" /></p>
+<p>Here, we see an A being encoded to a G, and then, the next key press, the A is encoded
+to a C instead.  Note also that the pathways work just as well backwards as forwards thanks
+to the reflector, such that encoding GC with the initial setup will result in AA--the original
+text!</p>
+<p>Now, the Enigma is <em>already</em> an extremely strong machine with this form of operation,
+but just to throw a wrench into the works, there was another component of the machine
+designed to scramble the letters before and after encoding, called the plugboard.
+The plugboard was filled with as many as 13, but usually 10, pairs of plug cables,
+which paired two letters together.  These letters were switched both before going
+into the first rotor, and after coming out of the first rotor before switching on
+the light.  The following diagram shows an example encoding with the plugboard
+populated (from Wikipedia, original <a href="http://en.wikipedia.org/wiki/File:Enigma_wiring_kleur.svg">here</a>)</p>
+<p><img alt="Enigma with plugboard" src="http://upload.wikimedia.org/wikipedia/commons/5/53/Enigma_wiring_kleur.svg" /></p>
+<p>Following along with the numbers, we can trace the electrical signal from (1) the 
+battery, to (2) the depressed switch of the A key, to (3) the plugboard (notice how
+there is no plug in A, so it is not transformed), to (4,5,6) the rotor/reflector
+assembly (went in as A, came out as S), to (7) the plugboard again, to (8) the plug
+cord (S was matched with D, so S becomes D), finally to (9) the light for D.</p>
+<p>All of this complexity, and the Enigma machine was still cracked thanks to some serious
+efforts put forward by the mathematicians at Bletchley Park and also independent
+Polish researchers.  It turns out that there are still two flaws with the Enigma,
+but only one of them is inherent with in the design.  Firstly, due to the reflector,
+no symbol will <em>ever</em> be encoded to itself.  If there's an X in some position in the
+cyphertext, you know it cannot possibly be an X in the cleartext.  Secondly, user
+error, compounded with the stresses of war and captured equipment, helped the Allies
+crack the code.  Turns out that for all the obfuscation the plugboard was included
+to add, the Germans didn't use it correctly, causing patterns to arise in encoded
+messages.  It is estimated that if the plugboard was used correctly, the Enigma
+codes would have been uncrackable.  But, hey, who's to say for certain?</p>
+<p>Anyways, I'll leave you with a bit of code.  I hope you've enjoyed this post,
+as I had a lot of fun writing it, and it's an incredibly fascinating topic to me.</p>
+<p>My Enigma machine simulator in Io is available on github.  Get it <a href="https://github.com/gatesphere/io-codejams/blob/master/2012/06/20120618_enigma/enigma.io">here</a>.
+It's not a 100% accurate simulation, and a lot of it is guesswork.  Most notably
+missing is the double-step feature of the Enigma.  But it was fun to write.</p>
+<p>Thanks for reading!</p>
+  </section>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript" src="http://disqus.com/forums/suschord/embed.js"> </script>
+    <noscript><a href="http://suschord.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+</article>
+
+</div>
+</section>
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6603: * @file _footer.html-->
+<!--@@language html-->
+
+<footer>
+  a&rarr;ab is the blog of Jake Peck, also known as <a href="http://suspended-chord.info/">suspended-chord</a>
+</footer>
+<!--@-leo-->
+
+
+  <!--@+leo-ver=5-thin-->
+<!--@+node:peckj.20140121082121.6648: * @file _endjs.html-->
+<!--@@language html-->
+
+<script type="text/javascript">
 var disqus_shortname = 'suschord';
 (function () {
   var s = document.createElement('script'); s.async = true;
   s.src = 'http://disqus.com/forums/suschord/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script></div></body></html>
+</script>
+<!--@-leo-->
+
+  </div>
+</body>
+</html>
+
+<!--@-leo-->
